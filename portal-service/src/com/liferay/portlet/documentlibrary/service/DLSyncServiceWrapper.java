@@ -40,13 +40,13 @@ public class DLSyncServiceWrapper implements DLSyncService {
 		long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
 		java.lang.String description, java.lang.String changeLog,
-		boolean majorVersion, java.io.InputStream inputStream, long size,
+		boolean majorVersion, java.io.InputStream deltaInputStream, long size,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _dlSyncService.updateFileEntry(fileEntryId, sourceFileName,
-			mimeType, title, description, changeLog, majorVersion, inputStream,
-			size, serviceContext);
+			mimeType, title, description, changeLog, majorVersion,
+			deltaInputStream, size, serviceContext);
 	}
 
 	public DLSyncService getWrappedDLSyncService() {

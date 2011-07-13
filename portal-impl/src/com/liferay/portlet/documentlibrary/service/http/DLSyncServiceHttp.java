@@ -98,7 +98,7 @@ public class DLSyncServiceHttp {
 		java.lang.String sourceFileName, java.lang.String mimeType,
 		java.lang.String title, java.lang.String description,
 		java.lang.String changeLog, boolean majorVersion,
-		java.io.InputStream inputStream, long size,
+		java.io.InputStream deltaInputStream, long size,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -108,7 +108,8 @@ public class DLSyncServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					fileEntryId, sourceFileName, mimeType, title, description,
-					changeLog, majorVersion, inputStream, size, serviceContext);
+					changeLog, majorVersion, deltaInputStream, size,
+					serviceContext);
 
 			Object returnObj = null;
 

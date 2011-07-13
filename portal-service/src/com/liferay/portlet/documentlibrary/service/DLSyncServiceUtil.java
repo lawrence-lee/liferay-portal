@@ -51,14 +51,14 @@ public class DLSyncServiceUtil {
 		long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
 		java.lang.String description, java.lang.String changeLog,
-		boolean majorVersion, java.io.InputStream inputStream, long size,
+		boolean majorVersion, java.io.InputStream deltaInputStream, long size,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateFileEntry(fileEntryId, sourceFileName, mimeType,
-			title, description, changeLog, majorVersion, inputStream, size,
-			serviceContext);
+			title, description, changeLog, majorVersion, deltaInputStream,
+			size, serviceContext);
 	}
 
 	public static DLSyncService getService() {
