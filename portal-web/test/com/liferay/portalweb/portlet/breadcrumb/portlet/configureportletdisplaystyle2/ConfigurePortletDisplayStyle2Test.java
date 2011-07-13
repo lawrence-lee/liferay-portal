@@ -42,7 +42,7 @@ public class ConfigurePortletDisplayStyle2Test extends BaseTestCase {
 
 		selenium.saveScreenShotAndSource();
 		selenium.clickAt("link=Breadcrumb Test Page",
-			RuntimeVariables.replace(""));
+			RuntimeVariables.replace("Breadcrumb Test Page"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 		selenium.clickAt("//strong/a", RuntimeVariables.replace("Options"));
@@ -76,7 +76,7 @@ public class ConfigurePortletDisplayStyle2Test extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isVisible("_86_displayStyle")) {
+				if (selenium.isVisible("//select[@id='_86_displayStyle']")) {
 					break;
 				}
 			}
@@ -87,13 +87,16 @@ public class ConfigurePortletDisplayStyle2Test extends BaseTestCase {
 		}
 
 		selenium.saveScreenShotAndSource();
-		selenium.select("_86_displayStyle", RuntimeVariables.replace("label=2"));
-		selenium.clickAt("//input[@value='Save']", RuntimeVariables.replace(""));
+		selenium.select("//select[@id='_86_displayStyle']",
+			RuntimeVariables.replace("label=Vertical"));
+		selenium.clickAt("//input[@value='Save']",
+			RuntimeVariables.replace("Save"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace(
 				"You have successfully updated the setup."),
 			selenium.getText("//div[@class='portlet-msg-success']"));
-		assertEquals("2", selenium.getSelectedLabel("_86_displayStyle"));
+		assertEquals("Vertical",
+			selenium.getSelectedLabel("//select[@id='_86_displayStyle']"));
 	}
 }
