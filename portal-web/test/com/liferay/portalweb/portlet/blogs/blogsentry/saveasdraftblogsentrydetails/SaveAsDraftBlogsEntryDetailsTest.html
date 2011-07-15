@@ -64,14 +64,19 @@
 	<td>Save as Draft</td>
 </tr>
 <tr>
-	<td>waitForPartialText</td>
-	<td>//div[@class='save-status portlet-msg-success']</td>
-	<td>Draft saved</td>
+	<td>waitForVisible</td>
+	<td>//div[@class='portlet-msg-success']</td>
+	<td>Your request completed successfully.</td>
 </tr>
 <tr>
-	<td>assertPartialText</td>
-	<td>//div[@class='save-status portlet-msg-success']</td>
-	<td>Draft saved</td>
+	<td>assertText</td>
+	<td>//div[@class='portlet-msg-success']</td>
+	<td>Your request completed successfully.</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//strong[@class='workflow-status-draft']</td>
+	<td>Draft</td>
 </tr>
 <tr>
 	<td>open</td>

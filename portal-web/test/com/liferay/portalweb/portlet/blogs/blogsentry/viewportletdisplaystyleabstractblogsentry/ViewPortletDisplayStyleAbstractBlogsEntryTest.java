@@ -49,7 +49,7 @@ public class ViewPortletDisplayStyleAbstractBlogsEntryTest extends BaseTestCase 
 		assertEquals(RuntimeVariables.replace("Blogs Entry Title"),
 			selenium.getText("//div[@class='entry-title']/a"));
 		assertEquals(RuntimeVariables.replace(
-				"Blogs Entry Content. \n Read More About Blogs Entry Title \u00bb"),
+				"Blogs Entry Content \n Read More About Blogs Entry Title \u00bb"),
 			selenium.getText("//div[@class='entry-body']"));
 		assertEquals(RuntimeVariables.replace(
 				"Read More About Blogs Entry Title \u00bb"),

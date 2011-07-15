@@ -85,9 +85,7 @@ public class SaveAsDraftBlogsEntryDetailsTest extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isPartialText(
-							"//div[@class='save-status portlet-msg-success']",
-							"Draft saved")) {
+				if (selenium.isVisible("//div[@class='portlet-msg-success']")) {
 					break;
 				}
 			}
@@ -98,8 +96,11 @@ public class SaveAsDraftBlogsEntryDetailsTest extends BaseTestCase {
 		}
 
 		selenium.saveScreenShotAndSource();
-		assertTrue(selenium.isPartialText(
-				"//div[@class='save-status portlet-msg-success']", "Draft saved"));
+		assertEquals(RuntimeVariables.replace(
+				"Your request completed successfully."),
+			selenium.getText("//div[@class='portlet-msg-success']"));
+		assertEquals(RuntimeVariables.replace("Draft"),
+			selenium.getText("//strong[@class='workflow-status-draft']"));
 		selenium.open("/web/guest/home/");
 
 		for (int second = 0;; second++) {

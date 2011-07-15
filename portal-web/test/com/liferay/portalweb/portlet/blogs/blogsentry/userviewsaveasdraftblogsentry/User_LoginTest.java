@@ -96,28 +96,6 @@ public class User_LoginTest extends BaseTestCase {
 				selenium.saveScreenShotAndSource();
 				selenium.click("//input[@id='_58_rememberMeCheckbox']");
 
-				for (int second = 0;; second++) {
-					if (second >= 60) {
-						fail("timeout");
-					}
-
-					try {
-						if (selenium.isVisible("//input[@value='Sign In']")) {
-							break;
-						}
-					}
-					catch (Exception e) {
-					}
-
-					Thread.sleep(1000);
-				}
-
-				selenium.saveScreenShotAndSource();
-				selenium.clickAt("//input[@value='Sign In']",
-					RuntimeVariables.replace("Sign In"));
-				selenium.waitForPageToLoad("30000");
-				selenium.saveScreenShotAndSource();
-
 				boolean rememberMeCheckboxChecked1 = selenium.isChecked(
 						"_58_rememberMeCheckbox");
 
