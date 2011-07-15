@@ -30,8 +30,7 @@ public class ViewGraphsTest extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isElementPresent(
-							"link=Currency Converter Test Page")) {
+				if (selenium.isVisible("link=Currency Converter Test Page")) {
 					break;
 				}
 			}
@@ -43,7 +42,7 @@ public class ViewGraphsTest extends BaseTestCase {
 
 		selenium.saveScreenShotAndSource();
 		selenium.clickAt("link=Currency Converter Test Page",
-			RuntimeVariables.replace(""));
+			RuntimeVariables.replace("Currency Converter Test Page"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 
@@ -65,16 +64,16 @@ public class ViewGraphsTest extends BaseTestCase {
 
 		selenium.saveScreenShotAndSource();
 		selenium.clickAt("//input[@value='Convert']",
-			RuntimeVariables.replace(""));
+			RuntimeVariables.replace("Convert"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=1y", RuntimeVariables.replace(""));
+		selenium.clickAt("link=1y", RuntimeVariables.replace("1y"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=2y", RuntimeVariables.replace(""));
+		selenium.clickAt("link=2y", RuntimeVariables.replace("2y"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=3m", RuntimeVariables.replace(""));
+		selenium.clickAt("link=3m", RuntimeVariables.replace("3m"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 	}
