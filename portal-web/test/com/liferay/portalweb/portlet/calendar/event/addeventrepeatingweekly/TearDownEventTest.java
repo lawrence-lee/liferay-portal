@@ -47,10 +47,11 @@ public class TearDownEventTest extends BaseTestCase {
 
 				selenium.saveScreenShotAndSource();
 				selenium.clickAt("link=Calendar Test Page",
-					RuntimeVariables.replace(""));
+					RuntimeVariables.replace("Calendar Test Page"));
 				selenium.waitForPageToLoad("30000");
 				selenium.saveScreenShotAndSource();
-				selenium.clickAt("link=Events", RuntimeVariables.replace(""));
+				selenium.clickAt("link=Events",
+					RuntimeVariables.replace("Events"));
 				selenium.waitForPageToLoad("30000");
 				selenium.saveScreenShotAndSource();
 

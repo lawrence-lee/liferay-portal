@@ -16,92 +16,97 @@
 <tr>
 	<td>waitForElementPresent</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>//input[@value='Add Event']</td>
-	<td></td>
+	<td>Add Event</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_startDateMonth</td>
-	<td>label=January</td>
+	<td>//select[@id='_8_startDateMonth']</td>
+	<td>January</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_startDateDay</td>
-	<td>label=1</td>
+	<td>//select[@id='_8_startDateDay']</td>
+	<td>1</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_startDateYear</td>
-	<td>label=2010</td>
+	<td>//select[@id='_8_startDateYear']</td>
+	<td>2010</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>_8_title</td>
+	<td>//input[@id='_8_title']</td>
 	<td>Monthly Date Repeating Event</td>
 </tr>
 <tr>
 	<td>clickAt</td>
 	<td>//input[@name='_8_recurrenceType' and @value='5']</td>
-	<td></td>
+	<td>Monthly</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//input[@name='_8_monthlyType' and @value='1']</td>
+	<td>The</td>
 </tr>
 <tr>
 	<td>clickAt</td>
 	<td>//input[@name='_8_monthlyType' and @value='1']</td>
-	<td></td>
+	<td>The</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>_8_monthlyPos</td>
-	<td></td>
+	<td>//select[@id='_8_monthlyPos']</td>
+	<td>Monthly Position</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_monthlyPos</td>
-	<td>label=First</td>
+	<td>//select[@id='_8_monthlyPos']</td>
+	<td>First</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_monthlyDay1</td>
-	<td>label=Thursday</td>
+	<td>//select[@id='_8_monthlyDay1']</td>
+	<td>Thursday</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>_8_monthlyInterval1</td>
+	<td>//input[@id='_8_monthlyInterval1']</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>clickAt</td>
 	<td>//fieldset[2]/div/div/div/span[2]/span/span/input</td>
-	<td></td>
+	<td>End Date</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_endDateMonth</td>
-	<td>label=January</td>
+	<td>//select[@id='_8_endDateMonth']</td>
+	<td>January</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_endDateDay</td>
-	<td>label=1</td>
+	<td>//select[@id='_8_endDateDay']</td>
+	<td>1</td>
 </tr>
 <tr>
 	<td>select</td>
-	<td>_8_endDateYear</td>
-	<td>label=2011</td>
+	<td>//select[@id='_8_endDateYear']</td>
+	<td>2011</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>//input[@value='Save']</td>
-	<td></td>
+	<td>Save</td>
 </tr>
 <tr>
 	<td>assertTextPresent</td>
@@ -116,22 +121,22 @@
 <tr>
 	<td>waitForElementPresent</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Events</td>
-	<td></td>
+	<td>Events</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Monthly Date Repeating Event</td>
-	<td></td>
+	<td>Monthly Date Repeating Event</td>
 </tr>
 <tr>
 	<td>assertText</td>
@@ -156,106 +161,101 @@
 <tr>
 	<td>waitForElementPresent</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Events</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>5000</td>
-	<td></td>
+	<td>Events</td>
 </tr>
 <tr>
 	<td>clickAt</td>
 	<td>//td[6]/span/ul/li/strong/a</td>
-	<td></td>
+	<td>Actions</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
 	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[1]/a</td>
-	<td></td>
+	<td>Edit</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[1]/a</td>
-	<td></td>
+	<td>Edit</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_startDateMonth</td>
+	<td>//select[@id='_8_startDateMonth']</td>
 	<td>January</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_startDateDay</td>
+	<td>//select[@id='_8_startDateDay']</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_startDateYear</td>
+	<td>//select[@id='_8_startDateYear']</td>
 	<td>2010</td>
 </tr>
 <tr>
 	<td>assertValue</td>
-	<td>_8_title</td>
+	<td>//input[@id='_8_title']</td>
 	<td>Monthly Date Repeating Event</td>
 </tr>
 <tr>
 	<td>assertChecked</td>
 	<td>//input[@name='_8_recurrenceType' and @value='5']</td>
-	<td></td>
+	<td>Monthly</td>
 </tr>
 <tr>
 	<td>assertChecked</td>
 	<td>//input[@name='_8_monthlyType' and @value='1']</td>
-	<td></td>
+	<td>The</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>_8_monthlyPos</td>
-	<td></td>
+	<td>//select[@id='_8_monthlyPos']</td>
+	<td>Monthly Position</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_monthlyPos</td>
+	<td>//select[@id='_8_monthlyPos']</td>
 	<td>First</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_monthlyDay1</td>
+	<td>//select[@id='_8_monthlyDay1']</td>
 	<td>Thursday</td>
 </tr>
 <tr>
 	<td>assertValue</td>
-	<td>_8_monthlyInterval1</td>
+	<td>//input[@id='_8_monthlyInterval1']</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>assertChecked</td>
 	<td>//fieldset[2]/div/div/div/span[2]/span/span/input</td>
-	<td></td>
+	<td>End Date</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_endDateMonth</td>
+	<td>//select[@id='_8_endDateMonth']</td>
 	<td>January</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_endDateDay</td>
+	<td>//select[@id='_8_endDateDay']</td>
 	<td>1</td>
 </tr>
 <tr>
 	<td>assertSelectedLabel</td>
-	<td>_8_endDateYear</td>
+	<td>//select[@id='_8_endDateYear']</td>
 	<td>2011</td>
 </tr>
 <tr>
@@ -266,87 +266,87 @@
 <tr>
 	<td>waitForElementPresent</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Year</td>
-	<td></td>
+	<td>Year</td>
 </tr>
 <tr>
 	<td>select</td>
 	<td>//select</td>
-	<td>label=2010</td>
+	<td>2010</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
 	<td>//a[contains(@href, 'javascript:_8_updateCalendar(1, 4, 2010);')]</td>
-	<td></td>
+	<td>February 4</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>//a[contains(@href, 'javascript:_8_updateCalendar(1, 4, 2010);')]</td>
-	<td></td>
+	<td>February 4</td>
 </tr>
 <tr>
 	<td>assertElementPresent</td>
 	<td>link=Monthly Date Repeating Event</td>
-	<td></td>
+	<td>Monthly Date Repeating Event</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Year</td>
-	<td></td>
+	<td>Year</td>
 </tr>
 <tr>
 	<td>select</td>
 	<td>//select</td>
-	<td>label=2010</td>
+	<td>2010</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
 	<td>//a[contains(@href, 'javascript:_8_updateCalendar(2, 4, 2010);')]</td>
-	<td></td>
+	<td>March 4</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>//a[contains(@href, 'javascript:_8_updateCalendar(2, 4, 2010);')]</td>
-	<td></td>
+	<td>March 4</td>
 </tr>
 <tr>
 	<td>assertElementPresent</td>
 	<td>link=Monthly Date Repeating Event</td>
-	<td></td>
+	<td>Monthly Date Repeating Event</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Year</td>
-	<td></td>
+	<td>Year</td>
 </tr>
 <tr>
 	<td>select</td>
 	<td>//select</td>
-	<td>label=2010</td>
+	<td>2010</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
 	<td>//a[contains(@href, 'javascript:_8_updateCalendar(2, 11, 2010);')]</td>
-	<td></td>
+	<td>March 11</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>//a[contains(@href, 'javascript:_8_updateCalendar(2, 11, 2010);')]</td>
-	<td></td>
+	<td>March 11</td>
 </tr>
 <tr>
 	<td>assertElementNotPresent</td>
 	<td>link=Monthly Date Repeating Event</td>
-	<td></td>
+	<td>Monthly Date Repeating Event</td>
 </tr>
 
 </tbody></table>

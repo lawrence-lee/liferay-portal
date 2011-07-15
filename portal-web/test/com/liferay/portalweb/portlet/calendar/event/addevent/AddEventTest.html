@@ -16,37 +16,47 @@
 <tr>
 	<td>waitForElementPresent</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>link=Calendar Test Page</td>
-	<td></td>
+	<td>Calendar Test Page</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>//input[@value='Add Event']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>5000</td>
-	<td></td>
+	<td>Add Event</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>_8_title</td>
+	<td>//input[@id='_8_title']</td>
 	<td>Test Event</td>
 </tr>
 <tr>
+	<td>waitForVisible</td>
+	<td>//td[@id='cke_contents__8_editor']/iframe</td>
+	<td>CK Editor</td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>//td[@id='cke_contents__8_editor']/iframe</td>
+	<td>CK Editor</td>
+</tr>
+<tr>
 	<td>type</td>
-	<td>_8_description</td>
+	<td>//body</td>
 	<td>This is a Test Event.</td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=top</td>
+	<td>top</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
 	<td>//input[@value='Save']</td>
-	<td></td>
+	<td>Save</td>
 </tr>
 <tr>
 	<td>assertTextPresent</td>
