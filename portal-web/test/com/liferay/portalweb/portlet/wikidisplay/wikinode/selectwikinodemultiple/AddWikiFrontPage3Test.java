@@ -30,7 +30,7 @@ public class AddWikiFrontPage3Test extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isElementPresent("link=Wiki Test Page")) {
+				if (selenium.isVisible("link=Wiki Test Page")) {
 					break;
 				}
 			}
@@ -41,27 +41,52 @@ public class AddWikiFrontPage3Test extends BaseTestCase {
 		}
 
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=Wiki Test Page", RuntimeVariables.replace(""));
+		selenium.clickAt("link=Wiki Test Page",
+			RuntimeVariables.replace("Wiki Test Page"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=WikiC NodeC TestC", RuntimeVariables.replace(""));
+		selenium.clickAt("link=Wiki3 Node3 Name3",
+			RuntimeVariables.replace("Wiki3 Node3 Name3"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=This page is empty. Edit it to add some text.",
-			RuntimeVariables.replace(""));
+		selenium.clickAt("//div[@class='wiki-body']/div/a",
+			RuntimeVariables.replace(
+				"This page is empty. Edit it to add some text."));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.type("_36_content",
-			RuntimeVariables.replace("This is wiki frontpage article 3 test."));
+		Thread.sleep(5000);
+
+		for (int second = 0;; second++) {
+			if (second >= 60) {
+				fail("timeout");
+			}
+
+			try {
+				if (selenium.isElementPresent(
+							"//td[@id='cke_contents__36_editor']/iframe")) {
+					break;
+				}
+			}
+			catch (Exception e) {
+			}
+
+			Thread.sleep(1000);
+		}
+
+		selenium.saveScreenShotAndSource();
+		selenium.selectFrame("//td[@id='cke_contents__36_editor']/iframe");
+		selenium.type("//body",
+			RuntimeVariables.replace("Wiki3 Front3 Page3 Content3"));
+		selenium.selectFrame("relative=top");
 		selenium.saveScreenShotAndSource();
 		selenium.clickAt("//input[@value='Publish']",
-			RuntimeVariables.replace(""));
+			RuntimeVariables.replace("Publish"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		assertTrue(selenium.isTextPresent(
-				"Your request completed successfully."));
 		assertEquals(RuntimeVariables.replace(
-				"This is wiki frontpage article 3 test."),
-			selenium.getText("//div[6]/div"));
+				"Your request completed successfully."),
+			selenium.getText("//div[@class='portlet-msg-success']"));
+		assertEquals(RuntimeVariables.replace("Wiki3 Front3 Page3 Content3"),
+			selenium.getText("//div[@class='wiki-body']/p"));
 	}
 }
