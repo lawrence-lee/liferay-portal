@@ -61,11 +61,5 @@ public class AddMBCategoryNameUtf8Test extends BaseTestCase {
 			selenium.getText("//div[@class='portlet-msg-success']"));
 		assertEquals(RuntimeVariables.replace("MB Cate'gory Name"),
 			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[4]/a"));
 	}
 }

@@ -60,28 +60,10 @@ public class AddCategory3Test extends BaseTestCase {
 				"Your request completed successfully."),
 			selenium.getText("//div[@class='portlet-msg-success']"));
 		assertEquals(RuntimeVariables.replace("MB Category1 Name"),
-			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[4]/a"));
+			selenium.getText("//tr[3]/td[1]/a/strong"));
 		assertEquals(RuntimeVariables.replace("MB Category2 Name"),
 			selenium.getText("//tr[4]/td[1]/a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[4]/td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[4]/td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[4]/td[4]/a"));
 		assertEquals(RuntimeVariables.replace("MB Category3 Name"),
 			selenium.getText("//tr[5]/td[1]/a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[5]/td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[5]/td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[5]/td[4]/a"));
 	}
 }

@@ -48,12 +48,6 @@ public class SplitThreadCategoryMessageReplyMultipleTest extends BaseTestCase {
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category Name"),
 			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("4"),
-			selenium.getText("//td[4]/a"));
 		selenium.clickAt("//a/strong",
 			RuntimeVariables.replace("MB Category Name"));
 		selenium.waitForPageToLoad("30000");
@@ -124,12 +118,6 @@ public class SplitThreadCategoryMessageReplyMultipleTest extends BaseTestCase {
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category Name"),
 			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("2"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("4"),
-			selenium.getText("//td[4]/a"));
 		selenium.clickAt("//a/strong",
 			RuntimeVariables.replace("MB Category Name"));
 		selenium.waitForPageToLoad("30000");
@@ -137,8 +125,6 @@ public class SplitThreadCategoryMessageReplyMultipleTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace(
 				"MB Category Thread Message Subject"),
 			selenium.getText("//tr[3]/td[1]/a"));
-		assertEquals(RuntimeVariables.replace("3"),
-			selenium.getText("//tr[3]/td[4]/a"));
 		selenium.clickAt("//tr[3]/td[1]/a",
 			RuntimeVariables.replace("MB Category Thread Message Subject"));
 		selenium.waitForPageToLoad("30000");
@@ -187,12 +173,6 @@ public class SplitThreadCategoryMessageReplyMultipleTest extends BaseTestCase {
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category Name"),
 			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("3"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("4"),
-			selenium.getText("//td[4]/a"));
 		selenium.clickAt("//a/strong",
 			RuntimeVariables.replace("MB Category Name"));
 		selenium.waitForPageToLoad("30000");
@@ -200,8 +180,6 @@ public class SplitThreadCategoryMessageReplyMultipleTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace(
 				"MB Category Thread Message Subject"),
 			selenium.getText("//tr[3]/td[1]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//tr[3]/td[4]/a"));
 		selenium.clickAt("//tr[3]/td[1]/a",
 			RuntimeVariables.replace("MB Category Thread Message Subject"));
 		selenium.waitForPageToLoad("30000");
@@ -246,8 +224,6 @@ public class SplitThreadCategoryMessageReplyMultipleTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace(
 				"RE: MB Category Thread Message Subject"),
 			selenium.getText("//tr[4]/td[1]/a"));
-		assertEquals(RuntimeVariables.replace("2"),
-			selenium.getText("//tr[4]/td[4]/a"));
 		selenium.clickAt("//tr[4]/td[1]/a",
 			RuntimeVariables.replace("RE: MB Category Thread Message Subject"));
 		selenium.waitForPageToLoad("30000");
@@ -293,8 +269,6 @@ public class SplitThreadCategoryMessageReplyMultipleTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace(
 				"RE: MB Category Thread Message Subject"),
 			selenium.getText("//tr[5]/td[1]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//tr[5]/td[4]/a"));
 		selenium.clickAt("//tr[5]/td[1]/a",
 			RuntimeVariables.replace("RE: MB Category Thread Message Subject"));
 		selenium.waitForPageToLoad("30000");

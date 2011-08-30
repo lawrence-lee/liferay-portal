@@ -46,8 +46,8 @@ public class AddSubcategoryDescriptionTest extends BaseTestCase {
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category Name"),
-			selenium.getText("//a/strong"));
-		selenium.clickAt("//a/strong",
+			selenium.getText("//td[1]/a/strong"));
+		selenium.clickAt("//td[1]/a/strong",
 			RuntimeVariables.replace("MB Category Name"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
@@ -72,43 +72,6 @@ public class AddSubcategoryDescriptionTest extends BaseTestCase {
 			selenium.getText("//div[4]/h1/span"));
 		assertEquals(RuntimeVariables.replace(
 				"MB Subcategory Name\nMB Subcategory Description"),
-			selenium.getText("//tr[3]/td[1]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[4]/a"));
-		selenium.open("/web/guest/home/");
-
-		for (int second = 0;; second++) {
-			if (second >= 60) {
-				fail("timeout");
-			}
-
-			try {
-				if (selenium.isVisible("link=Message Boards Test Page")) {
-					break;
-				}
-			}
-			catch (Exception e) {
-			}
-
-			Thread.sleep(1000);
-		}
-
-		selenium.saveScreenShotAndSource();
-		selenium.clickAt("link=Message Boards Test Page",
-			RuntimeVariables.replace("Message Boards Test Page"));
-		selenium.waitForPageToLoad("30000");
-		selenium.saveScreenShotAndSource();
-		assertEquals(RuntimeVariables.replace("MB Category Name"),
-			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[4]/a"));
+			selenium.getText("//td[1]/a"));
 	}
 }

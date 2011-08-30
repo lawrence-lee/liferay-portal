@@ -101,11 +101,5 @@ public class DeleteMarkAsAnswerCategoryMessageQuestionReplyTest
 			selenium.getText("//td[2]/a"));
 		assertNotEquals(RuntimeVariables.replace("Resolved"),
 			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("Joe Bloggs"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[4]/a"));
-		assertTrue(selenium.isVisible("//td[2]/a"));
-		assertTrue(selenium.isPartialText("//td[6]/a", "By: Joe Bloggs"));
 	}
 }

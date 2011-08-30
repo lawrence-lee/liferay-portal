@@ -104,45 +104,26 @@ public class SplitThreadCategoryMessageReplyTest extends BaseTestCase {
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category Name"),
-			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("2"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("2"),
-			selenium.getText("//td[4]/a"));
-		selenium.clickAt("//a/strong",
+			selenium.getText("//td[1]/a/strong"));
+		selenium.clickAt("//td[1]/a/strong",
 			RuntimeVariables.replace("MB Category Name"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace(
-				"MB Category Thread Message Subject"),
-			selenium.getText("//td[1]/a"));
-		assertEquals(RuntimeVariables.replace(""), selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("Joe Bloggs"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[4]/a"));
-		assertTrue(selenium.isVisible("//td[5]/a"));
-		assertTrue(selenium.isPartialText("//td[6]/a", "By: Joe Bloggs"));
-		assertEquals(RuntimeVariables.replace(
 				"RE: MB Category Thread Message Subject"),
 			selenium.getText("//tr[4]/td[1]/a"));
-		assertEquals(RuntimeVariables.replace(""),
-			selenium.getText("//tr[4]/td[2]/a"));
-		assertEquals(RuntimeVariables.replace("Joe Bloggs"),
-			selenium.getText("//tr[4]/td[3]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//tr[4]/td[4]/a"));
-		assertTrue(selenium.isVisible("//tr[4]/td[5]/a"));
-		assertTrue(selenium.isPartialText("//tr[4]/td[6]/a", "By: Joe Bloggs"));
-		selenium.clickAt("//td[1]/a",
-			RuntimeVariables.replace("MB Category Thread Message Subject"));
+		selenium.clickAt("//tr[4]/td[1]/a",
+			RuntimeVariables.replace("RE: MB Category Thread Message Subject"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		assertFalse(selenium.isTextPresent(
-				"RE: MB Category Thread Message Subject"));
-		assertFalse(selenium.isTextPresent(
-				"MB Category Thread Message Reply Body"));
+		assertEquals(RuntimeVariables.replace(
+				"RE: MB Category Thread Message Subject"),
+			selenium.getText("//h1[@class='header-title']/span"));
+		assertEquals(RuntimeVariables.replace(
+				"RE: MB Category Thread Message Subject"),
+			selenium.getText("//div[@class='subject']/a/strong"));
+		assertEquals(RuntimeVariables.replace(
+				"MB Category Thread Message Reply Body"),
+			selenium.getText("//div[@class='thread-body']"));
 	}
 }

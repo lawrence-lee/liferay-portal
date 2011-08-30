@@ -99,7 +99,7 @@ public class MoveCategoryMessageToCategoryExplanationTest extends BaseTestCase {
 			}
 
 			try {
-				if (selenium.isVisible("//td[1]/a")) {
+				if (selenium.isVisible("//tr[3]/td[1]/a")) {
 					break;
 				}
 			}
@@ -111,21 +111,9 @@ public class MoveCategoryMessageToCategoryExplanationTest extends BaseTestCase {
 
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category1 Name"),
-			selenium.getText("//td[1]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[4]/a"));
+			selenium.getText("//tr[3]/td[1]/a"));
 		assertEquals(RuntimeVariables.replace("MB Category2 Name"),
 			selenium.getText("//tr[4]/td[1]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[4]/td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[4]/td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[4]/td[4]/a"));
 		selenium.click("xPath=(//input[@value='Choose'])[2]");
 		selenium.selectWindow("null");
 		selenium.saveScreenShotAndSource();
@@ -213,12 +201,6 @@ public class MoveCategoryMessageToCategoryExplanationTest extends BaseTestCase {
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category1 Name"),
 			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[4]/a"));
 		selenium.clickAt("//a/strong",
 			RuntimeVariables.replace("MB Category1 Name"));
 		selenium.waitForPageToLoad("30000");
@@ -250,12 +232,6 @@ public class MoveCategoryMessageToCategoryExplanationTest extends BaseTestCase {
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category2 Name"),
 			selenium.getText("//tr[4]/td[1]/a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//tr[4]/td[2]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//tr[4]/td[3]/a"));
-		assertEquals(RuntimeVariables.replace("2"),
-			selenium.getText("//tr[4]/td[4]/a"));
 		selenium.clickAt("//tr[4]/td[1]/a/strong",
 			RuntimeVariables.replace("MB Category2 Name"));
 		selenium.waitForPageToLoad("30000");
@@ -263,13 +239,6 @@ public class MoveCategoryMessageToCategoryExplanationTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace(
 				"MB Category1 Thread Message Subject"),
 			selenium.getText("//td[1]/a"));
-		assertEquals(RuntimeVariables.replace(""), selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("Joe Bloggs"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("2"),
-			selenium.getText("//td[4]/a"));
-		assertTrue(selenium.isVisible("//td[5]/a"));
-		assertTrue(selenium.isPartialText("//td[6]/a", "By: Joe Bloggs"));
 		selenium.clickAt("//td[1]/a",
 			RuntimeVariables.replace("MB Category1 Thread Message Subject"));
 		selenium.waitForPageToLoad("30000");

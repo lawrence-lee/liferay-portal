@@ -65,11 +65,5 @@ public class AddCategoryDescriptionTest extends BaseTestCase {
 		assertEquals(RuntimeVariables.replace(
 				"MB Category Name\nMB Category Description"),
 			selenium.getText("//td[1]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[4]/a"));
 	}
 }

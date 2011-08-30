@@ -126,12 +126,6 @@ public class AddCategoryMessageQuestionTest extends BaseTestCase {
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("MB Category Name"),
 			selenium.getText("//a/strong"));
-		assertEquals(RuntimeVariables.replace("0"),
-			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[4]/a"));
 		selenium.clickAt("//a/strong",
 			RuntimeVariables.replace("MB Category Name"));
 		selenium.waitForPageToLoad("30000");
@@ -141,11 +135,5 @@ public class AddCategoryMessageQuestionTest extends BaseTestCase {
 			selenium.getText("//td[1]/a"));
 		assertEquals(RuntimeVariables.replace("Waiting for an Answer"),
 			selenium.getText("//td[2]/a"));
-		assertEquals(RuntimeVariables.replace("Joe Bloggs"),
-			selenium.getText("//td[3]/a"));
-		assertEquals(RuntimeVariables.replace("1"),
-			selenium.getText("//td[4]/a"));
-		assertTrue(selenium.isVisible("//td[5]/a"));
-		assertTrue(selenium.isPartialText("//td[6]/a", "By: Joe Bloggs"));
 	}
 }
