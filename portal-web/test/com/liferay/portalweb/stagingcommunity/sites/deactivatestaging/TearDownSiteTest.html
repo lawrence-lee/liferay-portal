@@ -1,12 +1,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>TearDownSitesTest</title>
+<title>TearDownSiteTest</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">TearDownSitesTest</td></tr>
+<tr><td rowspan="1" colspan="3">TearDownSiteTest</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -16,7 +16,7 @@
 <tr>
 	<td>waitForElementPresent</td>
 	<td>link=Control Panel</td>
-	<td></td>
+	<td>Control Panel</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
@@ -30,8 +30,8 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>_134_name</td>
-	<td>Staging</td>
+	<td>//input[@id='_134_name']</td>
+	<td>Site name</td>
 </tr>
 <tr>
 	<td>clickAtAndWait</td>
@@ -40,37 +40,37 @@
 </tr>
 <tr>
 	<td>store</td>
-	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Staging'))</td>
-	<td>sites1Present</td>
+	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Site Name'))</td>
+	<td>site1Present</td>
 </tr>
 <tr>
 	<td>gotoIf</td>
-	<td>!${sites1Present}</td>
-	<td>Sites1NotPresent</td>
+	<td>!${site1Present}</td>
+	<td>Site1NotPresent</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>clickAt</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>waitForVisible</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
@@ -85,42 +85,42 @@
 </tr>
 <tr>
 	<td>label</td>
-	<td>Sites1NotPresent</td>
+	<td>Site1NotPresent</td>
 	<td></td>
 </tr>
 <tr>
 	<td>store</td>
-	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Staging'))</td>
-	<td>sites2Present</td>
+	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Site Name'))</td>
+	<td>site2Present</td>
 </tr>
 <tr>
 	<td>gotoIf</td>
-	<td>!${sites2Present}</td>
-	<td>Sites2NotPresent</td>
+	<td>!${site2Present}</td>
+	<td>Site2NotPresent</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>clickAt</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>waitForVisible</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
@@ -135,42 +135,42 @@
 </tr>
 <tr>
 	<td>label</td>
-	<td>Sites2NotPresent</td>
+	<td>Site2NotPresent</td>
 	<td></td>
 </tr>
 <tr>
 	<td>store</td>
-	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Staging'))</td>
-	<td>sites3Present</td>
+	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Site Name'))</td>
+	<td>site3Present</td>
 </tr>
 <tr>
 	<td>gotoIf</td>
-	<td>!${sites3Present}</td>
-	<td>Sites3NotPresent</td>
+	<td>!${site3Present}</td>
+	<td>Site3NotPresent</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>clickAt</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>waitForVisible</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
@@ -185,42 +185,42 @@
 </tr>
 <tr>
 	<td>label</td>
-	<td>Sites3NotPresent</td>
+	<td>Site3NotPresent</td>
 	<td></td>
 </tr>
 <tr>
 	<td>store</td>
-	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Staging'))</td>
-	<td>sites4Present</td>
+	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Site Name'))</td>
+	<td>site4Present</td>
 </tr>
 <tr>
 	<td>gotoIf</td>
-	<td>!${sites4Present}</td>
-	<td>Sites4NotPresent</td>
+	<td>!${site4Present}</td>
+	<td>Site4NotPresent</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>clickAt</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>waitForVisible</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
@@ -235,42 +235,42 @@
 </tr>
 <tr>
 	<td>label</td>
-	<td>Sites4NotPresent</td>
+	<td>Site4NotPresent</td>
 	<td></td>
 </tr>
 <tr>
 	<td>store</td>
-	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Staging'))</td>
-	<td>sites5Present</td>
+	<td>eval(selenium.isPartialText('//tr[3]/td[1]','Site Name'))</td>
+	<td>site5Present</td>
 </tr>
 <tr>
 	<td>gotoIf</td>
-	<td>!${sites5Present}</td>
-	<td>Sites5NotPresent</td>
+	<td>!${site5Present}</td>
+	<td>Site5NotPresent</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>clickAt</td>
-	<td>//strong/a</td>
+	<td>//td[7]/span/ul/li/strong/a</td>
 	<td>Actions</td>
 </tr>
 <tr>
 	<td>waitForVisible</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[10]/a</td>
+	<td>//div[@class='lfr-component lfr-menu-list']/ul/li[6]/a</td>
 	<td>Delete</td>
 </tr>
 <tr>
@@ -285,7 +285,7 @@
 </tr>
 <tr>
 	<td>label</td>
-	<td>Sites5NotPresent</td>
+	<td>Site5NotPresent</td>
 	<td></td>
 </tr>
 
