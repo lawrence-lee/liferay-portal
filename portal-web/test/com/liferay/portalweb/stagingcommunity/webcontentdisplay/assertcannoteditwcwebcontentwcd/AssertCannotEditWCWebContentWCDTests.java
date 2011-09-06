@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portalweb.stagingcommunity.webcontentdisplay.deactivatestaging;
+package com.liferay.portalweb.stagingcommunity.webcontentdisplay.assertcannoteditwcwebcontentwcd;
 
 import com.liferay.portalweb.portal.BaseTests;
 
@@ -22,13 +22,20 @@ import junit.framework.TestSuite;
 /**
  * @author Brian Wing Shun Chan
  */
-public class DeactivateStagingTests extends BaseTests {
+public class AssertCannotEditWCWebContentWCDTests extends BaseTests {
 
 	public static Test suite() {
 		TestSuite testSuite = new TestSuite();
 
 		testSuite.addTestSuite(AddSiteTest.class);
+		testSuite.addTestSuite(AddSitePublicPageTest.class);
+		testSuite.addTestSuite(AddPageWCDTest.class);
+		testSuite.addTestSuite(AddPortletWCDTest.class);
+		testSuite.addTestSuite(AddWCWebContentWCDTest.class);
+		testSuite.addTestSuite(SelectWCWebContentWCDTest.class);
+		testSuite.addTestSuite(AssertEditWCWebContentWCDTest.class);
 		testSuite.addTestSuite(ActivateStagingTest.class);
+		testSuite.addTestSuite(AssertCannotEditWCWebContentWCDTest.class);
 		testSuite.addTestSuite(DeactivateStagingTest.class);
 		testSuite.addTestSuite(TearDownSiteTest.class);
 

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portalweb.stagingcommunity.webcontentdisplay.deactivatestaging;
+package com.liferay.portalweb.stagingcommunity.webcontentdisplay.activatestaging;
 
 import com.liferay.portalweb.portal.BaseTestCase;
 import com.liferay.portalweb.portal.util.RuntimeVariables;
@@ -20,8 +20,8 @@ import com.liferay.portalweb.portal.util.RuntimeVariables;
 /**
  * @author Brian Wing Shun Chan
  */
-public class DeactivateStagingTest extends BaseTestCase {
-	public void testDeactivateStaging() throws Exception {
+public class AddSiteTest extends BaseTestCase {
+	public void testAddSite() throws Exception {
 		selenium.open("/web/guest/home/");
 
 		for (int second = 0;; second++) {
@@ -48,16 +48,10 @@ public class DeactivateStagingTest extends BaseTestCase {
 		selenium.clickAt("link=Sites", RuntimeVariables.replace("Sites"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		selenium.type("//input[@id='_134_name']",
-			RuntimeVariables.replace("Site Name"));
-		selenium.saveScreenShotAndSource();
-		selenium.clickAt("//input[@value='Search']",
-			RuntimeVariables.replace("Search"));
-		selenium.waitForPageToLoad("30000");
-		selenium.saveScreenShotAndSource();
-		assertEquals(RuntimeVariables.replace("Actions"),
-			selenium.getText("//td[7]/span/ul/li/strong/a/span"));
-		selenium.click("//td[7]/span/ul/li/strong/a/span");
+		assertEquals(RuntimeVariables.replace("Add"),
+			selenium.getText("//span[2]/ul/li/strong/a/span"));
+		selenium.clickAt("//span[2]/ul/li/strong/a/span",
+			RuntimeVariables.replace("Add"));
 
 		for (int second = 0;; second++) {
 			if (second >= 60) {
@@ -77,50 +71,34 @@ public class DeactivateStagingTest extends BaseTestCase {
 		}
 
 		selenium.saveScreenShotAndSource();
-		assertEquals(RuntimeVariables.replace("Edit Settings"),
+		assertEquals(RuntimeVariables.replace("Custom Site"),
 			selenium.getText(
 				"//div[@class='lfr-component lfr-menu-list']/ul/li[1]/a"));
 		selenium.clickAt("//div[@class='lfr-component lfr-menu-list']/ul/li[1]/a",
-			RuntimeVariables.replace("Edit Settings"));
+			RuntimeVariables.replace("Custom Site"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
-		assertTrue(selenium.isPartialText("//a[@id='_165_stagingLink']",
-				"Staging"));
-		selenium.clickAt("//a[@id='_165_stagingLink']",
-			RuntimeVariables.replace("Staging"));
-
-		for (int second = 0;; second++) {
-			if (second >= 60) {
-				fail("timeout");
-			}
-
-			try {
-				if (selenium.isVisible("//select[@id='_165_stagingType']")) {
-					break;
-				}
-			}
-			catch (Exception e) {
-			}
-
-			Thread.sleep(1000);
-		}
-
+		selenium.type("//input[@id='_134_name']",
+			RuntimeVariables.replace("Site Name"));
 		selenium.saveScreenShotAndSource();
-		selenium.select("//select[@id='_165_stagingType']",
-			RuntimeVariables.replace("None"));
-		selenium.click(RuntimeVariables.replace("//input[@value='Save']"));
+		selenium.type("//textarea[@id='_134_description']",
+			RuntimeVariables.replace("Site Description"));
+		selenium.saveScreenShotAndSource();
+		selenium.clickAt("//input[@value='Save']",
+			RuntimeVariables.replace("Save"));
 		selenium.waitForPageToLoad("30000");
-		assertTrue(selenium.getConfirmation()
-						   .matches("^Are you sure you want to deactivate staging for Site Name[\\s\\S]$"));
 		selenium.saveScreenShotAndSource();
-		assertEquals(RuntimeVariables.replace("Site Name"),
-			selenium.getText("//td[1]/a"));
-		selenium.clickAt("//td[1]/a", RuntimeVariables.replace("Site Name"));
+		assertEquals(RuntimeVariables.replace(
+				"Your request completed successfully."),
+			selenium.getText("//div[@class='portlet-msg-success']"));
+		selenium.type("//input[@id='_134_name']",
+			RuntimeVariables.replace("Site name"));
+		selenium.saveScreenShotAndSource();
+		selenium.clickAt("//input[@value='Search']",
+			RuntimeVariables.replace("Search"));
 		selenium.waitForPageToLoad("30000");
 		selenium.saveScreenShotAndSource();
 		assertEquals(RuntimeVariables.replace("Site Name"),
-			selenium.getText("//h1[@class='header-title']/span"));
-		assertNotEquals(RuntimeVariables.replace("Site Name (Staging)"),
-			selenium.getText("//h1[@class='header-title']/span"));
+			selenium.getText("//tr[3]/td[1]"));
 	}
 }

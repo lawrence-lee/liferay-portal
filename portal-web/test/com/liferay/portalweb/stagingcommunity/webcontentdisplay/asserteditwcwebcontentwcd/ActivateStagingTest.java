@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portalweb.stagingcommunity.webcontentdisplay.deactivatestaging;
+package com.liferay.portalweb.stagingcommunity.webcontentdisplay.asserteditwcwebcontentwcd;
 
 import com.liferay.portalweb.portal.BaseTestCase;
 import com.liferay.portalweb.portal.util.RuntimeVariables;
