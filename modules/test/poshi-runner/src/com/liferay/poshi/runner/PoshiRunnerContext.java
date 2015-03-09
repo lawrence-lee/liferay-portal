@@ -34,6 +34,28 @@ import org.dom4j.Element;
  */
 public class PoshiRunnerContext {
 
+	public static List<Element> getActionCaseElements(String classCommandName) {
+		List<Element> actionCaseElements = new ArrayList<>();
+
+		List<String> relatedClassCommandNames =
+			_getRelatedActionClassCommandNames(classCommandName);
+
+		for (String relatedClassCommandName : relatedClassCommandNames) {
+			Element commandElement = getActionCommandElement(
+				relatedClassCommandName);
+
+			if (commandElement != null) {
+				List<Element> caseElements = commandElement.elements();
+
+				for (Element caseElement : caseElements) {
+					actionCaseElements.add(caseElement);
+				}
+			}
+		}
+
+		return actionCaseElements;
+	}
+
 	public static Element getActionCommandElement(String classCommandName) {
 		return _commandElements.get("action#" + classCommandName);
 	}
@@ -75,7 +97,19 @@ public class PoshiRunnerContext {
 		return _pathLocators.get(pathLocatorKey);
 	}
 
-	public static List<String> getRelatedActionClassCommandNames(
+	public static int getSeleniumParameterCount(String commandName) {
+		return _seleniumParameterCounts.get(commandName);
+	}
+
+	public static Element getTestcaseCommandElement(String classCommandName) {
+		return _commandElements.get("testcase#" + classCommandName);
+	}
+
+	public static Element getTestcaseRootElement(String className) {
+		return _rootElements.get("testcase#" + className);
+	}
+
+	private static List<String> _getRelatedActionClassCommandNames(
 		String classCommandName) {
 
 		List<String> relatedClassCommandNames = new ArrayList<>();
@@ -100,18 +134,6 @@ public class PoshiRunnerContext {
 		relatedClassCommandNames.add("BaseLiferay#" + commandName);
 
 		return relatedClassCommandNames;
-	}
-
-	public static int getSeleniumParameterCount(String commandName) {
-		return _seleniumParameterCounts.get(commandName);
-	}
-
-	public static Element getTestcaseCommandElement(String classCommandName) {
-		return _commandElements.get("testcase#" + classCommandName);
-	}
-
-	public static Element getTestcaseRootElement(String className) {
-		return _rootElements.get("testcase#" + className);
 	}
 
 	private static void _readPathFile(String filePath, String className)
