@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -60,6 +61,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Raymond Augé
  */
 public class JspAnalyzerPlugin implements AnalyzerPlugin {
+
+	private static final Object Object = null;
 
 	@Override
 	public boolean analyzeJar(Analyzer analyzer) throws Exception {
@@ -330,8 +333,27 @@ public class JspAnalyzerPlugin implements AnalyzerPlugin {
 			}
 		}
 
+		taglibRequirements = removeDuplicates(taglibRequirements);
+
 		analyzer.setProperty(
 			Constants.REQUIRE_CAPABILITY, Strings.join(taglibRequirements));
+	}
+
+	protected Set<String> removeDuplicates(Set<String> taglibRequirements) {
+		Map<String, Object> taglibRequirementsMap =
+			new HashMap<String, Object>();
+
+		for (String taglibRequirement : taglibRequirements) {
+			Object value = taglibRequirementsMap.get(taglibRequirement);
+
+			if (value == null) {
+				taglibRequirementsMap.put(taglibRequirement, new Object());
+			}
+
+		}
+
+		return taglibRequirementsMap.keySet();
+
 	}
 
 	protected Set<String> getTaglibURIs(String originalContent) {
