@@ -29,6 +29,7 @@ import aQute.bnd.osgi.Jar;
 import aQute.bnd.osgi.Packages;
 import aQute.bnd.osgi.Resource;
 import aQute.bnd.service.AnalyzerPlugin;
+import aQute.lib.env.Header;
 
 import aQute.lib.io.IO;
 import aQute.lib.strings.Strings;
@@ -61,8 +62,6 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Raymond Augé
  */
 public class JspAnalyzerPlugin implements AnalyzerPlugin {
-
-	private static final Object Object = null;
 
 	@Override
 	public boolean analyzeJar(Analyzer analyzer) throws Exception {
@@ -319,7 +318,8 @@ public class JspAnalyzerPlugin implements AnalyzerPlugin {
 			Parameters parameters = OSGiHeader.parseHeader(value);
 
 			for (Entry<String, Attrs> entry : parameters.entrySet()) {
-				StringBuilder sb = new StringBuilder(entry.getKey());
+				String key = Header.removeDuplicateMarker(entry.getKey());
+				StringBuilder sb = new StringBuilder(key);
 
 				Attrs attrs = entry.getValue();
 
@@ -335,8 +335,12 @@ public class JspAnalyzerPlugin implements AnalyzerPlugin {
 
 		taglibRequirements = removeDuplicates(taglibRequirements);
 
+		String[] requireCapability = taglibRequirements.toArray(new String[0]);
+
+		Arrays.sort(requireCapability);
+
 		analyzer.setProperty(
-			Constants.REQUIRE_CAPABILITY, Strings.join(taglibRequirements));
+			Constants.REQUIRE_CAPABILITY, Strings.join(requireCapability));
 	}
 
 	protected Set<String> removeDuplicates(Set<String> taglibRequirements) {
@@ -349,11 +353,9 @@ public class JspAnalyzerPlugin implements AnalyzerPlugin {
 			if (value == null) {
 				taglibRequirementsMap.put(taglibRequirement, new Object());
 			}
-
 		}
 
 		return taglibRequirementsMap.keySet();
-
 	}
 
 	protected Set<String> getTaglibURIs(String originalContent) {
