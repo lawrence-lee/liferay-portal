@@ -50,6 +50,27 @@ public class JspAnalyzerPluginTest {
 	}
 
 	@Test
+	public void testRemoveDuplicateTaglibRequirements() throws Exception {
+		JspAnalyzerPlugin jspAnalyzerPlugin = new JspAnalyzerPlugin();
+
+		URL url = getResource("dependencies/imports_with_duplicates.jsp");
+
+		InputStream inputStream = url.openStream();
+
+		String content = IO.collect(inputStream);
+
+		Set<String> taglibURIs = jspAnalyzerPlugin.getTaglibURIs(content);
+
+		Set<String> taglibURIFinal = jspAnalyzerPlugin.removeDuplicates(taglibURIs);
+
+		Assert.assertNotNull(taglibURIFinal);
+
+		int size = taglibURIFinal.size();
+
+		Assert.assertEquals(8, size);
+	}
+
+	@Test
 	public void tesGetTaglibURIsWithoutComments() throws Exception {
 		JspAnalyzerPlugin jspAnalyzerPlugin = new JspAnalyzerPlugin();
 
