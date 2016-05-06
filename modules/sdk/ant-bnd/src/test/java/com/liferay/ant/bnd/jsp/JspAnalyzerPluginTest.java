@@ -14,16 +14,18 @@
 
 package com.liferay.ant.bnd.jsp;
 
-import aQute.lib.io.IO;
+import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import aQute.bnd.osgi.Builder;
+import aQute.bnd.osgi.Constants;
+import aQute.lib.io.IO;
 
 /**
  * @author Gregory Amerson
@@ -53,21 +55,25 @@ public class JspAnalyzerPluginTest {
 	public void testRemoveDuplicateTaglibRequirements() throws Exception {
 		JspAnalyzerPlugin jspAnalyzerPlugin = new JspAnalyzerPlugin();
 
-		URL url = getResource("dependencies/imports_with_duplicates.jsp");
+		URL url = getResource("dependencies/imports_without_comments.jsp");
 
 		InputStream inputStream = url.openStream();
 
 		String content = IO.collect(inputStream);
+	
+		Builder b = new Builder();
 
-		Set<String> taglibURIs = jspAnalyzerPlugin.getTaglibURIs(content);
+		b.build();
 
-		Set<String> taglibURIFinal = jspAnalyzerPlugin.removeDuplicates(taglibURIs);
+		jspAnalyzerPlugin.addTaglibRequirements(b, content);
+	
+		String requireCapabilityBefore = b.getProperty(Constants.REQUIRE_CAPABILITY);
 
-		Assert.assertNotNull(taglibURIFinal);
+		jspAnalyzerPlugin.addTaglibRequirements(b, content);
 
-		int size = taglibURIFinal.size();
+		String requireCapabilityAfter = b.getProperty(Constants.REQUIRE_CAPABILITY);
 
-		Assert.assertEquals(8, size);
+		assertEquals(requireCapabilityBefore, requireCapabilityAfter);
 	}
 
 	@Test

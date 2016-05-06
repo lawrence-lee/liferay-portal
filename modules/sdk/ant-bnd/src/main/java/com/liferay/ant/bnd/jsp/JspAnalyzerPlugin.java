@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -333,29 +332,8 @@ public class JspAnalyzerPlugin implements AnalyzerPlugin {
 			}
 		}
 
-		taglibRequirements = removeDuplicates(taglibRequirements);
-
-		String[] requireCapability = taglibRequirements.toArray(new String[0]);
-
-		Arrays.sort(requireCapability);
-
 		analyzer.setProperty(
-			Constants.REQUIRE_CAPABILITY, Strings.join(requireCapability));
-	}
-
-	protected Set<String> removeDuplicates(Set<String> taglibRequirements) {
-		Map<String, Object> taglibRequirementsMap =
-			new HashMap<String, Object>();
-
-		for (String taglibRequirement : taglibRequirements) {
-			Object value = taglibRequirementsMap.get(taglibRequirement);
-
-			if (value == null) {
-				taglibRequirementsMap.put(taglibRequirement, new Object());
-			}
-		}
-
-		return taglibRequirementsMap.keySet();
+			Constants.REQUIRE_CAPABILITY, Strings.join(taglibRequirements));
 	}
 
 	protected Set<String> getTaglibURIs(String originalContent) {
