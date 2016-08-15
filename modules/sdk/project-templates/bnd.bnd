@@ -1,0 +1,7 @@
+Bundle-Name: Liferay Project Templates
+Bundle-SymbolicName: com.liferay.project.templates
+Bundle-Version: 1.0.0
+-includeresource: \
+  /standalone/mvcportlet/=@com.liferay.project.templates.mvcportlet*.jar!/archetype-resources/*,\
+  /standalone/portlet/=@com.liferay.project.templates.portlet*.jar!/archetype-resources/*,\
+  /standalone/service/=@com.liferay.project.templates.service*.jar!/archetype-resources/*
