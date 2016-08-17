@@ -1,3 +1,17 @@
+import com.liferay.gradle.util.copy.RenameDependencyClosure
+
+bundle {
+    includeTransitiveDependencies = true
+}
+
+task copyTestLibs(type: Copy)
+
+copyTestLibs {
+	from configurations.provided
+	into "test-lib"
+	rename new RenameDependencyClosure(project, configurations.provided.name)
+}
+
 dependencies {
 	provided group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.2.0"
 	provided group: "com.beust", name: "jcommander", version: "1.48"
@@ -5,10 +19,6 @@ dependencies {
 	provided project(":sdk:project-templates-mvcportlet")
 	provided project(":sdk:project-templates-portlet")
 	provided project(":sdk:project-templates-service")
-}
-
-bundle {
-    includeTransitiveDependencies = true
 }
 
 ext {

@@ -38,20 +38,19 @@ public class CreateProjectsTest {
 			assertFalse(_testDir.exists());
 		}
 
-		File archetypesDir = new File("../../../tools/sdk/dist/");
-		File[] archetypesJars = archetypesDir.listFiles(new FilenameFilter() {
+		File testLibFolder = new File("test-lib");
+
+		File[] archetypesJars = testLibFolder.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
 				return name.startsWith("com.liferay.project.templates");
 			}
 		});
-		IO.copy(new File("../../../tools/sdk/dist/com.liferay.project.templates.mvcportlet-1.0.0.jar"), new File("bin/com.liferay.project.templates.mvcportlet-1.0.0.jar"));
-		IO.copy(new File("../../../tools/sdk/dist/com.liferay.project.templates.portlet-1.0.0.jar"), new File("bin/com.liferay.project.templates.portlet-1.0.0.jar"));
-		IO.copy(new File("../../../tools/sdk/dist/com.liferay.project.templates.service-1.0.0.jar"), new File("bin/com.liferay.project.templates.service-1.0.0.jar"));
 
-		IO.copy(new File("../../../tools/sdk/dist/com.liferay.project.templates.mvcportlet-1.0.0.jar"), new File("classes/com.liferay.project.templates.mvcportlet-1.0.0.jar"));
-		IO.copy(new File("../../../tools/sdk/dist/com.liferay.project.templates.portlet-1.0.0.jar"), new File("classes/com.liferay.project.templates.portlet-1.0.0.jar"));
-		IO.copy(new File("../../../tools/sdk/dist/com.liferay.project.templates.service-1.0.0.jar"), new File("classes/com.liferay.project.templates.service-1.0.0.jar"));
+		for (File archetypeJar : archetypesJars) {
+			IO.copy(archetypeJar, new File("bin/" + archetypeJar.getName()));
+			IO.copy(archetypeJar, new File("classes/" + archetypeJar.getName()));
+		}
 	}
 
 	@Test
