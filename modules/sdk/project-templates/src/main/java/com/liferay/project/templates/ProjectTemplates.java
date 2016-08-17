@@ -16,6 +16,7 @@ package com.liferay.project.templates;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+
 import com.liferay.project.templates.internal.archetype.Archetyper;
 import com.liferay.project.templates.internal.util.FileUtil;
 import com.liferay.project.templates.internal.util.StringUtil;
@@ -24,7 +25,9 @@ import com.liferay.project.templates.internal.util.Validator;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -32,8 +35,10 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
+
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -168,9 +173,10 @@ public class ProjectTemplates {
 		String className = projectTemplatesArgs.getClassName();
 		String packageName = projectTemplatesArgs.getPackageName();
 
-		ArchetypeGenerationResult result = archetyper.generateProject(template, name, packageName, className, destinationDir.getPath());
+		ArchetypeGenerationResult result = archetyper.generateProject(
+			template, name, packageName, className, destinationDir.getPath());
 
-		if (result != null && result.getCause() != null) {
+		if ((result != null) && (result.getCause() != null)) {
 			result.getCause().printStackTrace();
 
 			System.exit(1);
@@ -183,8 +189,7 @@ public class ProjectTemplates {
 
 		if (projectTemplatesArgs.getWorkspaceDir() != null) {
 			_extractDirectory(
-				TEMPLATES_WORKSPACE_DIR + "/" + template,
-				dir, replacements);
+				TEMPLATES_WORKSPACE_DIR + "/" + template, dir, replacements);
 
 			File settingsGradleFile = new File(dir, "settings.gradle");
 
@@ -194,7 +199,8 @@ public class ProjectTemplates {
 		new File(dir, "pom.xml").delete();
 	}
 
-	protected static final String TEMPLATES_GRADLEWRAPPER_DIR = "gradle-wrapper";
+	protected static final String TEMPLATES_GRADLEWRAPPER_DIR =
+		"gradle-wrapper";
 
 	protected static final String TEMPLATES_STANDALONE_DIR = "standalone";
 

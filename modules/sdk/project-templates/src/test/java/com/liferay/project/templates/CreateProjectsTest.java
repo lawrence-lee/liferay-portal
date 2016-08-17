@@ -21,6 +21,7 @@ import aQute.lib.io.IO;
 
 import java.io.File;
 import java.io.FilenameFilter;
+
 import java.util.regex.Pattern;
 
 import org.junit.Before;
@@ -32,7 +33,7 @@ import org.junit.Test;
 public class CreateProjectsTest {
 
 	@Before
-	public void setupTests() throws Exception {
+	public void setUp() throws Exception {
 		if (_testDir.exists()) {
 			IO.delete(_testDir);
 			assertFalse(_testDir.exists());
@@ -40,25 +41,28 @@ public class CreateProjectsTest {
 
 		File testLibFolder = new File("test-lib");
 
-		File[] archetypesJars = testLibFolder.listFiles(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.startsWith("com.liferay.project.templates");
-			}
-		});
+		File[] archetypesJars = testLibFolder.listFiles(
+			new FilenameFilter() {
+
+				@Override
+				public boolean accept(File dir, String name) {
+					return name.startsWith("com.liferay.project.templates");
+				}
+
+			});
 
 		for (File archetypeJar : archetypesJars) {
 			IO.copy(archetypeJar, new File("bin/" + archetypeJar.getName()));
-			IO.copy(archetypeJar, new File("classes/" + archetypeJar.getName()));
+			IO.copy(
+				archetypeJar, new File("classes/" + archetypeJar.getName()));
 		}
 	}
 
 	@Test
 	public void testCreateMVCPortletProject() throws Exception {
 		String[] args = {
-			"--destination", _testDir.getPath(),
-			"--name", "foo",
-			"--template", "mvcportlet"
+			"--destination", _testDir.getPath(), "--name", "foo", "--template",
+			"mvcportlet"
 		};
 
 		ProjectTemplates.main(args);
@@ -75,11 +79,13 @@ public class CreateProjectsTest {
 
 		assertTrue(gradlewFile.exists());
 
-		File portletFile = new File(projectDir, "src/main/java/foo/portlet/FooPortlet.java");
+		File portletFile = new File(
+			projectDir, "src/main/java/foo/portlet/FooPortlet.java");
 
 		assertTrue(portletFile.exists());
 
-		contains(portletFile, ".*^public class FooPortlet extends MVCPortlet.*$");
+		contains(
+			portletFile, ".*^public class FooPortlet extends MVCPortlet.*$");
 
 		File buildGradleFile = new File(projectDir, "build.gradle");
 
@@ -87,15 +93,10 @@ public class CreateProjectsTest {
 
 		contains(buildGradleFile, ".*^apply plugin: \"com.liferay.plugin\".*");
 
-		File viewJspFile = new File(projectDir, "/src/main/resources/META-INF/resources/view.jsp");
+		File viewJspFile = new File(
+			projectDir, "/src/main/resources/META-INF/resources/view.jsp");
 
 		assertTrue(viewJspFile.exists());
-
-//		if (SysProps.verifyBuilds) {
-//			BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
-//			GradleRunnerUtil.verifyGradleRunnerOutput(buildtask);
-//			GradleRunnerUtil.verifyBuildOutput(projectPath, "foo-1.0.0.jar");
-//		}
 	}
 
 	private void contains(File file, String pattern) throws Exception {
@@ -111,5 +112,6 @@ public class CreateProjectsTest {
 				Pattern.MULTILINE | Pattern.DOTALL).matcher(content).matches());
 	}
 
-	private static File _testDir = IO.getFile("build/test");
+	private static final File _testDir = IO.getFile("build/test");
+
 }

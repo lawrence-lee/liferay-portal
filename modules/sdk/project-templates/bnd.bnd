@@ -3,7 +3,7 @@ Bundle-SymbolicName: com.liferay.project.templates
 Bundle-Version: 1.0.0
 Export-Package: com.liferay.project.templates
 Main-Class: com.liferay.project.templates.ProjectTemplates
-Private-Package: \
+Private-Package:\
 	aQute.lib.io,\
 	com.liferay.project.templates.*,\
 	org.apache.commons.collections,\
@@ -28,6 +28,6 @@ Private-Package: \
 	org.codehaus.plexus.util.xml.pull,\
 	org.codehaus.plexus.velocity,\
 	org.dom4j
--includeresource: \
+-includeresource:\
 	com.liferay.project.templates.*.jar,\
-  	@jcommander-*.jar
+	@jcommander-*.jar
