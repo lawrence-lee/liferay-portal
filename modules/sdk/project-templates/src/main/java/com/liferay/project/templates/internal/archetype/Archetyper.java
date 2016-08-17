@@ -63,7 +63,7 @@ import org.codehaus.plexus.velocity.DefaultVelocityComponent;
 public class Archetyper {
 
 	public Archetyper() {
-		consoleLogger = new AbstractLogger(0, "archetyper") {
+		_logger = new AbstractLogger(0, "archetyper") {
 
 			@Override
 			public void debug(String message, Throwable throwable) {
@@ -140,36 +140,11 @@ public class Archetyper {
 		return new File(url.toURI());
 	}
 
-	private static Field getField(Class<?> clazz, String name)
-		throws Exception {
-
-		Field field = clazz.getDeclaredField(name);
-
-		field.setAccessible(true);
-
-		return field;
-	}
-
-	private static Field getLoggerField() throws Exception {
-		if (_loggerField == null) {
-			_loggerField = getField(AbstractLogEnabled.class, "logger");
-		}
-
-		return _loggerField;
-	}
-
-	private static void setField(
-			Class<?> clazz, String name, Object obj, Object value)
-		throws Exception {
-
-		getField(clazz, name).set(obj, value);
-	}
-
 	private ArchetypeArtifactManager getArchetypeArtifactManager()
 		throws Exception {
 
-		if (archetypeArtifactManager == null) {
-			archetypeArtifactManager = new DefaultArchetypeArtifactManager() {
+		if (_archetypeArtifactManager == null) {
+			_archetypeArtifactManager = new DefaultArchetypeArtifactManager() {
 
 				@Override
 				public boolean exists(
@@ -237,10 +212,10 @@ public class Archetyper {
 
 			};
 
-			getLoggerField().set(archetypeArtifactManager, consoleLogger);
+			getLoggerField().set(_archetypeArtifactManager, _logger);
 		}
 
-		return archetypeArtifactManager;
+		return _archetypeArtifactManager;
 	}
 
 	private ArchetypeGenerator getArchetypeGenerator() throws Exception {
@@ -281,7 +256,7 @@ public class Archetyper {
 		DefaultArchetypeManager archetypeManager =
 			new DefaultArchetypeManager();
 
-		getLoggerField().set(archetypeManager, consoleLogger);
+		getLoggerField().set(archetypeManager, _logger);
 
 		ArchetypeGenerator archetypeGenerator = getArchetypeGenerator();
 
@@ -290,6 +265,14 @@ public class Archetyper {
 			archetypeGenerator);
 
 		return archetypeManager;
+	}
+
+	private Field getField(Class<?> clazz, String name) throws Exception {
+		Field field = clazz.getDeclaredField(name);
+
+		field.setAccessible(true);
+
+		return field;
 	}
 
 	private FilesetArchetypeGenerator getFilesetArchetypeGenerator()
@@ -302,7 +285,7 @@ public class Archetyper {
 			DefaultFilesetArchetypeGenerator.class, "archetypeArtifactManager",
 			filesetArchetypeGenerator, getArchetypeArtifactManager());
 
-		getLoggerField().set(filesetArchetypeGenerator, consoleLogger);
+		getLoggerField().set(filesetArchetypeGenerator, _logger);
 
 		DefaultArchetypeFilesResolver defaultArchetypeFilesResolver =
 			new DefaultArchetypeFilesResolver();
@@ -314,7 +297,7 @@ public class Archetyper {
 		DefaultVelocityComponent velocityComponent =
 			new DefaultVelocityComponent();
 
-		getLoggerField().set(velocityComponent, consoleLogger);
+		getLoggerField().set(velocityComponent, _logger);
 
 		Properties velocityProps = new Properties();
 
@@ -338,11 +321,24 @@ public class Archetyper {
 		return filesetArchetypeGenerator;
 	}
 
+	private Field getLoggerField() throws Exception {
+		if (_loggerField == null) {
+			_loggerField = getField(AbstractLogEnabled.class, "logger");
+		}
+
+		return _loggerField;
+	}
+
+	private void setField(Class<?> clazz, String name, Object obj, Object value)
+		throws Exception {
+
+		getField(clazz, name).set(obj, value);
+	}
+
 	private static final String TEMP_ARCHETYPE_PREFIX = "temp-archetype";
 
-	private static Field _loggerField;
-
-	private ArchetypeArtifactManager archetypeArtifactManager;
-	private final Logger consoleLogger;
+	private ArchetypeArtifactManager _archetypeArtifactManager;
+	private final Logger _logger;
+	private Field _loggerField;
 
 }
