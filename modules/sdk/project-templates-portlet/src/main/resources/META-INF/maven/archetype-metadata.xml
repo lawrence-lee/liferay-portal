@@ -5,8 +5,8 @@
 		<fileSet filtered="true" packaged="true">
 			<directory>src/main/java</directory>
 			<includes>
-        <include>**/*.java</include>
-      </includes>
+				<include>**/*.java</include>
+			</includes>
 		</fileSet>
 		<fileSet filtered="true">
 			<directory>src/main/resources</directory>
@@ -14,12 +14,18 @@
 				<include>**/*</include>
 			</includes>
 		</fileSet>
+		<fileSet filtered="true">
+			<directory></directory>
+			<includes>
+				<include>bnd.bnd</include>
+			</includes>
+		</fileSet>
 	</fileSets>
 	<requiredProperties>
-    <requiredProperty key="package">
-      <defaultValue>${groupId}.${artifactId}</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="className">
-    </requiredProperty>
-  </requiredProperties>
+		<requiredProperty key="package">
+			<defaultValue>${groupId}.${artifactId}</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="className">
+		</requiredProperty>
+	</requiredProperties>
 </archetype-descriptor>

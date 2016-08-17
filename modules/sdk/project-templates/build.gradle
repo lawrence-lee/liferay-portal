@@ -1,95 +1,14 @@
-/*subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-
-		tasks.withType(Jar) {
-			destinationDir = file("${rootProject.buildDir}/archetypes")
-		}
-
-    repositories {
-        mavenCentral()
-    }
-
-    publishing {
-        repositories {
-            maven {
-                url "${rootProject.buildDir}/repo" // change to point to your repo, e.g. http://my.org/repo
-            }
-        }
-    }
-}
-
-apply plugin: 'java'
-
 dependencies {
-	testCompile group: "junit", name: "junit", version: "4.12"
+	provided group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.2.0"
+	provided group: "com.beust", name: "jcommander", version: "1.48"
+	provided group: "org.apache.maven.archetype", name: "archetype-common", version: "2.4"
+	provided project(":sdk:project-templates-mvcportlet")
+	provided project(":sdk:project-templates-portlet")
+	provided project(":sdk:project-templates-service")
 }
 
-repositories {
-	mavenLocal()
-	mavenCentral()
-}
-*/
-
-// sourceSets {
-//     main {
-//         resources {
-//             exclude '**/pom.xml'
-// 			exclude '**/META-INF'
-//         }
-//     }
-// }
-//
-// project(":liferay-module-mvcportlet") {
-// 	task archetypeJar(type: Jar) {
-// 		from("../src/main/resources/standalone/mvcportlet") {
-// 			exclude "build.gradle"
-// 		}
-// 		eachFile {file ->
-// 			if (!file.path.startsWith('META-INF')) {
-// 				file.path = 'archetype-resources/' + file.path
-// 			}
-// 		}
-// 	}
-//
-//   publishing {
-//     publications {
-//       maven(MavenPublication) {
-//         groupId 'com.liferay'
-//         artifactId 'liferay-module-mvcportlet'
-//         version '1.0.0'
-// 		artifact archetypeJar
-//       }
-//     }
-//   }
-// }
-//
-// project(":liferay-module-portlet") {
-// 		task archetypeJar(type: Jar) {
-// 			from("../src/main/resources/standalone/portlet") {
-// 				exclude "build.gradle"
-// 			}
-// 			eachFile {file ->
-// 				if (!file.path.startsWith('META-INF')) {
-// 					file.path = 'archetype-resources/' + file.path
-// 				}
-// 			}
-// 		}
-//     publishing {
-//         publications {
-//             maven(MavenPublication) {
-//                 groupId 'com.liferay'
-//                 artifactId 'liferay-module-portlet'
-//                 version '1.0.0'
-// 								artifact archetypeJar
-//             }
-//         }
-//     }
-// }
-
-dependencies {
-	compile project(":sdk:project-templates-mvcportlet")
-	compile project(":sdk:project-templates-portlet")
+bundle {
+    includeTransitiveDependencies = true
 }
 
 ext {
