@@ -1,7 +1,7 @@
-package _package_.constants;
+package ${package}.constants;
 
-public class _CLASS_PortletKeys {
+public class ${className}PortletKeys {
 
-	public static final String _CLASS_ = "_CLASS_";
+	public static final String ${className} = "${className}";
 
 }

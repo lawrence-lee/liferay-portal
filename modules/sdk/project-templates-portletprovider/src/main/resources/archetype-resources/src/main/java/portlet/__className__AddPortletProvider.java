@@ -1,6 +1,6 @@
-package _package_.portlet;
+package ${package}.portlet;
 
-import _package_.constants._CLASS_PortletKeys;
+import ${package}.constants.${className}PortletKeys;
 
 import com.liferay.portal.kernel.portlet.AddPortletProvider;
 import com.liferay.portal.kernel.portlet.BasePortletProvider;
@@ -18,12 +18,12 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = AddPortletProvider.class
 )
-public class _CLASS_AddPortletProvider
+public class ${className}AddPortletProvider
 	extends BasePortletProvider implements AddPortletProvider {
 
 	@Override
 	public String getPortletName() {
-		return _CLASS_PortletKeys._CLASS_;
+		return ${className}PortletKeys.${className};
 	}
 
 	@Override

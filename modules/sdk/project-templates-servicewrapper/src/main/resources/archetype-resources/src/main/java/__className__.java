@@ -1,4 +1,4 @@
-package _package_;
+package ${package};
 
 import _SERVICE_FULL_;
 
@@ -12,9 +12,9 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = ServiceWrapper.class
 )
-public class _CLASS_ extends _SERVICE_SHORT_ {
+public class ${className} extends _SERVICE_SHORT_ {
 
-	public _CLASS_() {
+	public ${className}() {
 		super(null);
 	}
 

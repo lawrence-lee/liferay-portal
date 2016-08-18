@@ -1,4 +1,4 @@
-package _package_.control.menu;
+package ${package}.control.menu;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -22,7 +22,7 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = ProductNavigationControlMenuEntry.class
 )
-public class _CLASS_ProductNavigationControlMenuEntry
+public class ${className}ProductNavigationControlMenuEntry
 	extends BaseProductNavigationControlMenuEntry
 	implements ProductNavigationControlMenuEntry {
 

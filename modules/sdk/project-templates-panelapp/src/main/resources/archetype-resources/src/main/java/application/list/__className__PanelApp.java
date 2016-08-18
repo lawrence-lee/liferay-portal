@@ -1,7 +1,7 @@
-package _package_.application.list;
+package ${package}.application.list;
 
-import _package_.constants._CLASS_PanelCategoryKeys;
-import _package_.constants._CLASS_PortletKeys;
+import ${package}.constants.${className}PanelCategoryKeys;
+import ${package}.constants.${className}PortletKeys;
 
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
@@ -14,20 +14,20 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"panel.app.order:Integer=100",
-		"panel.category.key=" + _CLASS_PanelCategoryKeys.CONTROL_PANEL_CATEGORY
+		"panel.category.key=" + ${className}PanelCategoryKeys.CONTROL_PANEL_CATEGORY
 	},
 	service = PanelApp.class
 )
-public class _CLASS_PanelApp extends BasePanelApp {
+public class ${className}PanelApp extends BasePanelApp {
 
 	@Override
 	public String getPortletId() {
-		return _CLASS_PortletKeys._CLASS_;
+		return ${className}PortletKeys.${className};
 	}
 
 	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + _CLASS_PortletKeys._CLASS_ + ")",
+		target = "(javax.portlet.name=" + ${className}PortletKeys.${className} + ")",
 		unbind = "-"
 	)
 	public void setPortlet(Portlet portlet) {

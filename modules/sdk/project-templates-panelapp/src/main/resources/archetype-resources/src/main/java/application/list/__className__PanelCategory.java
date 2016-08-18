@@ -1,6 +1,6 @@
-package _package_.application.list;
+package ${package}.application.list;
 
-import _package_.constants._CLASS_PanelCategoryKeys;
+import ${package}.constants.${className}PanelCategoryKeys;
 
 import com.liferay.application.list.BasePanelCategory;
 import com.liferay.application.list.PanelCategory;
@@ -21,11 +21,11 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = PanelCategory.class
 )
-public class _CLASS_PanelCategory extends BasePanelCategory {
+public class ${className}PanelCategory extends BasePanelCategory {
 
 	@Override
 	public String getKey() {
-		return _CLASS_PanelCategoryKeys.CONTROL_PANEL_CATEGORY;
+		return ${className}PanelCategoryKeys.CONTROL_PANEL_CATEGORY;
 	}
 
 	@Override

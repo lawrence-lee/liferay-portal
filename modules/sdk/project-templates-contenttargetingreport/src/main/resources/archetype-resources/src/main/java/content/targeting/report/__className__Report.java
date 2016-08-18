@@ -1,4 +1,4 @@
-package _package_.content.targeting.report;
+package ${package}.content.targeting.report;
 
 import com.liferay.content.targeting.api.model.BaseJSPReport;
 import com.liferay.content.targeting.api.model.Report;
@@ -27,7 +27,7 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(immediate = true, service = Report.class)
-public class _CLASS_Report extends BaseJSPReport {
+public class ${className}Report extends BaseJSPReport {
 
 	@Activate
 	@Override
@@ -78,7 +78,7 @@ public class _CLASS_Report extends BaseJSPReport {
 
 	@Override
 	@Reference(
-		target = "(osgi.web.symbolicname=_name_)",
+		target = "(osgi.web.symbolicname=${artifactId})",
 		unbind = "-"
 	)
 	public void setServletContext(ServletContext servletContext) {
@@ -131,7 +131,7 @@ public class _CLASS_Report extends BaseJSPReport {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		_CLASS_Report.class);
+		${className}Report.class);
 
 	private ReportInstanceLocalService _reportInstanceLocalService;
 

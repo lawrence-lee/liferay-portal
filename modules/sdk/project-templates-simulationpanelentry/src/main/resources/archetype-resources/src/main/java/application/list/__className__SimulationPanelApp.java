@@ -1,4 +1,4 @@
-package _package_.application.list;
+package ${package}.application.list;
 
 import com.liferay.application.list.BaseJSPPanelApp;
 import com.liferay.application.list.PanelApp;
@@ -27,7 +27,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = PanelApp.class
 )
-public class _CLASS_SimulationPanelApp extends BaseJSPPanelApp {
+public class ${className}SimulationPanelApp extends BaseJSPPanelApp {
 
 	@Override
 	public String getJspPath() {
@@ -70,7 +70,7 @@ public class _CLASS_SimulationPanelApp extends BaseJSPPanelApp {
 
 	@Override
 	@Reference(
-		target = "(osgi.web.symbolicname=_name_)",
+		target = "(osgi.web.symbolicname=${artifactId})",
 		unbind = "-"
 	)
 	public void setServletContext(ServletContext servletContext) {

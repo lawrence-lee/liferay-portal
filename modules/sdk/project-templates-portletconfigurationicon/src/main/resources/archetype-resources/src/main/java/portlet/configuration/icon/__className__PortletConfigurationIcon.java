@@ -1,4 +1,4 @@
-package _package_.portlet.configuration.icon;
+package ${package}.portlet.configuration.icon;
 
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.configuration.icon.BasePortletConfigurationIcon;
@@ -19,7 +19,7 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = PortletConfigurationIcon.class
 )
-public class _CLASS_PortletConfigurationIcon
+public class ${className}PortletConfigurationIcon
 	extends BasePortletConfigurationIcon {
 
 	@Override

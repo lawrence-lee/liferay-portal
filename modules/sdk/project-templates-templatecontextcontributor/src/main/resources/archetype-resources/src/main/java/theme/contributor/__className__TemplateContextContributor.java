@@ -1,4 +1,4 @@
-package _package_.theme.contributor;
+package ${package}.theme.contributor;
 
 import com.liferay.portal.kernel.template.TemplateContextContributor;
 
@@ -13,7 +13,7 @@ import org.osgi.service.component.annotations.Component;
 	property = {"type=" + TemplateContextContributor.TYPE_THEME},
 	service = TemplateContextContributor.class
 )
-public class _CLASS_TemplateContextContributor
+public class ${className}TemplateContextContributor
 	implements TemplateContextContributor {
 
 	@Override

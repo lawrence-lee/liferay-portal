@@ -1,4 +1,4 @@
-package _package_.content.targeting.rule;
+package ${package}.content.targeting.rule;
 
 import com.liferay.content.targeting.anonymous.users.model.AnonymousUser;
 import com.liferay.content.targeting.api.model.BaseJSPRule;
@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(immediate = true, service = Rule.class)
-public class _CLASS_Rule extends BaseJSPRule {
+public class ${className}Rule extends BaseJSPRule {
 
 	@Activate
 	@Override
@@ -107,7 +107,7 @@ public class _CLASS_Rule extends BaseJSPRule {
 
 	@Override
 	@Reference(
-		target = "(osgi.web.symbolicname=_package_)",
+		target = "(osgi.web.symbolicname=${package})",
 		unbind = "-"
 	)
 	public void setServletContext(ServletContext servletContext) {

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<archetype-descriptor name="liferay-module-service">
+<archetype-descriptor name="liferay-module-panelapp">
 	<fileSets>
 		<fileSet filtered="true" packaged="true">
 			<directory>src/main/java</directory>
@@ -26,8 +26,6 @@
 			<defaultValue>${groupId}.${artifactId}</defaultValue>
 		</requiredProperty>
 		<requiredProperty key="className">
-		</requiredProperty>
-		<requiredProperty key="serviceClassName">
 		</requiredProperty>
 	</requiredProperties>
 </archetype-descriptor>

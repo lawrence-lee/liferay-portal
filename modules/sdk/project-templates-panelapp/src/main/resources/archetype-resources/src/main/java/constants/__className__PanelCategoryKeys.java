@@ -1,7 +1,7 @@
-package _package_.constants;
+package ${package}.constants;
 
-public class _CLASS_PanelCategoryKeys {
+public class ${className}PanelCategoryKeys {
 
-	public static final String CONTROL_PANEL_CATEGORY = "_CLASS_";
+	public static final String CONTROL_PANEL_CATEGORY = "${className}";
 
 }

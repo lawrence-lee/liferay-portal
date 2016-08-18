@@ -1,2 +1,2 @@
-Bundle-SymbolicName: _package_
+Bundle-SymbolicName: ${package}
 Bundle-Version: 1.0.0

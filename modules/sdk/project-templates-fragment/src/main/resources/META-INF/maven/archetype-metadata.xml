@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<archetype-descriptor name="liferay-module-service">
+<archetype-descriptor name="liferay-module-fragment">
 	<fileSets>
 		<fileSet filtered="true" packaged="true">
 			<directory>src/main/java</directory>
@@ -24,10 +24,6 @@
 	<requiredProperties>
 		<requiredProperty key="package">
 			<defaultValue>${groupId}.${artifactId}</defaultValue>
-		</requiredProperty>
-		<requiredProperty key="className">
-		</requiredProperty>
-		<requiredProperty key="serviceClassName">
 		</requiredProperty>
 	</requiredProperties>
 </archetype-descriptor>

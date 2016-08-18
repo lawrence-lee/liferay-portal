@@ -1,7 +1,7 @@
-package _package_.portlet;
+package ${package}.portlet;
 
-import _package_.constants._CLASS_PortletKeys;
-import _package_.constants._CLASS_WebKeys;
+import ${package}.constants.${className}PortletKeys;
+import ${package}.constants.${className}WebKeys;
 
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
@@ -31,15 +31,15 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"com.liferay.portlet.display-category=category.hidden",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=_NAME_ Portlet",
+		"javax.portlet.display-name=${artifactId} Portlet",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
-		"javax.portlet.name=" + _CLASS_PortletKeys._CLASS_,
+		"javax.portlet.name=" + ${className}PortletKeys.${className},
 		"javax.portlet.security-role-ref=power-user,user"
 	},
 	service = Portlet.class
 )
-public class _CLASS_Portlet extends MVCPortlet {
+public class ${className}Portlet extends MVCPortlet {
 
 	@Override
 	public void doView(
@@ -51,7 +51,7 @@ public class _CLASS_Portlet extends MVCPortlet {
 
 		String portletId = PortalUtil.getPortletId(renderRequest);
 
-		String message = "_NAME_ Add Portlet Provider";
+		String message = "${artifactId} Add Portlet Provider";
 
 		try {
 			PortletPreferences preferences =
@@ -75,7 +75,7 @@ public class _CLASS_Portlet extends MVCPortlet {
 		}
 
 		renderRequest.setAttribute(
-			_CLASS_WebKeys.PORTLET_PROVIDER_MESSAGE, message);
+			${className}WebKeys.PORTLET_PROVIDER_MESSAGE, message);
 
 		super.doView(renderRequest, renderResponse);
 	}

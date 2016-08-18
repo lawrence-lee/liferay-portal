@@ -1,4 +1,4 @@
-package _package_.portlet.toolbar.contributor;
+package ${package}.portlet.toolbar.contributor;
 
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.toolbar.contributor.PortletToolbarContributor;
@@ -27,7 +27,7 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = PortletToolbarContributor.class
 )
-public class _CLASS_PortletToolbarContributor
+public class ${className}PortletToolbarContributor
 	implements PortletToolbarContributor {
 
 	@Override

@@ -7,7 +7,7 @@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="_package_.constants._CLASS_WebKeys" %>
+<%@ page import="${package}.constants.${className}WebKeys" %>
 
 <liferay-theme:defineObjects />
 

@@ -1,4 +1,4 @@
-package _package_.content.targeting.tracking.action;
+package ${package}.content.targeting.tracking.action;
 
 import com.liferay.content.targeting.api.model.BaseJSPTrackingAction;
 import com.liferay.content.targeting.api.model.TrackingAction;
@@ -23,7 +23,7 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(immediate = true, service = TrackingAction.class)
-public class _CLASS_TrackingAction extends BaseJSPTrackingAction {
+public class ${className}TrackingAction extends BaseJSPTrackingAction {
 
 	@Activate
 	@Override
@@ -67,7 +67,7 @@ public class _CLASS_TrackingAction extends BaseJSPTrackingAction {
 
 	@Override
 	@Reference(
-		target = "(osgi.web.symbolicname=_package_)",
+		target = "(osgi.web.symbolicname=${package})",
 		unbind = "-"
 	)
 	public void setServletContext(ServletContext servletContext) {
