@@ -34,6 +34,8 @@ dependencies {
 	provided project(":sdk:project-templates-servicewrapper")
 	provided project(":sdk:project-templates-simulationpanelentry")
 	provided project(":sdk:project-templates-templatecontextcontributor")
+
+	testCompile gradleTestKit()
 }
 
 ext {
