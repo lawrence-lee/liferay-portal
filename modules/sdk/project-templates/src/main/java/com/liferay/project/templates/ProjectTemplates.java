@@ -169,12 +169,8 @@ public class ProjectTemplates {
 
 		Archetyper archetyper = new Archetyper();
 
-		String template = projectTemplatesArgs.getTemplate();
-		String className = projectTemplatesArgs.getClassName();
-		String packageName = projectTemplatesArgs.getPackageName();
-
 		ArchetypeGenerationResult result = archetyper.generateProject(
-			template, name, packageName, className, destinationDir.getPath());
+			projectTemplatesArgs, destinationDir.getPath());
 
 		if ((result != null) && (result.getCause() != null)) {
 			result.getCause().printStackTrace();
@@ -183,6 +179,8 @@ public class ProjectTemplates {
 		}
 
 		_extractDirectory(TEMPLATES_GRADLEWRAPPER_DIR, dir, replacements);
+
+		String template = projectTemplatesArgs.getTemplate();
 
 		_extractDirectory(
 			TEMPLATES_STANDALONE_DIR + "/" + template, dir, replacements);
