@@ -17,6 +17,7 @@ package com.liferay.project.templates.internal.archetype;
 import aQute.lib.io.IO;
 
 import com.liferay.project.templates.ProjectTemplates;
+import com.liferay.project.templates.ProjectTemplatesArgs;
 
 import java.io.File;
 
@@ -94,12 +95,19 @@ public class Archetyper {
 	}
 
 	public ArchetypeGenerationResult generateProject(
-			String templateName, String artifactId, String packageName,
-			String className, String outputDirectory)
+			ProjectTemplatesArgs projectTemplatesArgs, String outputDirectory)
 		throws Exception {
 
 		ArchetypeGenerationRequest archetypeGenerationRequest =
 			new ArchetypeGenerationRequest();
+
+		String artifactId = projectTemplatesArgs.getName();
+		String className = projectTemplatesArgs.getClassName();
+		String hostBundleBsn = projectTemplatesArgs.getHostBundleSymbolicName();
+		String hostBundleVersion = projectTemplatesArgs.getHostBundleVersion();
+		String packageName = projectTemplatesArgs.getPackageName();
+		String service = projectTemplatesArgs.getService();
+		String templateName = projectTemplatesArgs.getTemplate();
 
 		archetypeGenerationRequest.setArchetypeArtifactId(
 			"com.liferay.project.templates." + templateName);
@@ -117,8 +125,11 @@ public class Archetyper {
 
 		Properties additionalProperties = new Properties();
 
-		additionalProperties.put("className", className);
-		additionalProperties.put("package", packageName);
+		_safePut(additionalProperties, "className", className);
+		_safePut(additionalProperties, "hostBundleBsn", hostBundleBsn);
+		_safePut(additionalProperties, "hostBundleVersion", hostBundleVersion);
+		_safePut(additionalProperties, "package", packageName);
+		_safePut(additionalProperties, "serviceClassName", service);
 
 		archetypeGenerationRequest.setProperties(additionalProperties);
 
@@ -127,6 +138,12 @@ public class Archetyper {
 				archetypeGenerationRequest);
 
 		return result;
+	}
+
+	private static void _safePut(Properties properties, String name, String value) {
+		if (value != null) {
+			properties.put(name, value);
+		}
 	}
 
 	private static File _getJarFile() throws Exception {
