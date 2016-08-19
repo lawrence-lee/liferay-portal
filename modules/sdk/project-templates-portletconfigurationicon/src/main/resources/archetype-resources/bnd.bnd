@@ -1,2 +1,2 @@
 Bundle-SymbolicName: ${artifactId}
-Bundle-Version: 1.0.0
+Bundle-Version: ${version}

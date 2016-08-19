@@ -61,3 +61,5 @@ processResources {
 
 	rename "gitignore", ".gitignore"
 }
+
+test.dependsOn copyTestLibs 

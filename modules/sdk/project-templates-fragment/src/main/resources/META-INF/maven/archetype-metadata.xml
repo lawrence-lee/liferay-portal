@@ -25,5 +25,9 @@
 		<requiredProperty key="package">
 			<defaultValue>${groupId}.${artifactId}</defaultValue>
 		</requiredProperty>
+		<requiredProperty key="hostBundleBsn">
+		</requiredProperty>
+		<requiredProperty key="hostBundleVersion">
+		</requiredProperty>
 	</requiredProperties>
 </archetype-descriptor>
