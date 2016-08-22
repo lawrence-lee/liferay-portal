@@ -138,74 +138,77 @@ public class ProjectTemplatesCreateTest {
 		verifyBuildOutput(projectDir, "bar.activator-1.0.0.jar");
 	}
 
-	/*@Test
+	@Test
 	public void testCreateGradleFragment() throws Exception {
 		String[] args = {
-			"create", "-d", "generated/test", "-t", "fragment", "-h",
-			"com.liferay.login.web", "-H", "1.0.0", "loginHook"
+				"--destination", _testDir.getPath(), "--host-bundle-symbolic-name", "com.liferay.login.web",
+				"--host-bundle-version", "1.0.0", "--template", "fragment", "--name", "loginHook"
 		};
 
-		new bladenofail().run(args);
+		ProjectTemplates.main(args);
 
-		String projectPath = "generated/test/loginHook";
+		File projectDir = new File(_testDir, "loginhook");
 
-		checkFileExists(projectPath);
+		assertTrue(projectDir.exists());
+
+		File bndfile = new File(projectDir, "bnd.bnd");
 
 		contains(
-			checkFileExists(projectPath + "/bnd.bnd"),
+			bndfile,
 			new String[] {
 				".*^Bundle-SymbolicName: loginhook.*$",
 				".*^Fragment-Host: com.liferay.login.web;bundle-version=\"1.0.0\".*$"
 			});
 
-		contains(
-			checkFileExists(projectPath + "/build.gradle"),
+		File buildfile = new File(projectDir, "build.gradle");
+
+		contains(buildfile,
 			".*^apply plugin: \"com.liferay.plugin\".*");
 
-		if (SysProps.verifyBuilds) {
-			BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
-			GradleRunnerUtil.verifyGradleRunnerOutput(buildtask);
-			GradleRunnerUtil.verifyBuildOutput(projectPath, "loginhook-1.0.0.jar");
-		}
+
+		BuildTask buildtask = executeGradleRunner(projectDir, "build");
+		verifyGradleRunnerOutput(buildtask);
+		verifyBuildOutput(projectDir, "loginhook-1.0.0.jar");
+
 	}
 
 	@Test
 	public void testCreateGradleMVCPortletProject() throws Exception {
 		String[] args = {
-			"create", "-d", "generated/test", "-t", "mvcportlet", "foo"
+			"--destination", _testDir.getPath(), "--template", "mvcportlet", "--name", "foo"
 		};
 
-		new bladenofail().run(args);
+		ProjectTemplates.main(args);
 
-		String projectPath = "generated/test/foo";
+		File projectDir = new File(_testDir, "foo");
 
-		checkFileExists(projectPath);
+		assertTrue(projectDir.exists());
 
-		checkFileExists(projectPath + "/bnd.bnd");
+		checkFileExists(projectDir + "/bnd.bnd");
 
-		checkFileExists(projectPath + "/gradlew");
+		checkFileExists(projectDir + "/gradlew");
 
-		checkFileExists(projectPath + "/gradlew.bat");
+		checkFileExists(projectDir + "/gradlew.bat");
 
-		contains(
-			checkFileExists(projectPath + "/src/main/java/foo/portlet/FooPortlet.java"),
+		File classfile = new File(projectDir, "/src/main/java/foo/portlet/FooPortlet.java");
+
+		contains(classfile,
 			".*^public class FooPortlet extends MVCPortlet.*$");
+		File buildfile = new File(projectDir, "build.gradle");
 
 		contains(
-			checkFileExists(projectPath + "/build.gradle"),
+			buildfile,
 			".*^apply plugin: \"com.liferay.plugin\".*");
 
 		checkFileExists(
-			projectPath + "/src/main/resources/META-INF/resources/view.jsp");
+			projectDir + "/src/main/resources/META-INF/resources/view.jsp");
 
 		checkFileExists(
-			projectPath + "/src/main/resources/META-INF/resources/init.jsp");
+			projectDir + "/src/main/resources/META-INF/resources/init.jsp");
 
-		if (SysProps.verifyBuilds) {
-			BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
-			GradleRunnerUtil.verifyGradleRunnerOutput(buildtask);
-			GradleRunnerUtil.verifyBuildOutput(projectPath, "foo-1.0.0.jar");
-		}
+		BuildTask buildtask = executeGradleRunner(projectDir, "build");
+		verifyGradleRunnerOutput(buildtask);
+		verifyBuildOutput(projectDir, "foo-1.0.0.jar");
 	}
 
 	@Test
@@ -213,41 +216,43 @@ public class ProjectTemplatesCreateTest {
 		throws Exception {
 
 		String[] args = {
-			"create", "-d", "generated/test", "-t", "mvcportlet", "-p",
-			"com.liferay.test", "foo"
+			"--destination", _testDir.getPath(), "--template", "mvcportlet", "--package-name",
+			"com.liferay.test", "--name",  "foo"
 		};
 
-		new bladenofail().run(args);
+		ProjectTemplates.main(args);
 
-		String projectPath = "generated/test/foo";
+		File projectDir = new File(_testDir, "foo");
 
-		checkFileExists(projectPath);
+		assertTrue(projectDir.exists());
 
-		checkFileExists(projectPath + "/bnd.bnd");
+		checkFileExists(projectDir + "/bnd.bnd");
+
+		File classfile = new File(projectDir, "/src/main/java/com/liferay/test/portlet/FooPortlet.java");
 
 		contains(
-			checkFileExists(
-				projectPath + "/src/main/java/com/liferay/test/portlet/FooPortlet.java"),
+			classfile,
 			".*^public class FooPortlet extends MVCPortlet.*$");
 
+		File buildfile = new File(projectDir, "build.gradle");
+
 		contains(
-			checkFileExists("generated/test/foo/build.gradle"),
+			buildfile,
 			".*^apply plugin: \"com.liferay.plugin\".*");
 
 		checkFileExists(
-			projectPath + "/src/main/resources/META-INF/resources/view.jsp");
+				projectDir + "/src/main/resources/META-INF/resources/view.jsp");
 
 		checkFileExists(
-			projectPath + "/src/main/resources/META-INF/resources/init.jsp");
+				projectDir + "/src/main/resources/META-INF/resources/init.jsp");
 
-		if (SysProps.verifyBuilds) {
-			BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
-			GradleRunnerUtil.verifyGradleRunnerOutput(buildtask);
-			GradleRunnerUtil.verifyBuildOutput(projectPath, "foo-1.0.0.jar");
-		}
+		BuildTask buildtask = executeGradleRunner(projectDir, "build");
+		verifyGradleRunnerOutput(buildtask);
+		verifyBuildOutput(projectDir, "com.liferay.test-1.0.0.jar");
+
 	}
 
-	@Test
+	/*@Test
 	public void testCreateGradleMVCPortletProjectWithPortletSuffix() throws Exception {
 		String[] args = {
 			"create", "-d", "generated/test", "-t", "mvcportlet", "portlet-portlet"
