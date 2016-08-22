@@ -103,7 +103,7 @@ public class Archetyper {
 
 		String artifactId = projectTemplatesArgs.getName();
 		String className = projectTemplatesArgs.getClassName();
-		String hostBundleBsn = projectTemplatesArgs.getHostBundleSymbolicName();
+		String hostBundleSymbolicName = projectTemplatesArgs.getHostBundleSymbolicName();
 		String hostBundleVersion = projectTemplatesArgs.getHostBundleVersion();
 		String packageName = projectTemplatesArgs.getPackageName();
 		String service = projectTemplatesArgs.getService();
@@ -126,7 +126,7 @@ public class Archetyper {
 		Properties additionalProperties = new Properties();
 
 		_safePut(additionalProperties, "className", className);
-		_safePut(additionalProperties, "hostBundleBsn", hostBundleBsn);
+		_safePut(additionalProperties, "hostBundleSymbolicName", hostBundleSymbolicName);
 		_safePut(additionalProperties, "hostBundleVersion", hostBundleVersion);
 		_safePut(additionalProperties, "package", packageName);
 		_safePut(additionalProperties, "serviceClassName", service);
