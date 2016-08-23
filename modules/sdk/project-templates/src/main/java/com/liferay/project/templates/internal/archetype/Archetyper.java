@@ -125,7 +125,7 @@ public class Archetyper {
 		_safePut(additionalProperties, "hostBundleSymbolicName", hostBundleSymbolicName);
 		_safePut(additionalProperties, "hostBundleVersion", hostBundleVersion);
 		_safePut(additionalProperties, "package", packageName);
-		_safePut(additionalProperties, "serviceClassName", service);
+		_safePut(additionalProperties, "serviceClass", service);
 
 		archetypeGenerationRequest.setProperties(additionalProperties);
 
