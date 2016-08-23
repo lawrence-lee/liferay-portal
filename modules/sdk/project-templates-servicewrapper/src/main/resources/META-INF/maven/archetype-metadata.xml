@@ -27,7 +27,7 @@
 		</requiredProperty>
 		<requiredProperty key="className">
 		</requiredProperty>
-		<requiredProperty key="serviceClassName">
+		<requiredProperty key="serviceClass">
 		</requiredProperty>
 	</requiredProperties>
 </archetype-descriptor>
