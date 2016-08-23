@@ -20,17 +20,14 @@ import com.liferay.project.templates.ProjectTemplates;
 import com.liferay.project.templates.ProjectTemplatesArgs;
 
 import java.io.File;
-
 import java.lang.reflect.Field;
-
+import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
-
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -52,7 +49,6 @@ import org.apache.maven.archetype.generator.FilesetArchetypeGenerator;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.logging.AbstractLogger;
 import org.codehaus.plexus.logging.Logger;
@@ -162,6 +158,22 @@ public class Archetyper {
 
 		if (_archetypeArtifactManager == null) {
 			_archetypeArtifactManager = new DefaultArchetypeArtifactManager() {
+
+				@Override
+				public ClassLoader getArchetypeJarLoader(File archetypeFile) throws UnknownArchetype {
+					try
+			        {
+			            URL[] urls = new URL[1];
+
+			            urls[0] = archetypeFile.toURI().toURL();
+
+			            return new URLClassLoader( urls, null );
+			        }
+			        catch ( MalformedURLException e )
+			        {
+			            throw new UnknownArchetype( e );
+			        }
+				}
 
 				@Override
 				public boolean exists(
