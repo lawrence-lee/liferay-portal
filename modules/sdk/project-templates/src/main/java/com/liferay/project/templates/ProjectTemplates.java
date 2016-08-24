@@ -180,6 +180,8 @@ public class ProjectTemplates {
 
 		_extractDirectory(TEMPLATES_GRADLEWRAPPER_DIR, dir, replacements);
 
+		new File(dir, "gradlew").setExecutable(true);
+
 		String template = projectTemplatesArgs.getTemplate();
 
 		_extractDirectory(
@@ -521,7 +523,7 @@ public class ProjectTemplates {
 		}
 
 		replacements.put("_api_", name + separator + "api");
-		replacements.put("_service_", name + separator + "svc");
+		replacements.put("_service_", name + separator + "service");
 	}
 
 	private void _populateServiceReplacements(

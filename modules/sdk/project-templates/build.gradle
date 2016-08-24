@@ -40,7 +40,7 @@ dependencies {
 
 ext {
 	gradlePluginVersions = [
-		"com.liferay.gradle.plugins": "1.0.369"
+		"com.liferay.gradle.plugins": "2.0.10"
 	]
 }
 
