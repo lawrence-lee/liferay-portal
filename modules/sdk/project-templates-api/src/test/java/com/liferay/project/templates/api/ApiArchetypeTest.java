@@ -17,6 +17,7 @@ package com.liferay.project.templates.api;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.FileVisitResult;
@@ -27,6 +28,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
 import org.apache.maven.cli.MavenCli;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,6 +55,15 @@ public class ApiArchetypeTest {
 			       return FileVisitResult.CONTINUE;
 			   }
 			});
+		}
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		File velocityLog = new File("velocity.log");
+
+		if (velocityLog.exists()) {
+			velocityLog.delete();
 		}
 	}
 
