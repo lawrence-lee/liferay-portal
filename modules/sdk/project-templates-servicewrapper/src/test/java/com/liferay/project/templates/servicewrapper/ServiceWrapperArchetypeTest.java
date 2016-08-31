@@ -55,7 +55,7 @@ public class ServiceWrapperArchetypeTest {
 			});
 		}
 	}
-	
+
 	@Test
 	public void testServiceWrapperArchetype() throws Exception {
 		String[] args = {
@@ -65,9 +65,11 @@ public class ServiceWrapperArchetypeTest {
 			"-DarchetypeGroupId=com.liferay",
 			"-DarchetypeVersion=1.0.0",
 			"-DgroupId=com.test",
-			"-DartifactId=bar",
-			"-DclassName=serviceoverride",
-			"-DserviceClass=com.liferay.portal.kernel.service.UserLocalServiceWrapper"
+			"-DartifactId=userhook",
+			"-Dpackage=com.test.userhook",
+			"-DclassName=UserServiceWrapper",
+			"-DserviceWrapperClass=com.liferay.portal.kernel.service.UserLocalServiceWrapper",
+			"-DprojectType=standalone"
 		};
 
 		MavenCli mavenCli = new MavenCli();
@@ -87,7 +89,7 @@ public class ServiceWrapperArchetypeTest {
 			"package"
 		};
 
-		retcode = mavenCli.doMain(args, "build/test/bar", new PrintStream(output), new PrintStream(errorOutput));
+		retcode = mavenCli.doMain(args, "build/test/userhook", new PrintStream(output), new PrintStream(errorOutput));
 
 		assertEquals(new String(errorOutput.toByteArray()), 0, retcode);
 	}
