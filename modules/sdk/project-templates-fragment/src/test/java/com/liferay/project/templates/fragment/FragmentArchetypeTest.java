@@ -55,7 +55,7 @@ public class FragmentArchetypeTest {
 			});
 		}
 	}
-	
+
 	@Test
 	public void testFragmentArchetype() throws Exception {
 		String[] args = {
@@ -65,8 +65,7 @@ public class FragmentArchetypeTest {
 			"-DarchetypeGroupId=com.liferay",
 			"-DarchetypeVersion=1.0.0",
 			"-DgroupId=com.test",
-			"-DartifactId=bar",
-			"-DclassName=BarActivator",
+			"-DartifactId=loginhook",
 			"-DhostBundleSymbolicName=com.liferay.login.web",
 			"-DhostBundleVersion=1.0.0"
 		};
@@ -88,8 +87,8 @@ public class FragmentArchetypeTest {
 			"package"
 		};
 
-		retcode = mavenCli.doMain(args, "build/test/bar", new PrintStream(output), new PrintStream(errorOutput));
+		retcode = mavenCli.doMain(args, "build/test/loginhook", new PrintStream(output), new PrintStream(errorOutput));
 
-		assertEquals(new String(errorOutput.toByteArray()), 0, retcode);
+		assertEquals(new String(output.toByteArray()), 0, retcode);
 	}
 }

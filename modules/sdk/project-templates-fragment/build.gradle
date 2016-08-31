@@ -4,7 +4,7 @@ dependencies {
 	testCompile group: "org.apache.maven.wagon", name: "wagon-http", version: "2.10"
 	testCompile group: "org.eclipse.aether", name: "aether-connector-basic", version: "1.0.2.v20150114"
 	testCompile group: "org.eclipse.aether", name: "aether-transport-http", version: "1.0.2.v20150114"
-	//testCompile group: "org.slf4j", name: "slf4j-simple", version: "1.7.5"
+	testCompile group: "org.slf4j", name: "slf4j-simple", version: "1.7.5"
 }
 
 ext {
