@@ -1,3 +1,12 @@
+dependencies {
+	testCompile group: "junit", name: "junit", version: "4.12"
+	testCompile group: "org.apache.maven", name: "maven-embedder", version: "3.3.9"
+	testCompile group: "org.apache.maven.wagon", name: "wagon-http", version: "2.10"
+	testCompile group: "org.eclipse.aether", name: "aether-connector-basic", version: "1.0.2.v20150114"
+	testCompile group: "org.eclipse.aether", name: "aether-transport-http", version: "1.0.2.v20150114"
+	testCompile group: "org.slf4j", name: "slf4j-simple", version: "1.7.5"
+}
+
 ext {
 	gradlePluginVersions = [
 		"com.liferay.gradle.plugins": "2.0.10"
@@ -8,7 +17,6 @@ processResources {
 	filesMatching("**/build.gradle") {
 		filter {
 			String line ->
-
 			gradlePluginVersions.each {
 				String name, String version ->
 
@@ -18,4 +26,10 @@ processResources {
 			return line
 		}
 	}
+}
+
+test {
+	dependsOn install
+
+	systemProperty 'maven.multiModuleProjectDirectory', "$buildDir"
 }
