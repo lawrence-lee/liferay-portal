@@ -113,6 +113,7 @@ public class Archetyper {
 		_safePut(additionalProperties, "package", packageName);
 		_safePut(additionalProperties, "projectType", projectType);
 		_safePut(additionalProperties, "serviceClass", service);
+		_safePut(additionalProperties, "serviceWrapperClass", service);
 
 		archetypeGenerationRequest.setProperties(additionalProperties);
 
