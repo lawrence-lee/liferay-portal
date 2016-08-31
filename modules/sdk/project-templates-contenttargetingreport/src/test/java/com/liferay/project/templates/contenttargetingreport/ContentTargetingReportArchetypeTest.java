@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.project.templates.controlmenuentry;
+package com.liferay.project.templates.contenttargetingreport;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,8 +33,7 @@ import org.junit.Test;
 /**
  * @author Gregory Amerson
  */
-public class ControlMenuEntryArchetypeTest {
-	
+public class ContentTargetingReportArchetypeTest {
 	@Before
 	public void setUp() throws Exception {
 		Path testPath = Paths.get("build/test");
@@ -58,18 +57,17 @@ public class ControlMenuEntryArchetypeTest {
 	}
 	
 	@Test
-	public void testControlMenuEntryArchetype() throws Exception {
+	public void testContentTargetingReportArchetype() throws Exception {
 		String[] args = {
 			"archetype:generate",
 			"-B",
-			"-DarchetypeArtifactId=com.liferay.project.templates.controlmenuentry",
+			"-DarchetypeArtifactId=com.liferay.project.templates.contenttargetingreport",
 			"-DarchetypeGroupId=com.liferay",
 			"-DarchetypeVersion=1.0.0",
 			"-DgroupId=com.test",
-			"-DartifactId=fooentry",
-			"-Dversion=1.0.0",
+			"-DartifactId=content-report-foo",
 			"-Dpackage=com.test.foo",
-			"-DclassName=FooEntry",
+			"-DclassName=FooContentReport",
 			"-DprojectType=standalone"
 		};
 
@@ -90,7 +88,7 @@ public class ControlMenuEntryArchetypeTest {
 			"package"
 		};
 
-		retcode = mavenCli.doMain(args, "build/test/fooentry", new PrintStream(output), new PrintStream(errorOutput));
+		retcode = mavenCli.doMain(args, "build/test/content-report-foo", new PrintStream(output), new PrintStream(errorOutput));
 
 		assertEquals(new String(errorOutput.toByteArray()), 0, retcode);
 	}

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.project.templates.controlmenuentry;
+package com.liferay.project.templates.templatecontextcontributor;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,8 +33,7 @@ import org.junit.Test;
 /**
  * @author Gregory Amerson
  */
-public class ControlMenuEntryArchetypeTest {
-	
+public class TemplateContextContributorTest {
 	@Before
 	public void setUp() throws Exception {
 		Path testPath = Paths.get("build/test");
@@ -56,20 +55,19 @@ public class ControlMenuEntryArchetypeTest {
 			});
 		}
 	}
-	
+
 	@Test
-	public void testControlMenuEntryArchetype() throws Exception {
+	public void testTemplateContextContributorArchetype() throws Exception {
 		String[] args = {
 			"archetype:generate",
 			"-B",
-			"-DarchetypeArtifactId=com.liferay.project.templates.controlmenuentry",
+			"-DarchetypeArtifactId=com.liferay.project.templates.templatecontextcontributor",
 			"-DarchetypeGroupId=com.liferay",
 			"-DarchetypeVersion=1.0.0",
 			"-DgroupId=com.test",
-			"-DartifactId=fooentry",
-			"-Dversion=1.0.0",
+			"-DartifactId=template-context-foo",
 			"-Dpackage=com.test.foo",
-			"-DclassName=FooEntry",
+			"-DclassName=FooTemplate",
 			"-DprojectType=standalone"
 		};
 
@@ -90,7 +88,7 @@ public class ControlMenuEntryArchetypeTest {
 			"package"
 		};
 
-		retcode = mavenCli.doMain(args, "build/test/fooentry", new PrintStream(output), new PrintStream(errorOutput));
+		retcode = mavenCli.doMain(args, "build/test/template-context-foo", new PrintStream(output), new PrintStream(errorOutput));
 
 		assertEquals(new String(errorOutput.toByteArray()), 0, retcode);
 	}

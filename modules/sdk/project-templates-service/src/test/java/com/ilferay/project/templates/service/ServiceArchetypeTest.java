@@ -12,12 +12,16 @@
  * details.
  */
 
-package com.liferay.project.templates.controlmenuentry;
+package com.ilferay.project.templates.service;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -26,15 +30,16 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.cli.MavenCli;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runners.parameterized.TestWithParameters;
 
 /**
  * @author Gregory Amerson
  */
-public class ControlMenuEntryArchetypeTest {
-	
+public class ServiceArchetypeTest {
 	@Before
 	public void setUp() throws Exception {
 		Path testPath = Paths.get("build/test");
@@ -58,19 +63,18 @@ public class ControlMenuEntryArchetypeTest {
 	}
 	
 	@Test
-	public void testControlMenuEntryArchetype() throws Exception {
+	public void testServiceArchetype() throws Exception {
 		String[] args = {
 			"archetype:generate",
 			"-B",
-			"-DarchetypeArtifactId=com.liferay.project.templates.controlmenuentry",
+			"-DarchetypeArtifactId=com.liferay.project.templates.service",
 			"-DarchetypeGroupId=com.liferay",
 			"-DarchetypeVersion=1.0.0",
 			"-DgroupId=com.test",
-			"-DartifactId=fooentry",
-			"-Dversion=1.0.0",
+			"-DartifactId=service-foo",
 			"-Dpackage=com.test.foo",
-			"-DclassName=FooEntry",
-			"-DprojectType=standalone"
+			"-DclassName=FooAction",
+			"-DserviceClass=com.liferay.portal.kernel.events.LifecycleAction"
 		};
 
 		MavenCli mavenCli = new MavenCli();
@@ -85,12 +89,14 @@ public class ControlMenuEntryArchetypeTest {
 		output = new ByteArrayOutputStream();
 		errorOutput = new ByteArrayOutputStream();
 
+		IOUtils.copy(getClass().getClassLoader().getResourceAsStream("FooAction.txt"), new FileOutputStream(new File("build/test/service-foo/src/main/java/com/test/foo/FooAction.java")));
+			
 		args = new String[] {
 			"-e",
 			"package"
 		};
 
-		retcode = mavenCli.doMain(args, "build/test/fooentry", new PrintStream(output), new PrintStream(errorOutput));
+		retcode = mavenCli.doMain(args, "build/test/service-foo", new PrintStream(output), new PrintStream(errorOutput));
 
 		assertEquals(new String(errorOutput.toByteArray()), 0, retcode);
 	}

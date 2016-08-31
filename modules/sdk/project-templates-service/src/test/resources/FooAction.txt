@@ -1,0 +1,28 @@
+package servicepreaction;
+
+import com.liferay.portal.kernel.events.LifecycleAction;
+import com.liferay.portal.kernel.events.LifecycleEvent;
+import com.liferay.portal.kernel.events.ActionException;
+
+import org.osgi.service.component.annotations.Component;
+import com.liferay.portal.kernel.events.LifecycleEvent;
+import com.liferay.portal.kernel.events.ActionException;
+
+@Component(
+	immediate = true,
+	property = {
+		// TODO enter required service properties
+	},
+	service = LifecycleAction.class
+)
+public class FooAction implements LifecycleAction {
+@Override
+public void processLifecycleEvent(LifecycleEvent lifecycleEvent)
+throws ActionException {
+System.out.println("login.event.pre=" + lifecycleEvent);
+}
+
+
+	// TODO enter required service methods
+
+}
