@@ -64,7 +64,7 @@ test {
 		"${it.path}:install"
 	}
 
-	dependsOn install, mavenEmbedderDepsFile
+	dependsOn mavenEmbedderDeps
 	
 	systemProperty 'maven.multiModuleProjectDirectory', "$buildDir"
 	
