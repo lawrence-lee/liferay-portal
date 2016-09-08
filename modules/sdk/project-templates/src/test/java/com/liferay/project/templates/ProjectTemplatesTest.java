@@ -76,7 +76,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplate() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			null, "hello-world-portlet");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -99,7 +99,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateActivator() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"activator", "bar-activator");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -117,7 +117,7 @@ public class ProjectTemplatesTest {
 		File gradleBundleFile = new File(
 			projectDir, "build/libs/bar.activator-1.0.0.jar");
 
-		File mavenProjectDir = _createTemplateWithMaven(
+		File mavenProjectDir = _buildTemplateWithMaven(
 			"activator", "bar-activator", "-Dpackage=bar.activator",
 			"-DclassName=BarActivator");
 
@@ -133,7 +133,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateApi() throws Exception {
-		File projectDir = _createTemplateWithGradle("api", "foo");
+		File projectDir = _buildTemplateWithGradle("api", "foo");
 
 		_testExists(projectDir, "bnd.bnd");
 
@@ -150,7 +150,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateContentTargetingReport() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"contenttargetingreport", "foo-bar");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -167,7 +167,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateContentTargetingRule() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"contenttargetingrule", "foo-bar");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -186,7 +186,7 @@ public class ProjectTemplatesTest {
 	public void testBuildTemplateContentTargetingTrackingAction()
 		throws Exception {
 
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"contenttargetingtrackingaction", "foo-bar");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -204,7 +204,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateContextContributor() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"templatecontextcontributor", "blade-test");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -225,7 +225,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateControlMenuEntry() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"controlmenuentry", "foo-bar");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -244,7 +244,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateFragment() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"fragment", "loginHook", "--host-bundle-symbolic-name",
 			"com.liferay.login.web", "--host-bundle-version", "1.0.0");
 
@@ -261,7 +261,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateMVCPortlet() throws Exception {
-		File projectDir = _createTemplateWithGradle("mvcportlet", "foo");
+		File projectDir = _buildTemplateWithGradle("mvcportlet", "foo");
 
 		_testExists(projectDir, "bnd.bnd");
 		_testExists(
@@ -282,7 +282,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateMVCPortletWithPackage() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"mvcportlet", "foo", "--package-name", "com.liferay.test");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -307,7 +307,7 @@ public class ProjectTemplatesTest {
 	public void testBuildTemplateMVCPortletWithPortletSuffix()
 		throws Exception {
 
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"mvcportlet", "portlet-portlet");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -330,13 +330,13 @@ public class ProjectTemplatesTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testBuildTemplateOnExistingDirectory() throws Exception {
-		_createTemplateWithGradle("activator", "dup-activator");
-		_createTemplateWithGradle("activator", "dup-activator");
+		_buildTemplateWithGradle("activator", "dup-activator");
+		_buildTemplateWithGradle("activator", "dup-activator");
 	}
 
 	@Test
 	public void testBuildTemplatePanelApp() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"panelapp", "gradle.test", "--class-name", "Foo");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -354,7 +354,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplatePortlet() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"portlet", "gradle.test", "--class-name", "Foo");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -379,7 +379,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplatePortletConfigurationIcon() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"portletconfigurationicon", "icontest", "--package-name",
 			"blade.test");
 
@@ -401,7 +401,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplatePortletProvider() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"portletprovider", "provider.test");
 
 		_testExists(projectDir, "bnd.bnd");
@@ -422,7 +422,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplatePortletToolbarContributor() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"portlettoolbarcontributor", "toolbartest", "--package-name",
 			"blade.test");
 
@@ -445,7 +445,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateService() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"service", "servicepreaction", "--class-name", "FooAction",
 			"--service", "com.liferay.portal.kernel.events.LifecycleAction");
 
@@ -513,7 +513,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateServiceWrapper() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"servicewrapper", "serviceoverride", "--service",
 			"com.liferay.portal.kernel.service.UserLocalServiceWrapper");
 
@@ -536,7 +536,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateSimulationPanelEntry() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"simulationpanelentry", "simulator", "--package-name",
 			"test.simulator");
 
@@ -558,7 +558,7 @@ public class ProjectTemplatesTest {
 
 	@Test
 	public void testBuildTemplateWithPackageName() throws Exception {
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			null, "barfoo", "--package-name", "foo.bar");
 
 		_testExists(
@@ -603,7 +603,7 @@ public class ProjectTemplatesTest {
 	@Rule
 	public final TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-	private File _createTemplateWithGradle(
+	private File _buildTemplateWithGradle(
 			String template, String name, String... args)
 		throws Exception {
 
@@ -641,7 +641,7 @@ public class ProjectTemplatesTest {
 		return projectDir;
 	}
 
-	private File _createTemplateWithMaven(
+	private File _buildTemplateWithMaven(
 			String template, String name, String... args)
 		throws Exception {
 
@@ -827,7 +827,7 @@ public class ProjectTemplatesTest {
 			String name, String packageName)
 		throws Exception {
 
-		File projectDir = _createTemplateWithGradle(
+		File projectDir = _buildTemplateWithGradle(
 			"servicebuilder", name, "--package-name", packageName);
 
 		String apiProjectName = name + "-api";
