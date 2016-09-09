@@ -4,9 +4,25 @@ bundle {
 
 configurations {
 	projectTemplates
+	mavenEmbedder
+}
+
+task mavenEmbedderDeps << {
+	File mavenEmbedderDepsFile = new File(buildDir, "mavenEmbedderDeps.txt")
+
+	buildDir.mkdirs()
+
+	mavenEmbedderDepsFile.text = configurations.mavenEmbedder.join('\n')
 }
 
 dependencies {
+	mavenEmbedder group: "org.apache.maven", name: "maven-embedder", version: "3.3.9"
+	mavenEmbedder group: "org.apache.maven.wagon", name: "wagon-http", version: "2.10"
+	mavenEmbedder group: "org.eclipse.aether", name: "aether-connector-basic", version: "1.0.2.v20150114"
+	mavenEmbedder group: "org.eclipse.aether", name: "aether-transport-http", version: "1.0.2.v20150114"
+	mavenEmbedder group: "org.slf4j", name: "slf4j-simple", version: "1.7.5"
+	mavenEmbedder group: "org.sonatype.plexus", name: "plexus-build-api", version: "0.0.7"
+
 	projectTemplates project(":sdk:project-templates-activator")
 	projectTemplates project(":sdk:project-templates-api")
 	projectTemplates project(":sdk:project-templates-contenttargetingreport")
@@ -30,6 +46,8 @@ dependencies {
 	provided group: "org.apache.maven.archetype", name: "archetype-common", version: "2.4"
 
 	testCompile gradleTestKit()
+	testCompile group: "biz.aQute.bnd", name: "biz.aQute.bnd", version: "3.2.0"
+	testCompile group: "junit", name: "junit", version: "4.12"
 }
 
 processResources {
@@ -37,6 +55,22 @@ processResources {
 }
 
 test {
+	Set<Project> projectTemplateProjects = project.parent.subprojects.findAll {
+		it.name.startsWith "project-templates-"
+	}
+
+	dependsOn projectTemplateProjects.collect {
+		"${it.path}:install"
+	}
+
+	dependsOn mavenEmbedderDeps
+
+	jvmArgs '-XX:MaxMetaspaceSize=256m'
+
+	maxHeapSize = "1024m"
+
+	systemProperty 'maven.multiModuleProjectDirectory', "$buildDir"
+
 	systemProperty "repository.url", System.properties["repository.url"]
 	systemProperty "http.proxyHost", System.properties["http.proxyHost"]
 	systemProperty "http.proxyPort", System.properties["http.proxyPort"]
