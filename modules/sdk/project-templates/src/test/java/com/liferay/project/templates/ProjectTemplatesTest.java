@@ -95,6 +95,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/hello.world.portlet-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/hello.world.portlet-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			null, "hello-world-portlet", "-Dpackage=hello.world.portlet",
+			"-DclassName=HelloWorldPortlet");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/hello-world-portlet-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/hello-world-portlet-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -119,7 +135,7 @@ public class ProjectTemplatesTest {
 
 		File mavenProjectDir = _buildTemplateWithMaven(
 			"activator", "bar-activator", "-Dpackage=bar.activator",
-			"-DclassName=BarActivator");
+			"-DclassName=BarActivator", "-DprojectType=standalone");
 
 		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
 
@@ -146,6 +162,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/foo-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"api", "foo", "-Dpackage=foo",
+			"-DclassName=Foo");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/foo-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/foo-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -163,6 +195,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/foo.bar-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"contenttargetingreport", "foo-bar", "-Dpackage=foo.bar",
+			"-DclassName=FooBar", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/foo-bar-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/foo-bar-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -180,6 +228,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/foo.bar-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"contenttargetingrule", "foo-bar", "-Dpackage=foo.bar",
+			"-DclassName=FooBar", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/foo-bar-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/foo-bar-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -200,27 +264,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
-	}
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/foo.bar-1.0.0.jar");
 
-	@Test
-	public void testBuildTemplateContextContributor() throws Exception {
-		File projectDir = _buildTemplateWithGradle(
-			"templatecontextcontributor", "blade-test");
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"contenttargetingtrackingaction", "foo-bar", "-Dpackage=foo.bar",
+			"-DclassName=FooBar");
 
-		_testExists(projectDir, "bnd.bnd");
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
 
-		_testContains(
-			projectDir, "build.gradle", "apply plugin: \"com.liferay.plugin\"");
+		_testExists(mavenProjectDir, "target/foo-bar-1.0.0.jar");
 
-		_testContains(
-			projectDir, "src/main/java/blade/test/theme/contributor/" +
-			"BladeTestTemplateContextContributor.java",
-			"public class BladeTestTemplateContextContributor",
-			"implements TemplateContextContributor");
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/foo-bar-1.0.0.jar");
 
-		_executeGradle(projectDir, _TASK_PATH_BUILD);
-
-		_testExists(projectDir, "build/libs/blade.test-1.0.0.jar");
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -240,6 +299,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/foo.bar-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"controlmenuentry", "foo-bar", "-Dpackage=foo.bar",
+			"-DclassName=FooBar", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/foo-bar-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/foo-bar-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -257,6 +332,23 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/loginhook-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/loginhook-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"fragment", "loginHook", "-Dpackage=loginhook",
+			"-DhostBundleSymbolicName=com.liferay.login.web", 
+			"-DhostBundleVersion=1.0.0");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/loginhook-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/loginhook-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -278,6 +370,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/foo-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"mvcportlet", "foo", "-Dpackage=foo",
+			"-DclassName=Foo");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/foo-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/foo-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -301,6 +409,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/com.liferay.test-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/com.liferay.test-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"mvcportlet", "foo", "-Dpackage=com.liferay.test",
+			"-DclassName=Foo");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/com.liferay.test-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/com.liferay.test-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -326,6 +450,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/portlet.portlet-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/portlet.portlet-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"mvcportlet", "portlet-portlet", "-Dpackage=portlet.portlet",
+			"-DclassName=Portlet");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/portlet.portlet-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/portlet.portlet-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -350,6 +490,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/gradle.test-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/gradle.test-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"panelapp", "gradle.test", "-Dpackage=gradle.test",
+			"-DclassName=Foo", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/gradle.test-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/gradle.test-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -375,6 +531,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/gradle.test-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/gradle.test-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"portlet", "gradle.test", "-Dpackage=gradle.test",
+			"-DclassName=Foo");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/gradle.test-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/gradle.test-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -397,6 +569,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/blade.test-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/blade.test-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"portletconfigurationicon", "icontest", "-Dpackage=blade.test",
+			"-DclassName=Icontest", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/icontest-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/icontest-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -418,6 +606,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/provider.test-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/provider.test-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"portletprovider", "provider.test", "-Dpackage=provider.test",
+			"-DclassName=ProviderTest", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/provider.test-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/provider.test-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -441,6 +645,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/blade.test-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/blade.test-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"portlettoolbarcontributor", "toolbartest", "-Dpackage=blade.test",
+			"-DclassName=Toolbartest", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/toolbartest-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/toolbartest-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -554,6 +774,59 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/test.simulator-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/test.simulator-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"simulationpanelentry", "simulator", "-Dpackage=test.simulator",
+			"-DclassName=Simulator", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/simulator-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/simulator-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
+	}
+	
+	@Test
+	public void testBuildTemplateTemplateContextContributor() throws Exception {
+		File projectDir = _buildTemplateWithGradle(
+			"templatecontextcontributor", "blade-test");
+
+		_testExists(projectDir, "bnd.bnd");
+
+		_testContains(
+			projectDir, "build.gradle", "apply plugin: \"com.liferay.plugin\"");
+
+		_testContains(
+			projectDir, "src/main/java/blade/test/theme/contributor/" +
+			"BladeTestTemplateContextContributor.java",
+			"public class BladeTestTemplateContextContributor",
+			"implements TemplateContextContributor");
+
+		_executeGradle(projectDir, _TASK_PATH_BUILD);
+
+		_testExists(projectDir, "build/libs/blade.test-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/blade.test-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			"templatecontextcontributor", "blade-test", "-Dpackage=blade.test",
+			"-DclassName=BladeTest", "-DprojectType=standalone");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/blade-test-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/blade-test-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -573,6 +846,22 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
+		
+		File gradleBundleFile = new File(
+				projectDir, "build/libs/foo.bar-1.0.0.jar");
+
+		File mavenProjectDir = _buildTemplateWithMaven(
+			null, "barfoo", "-Dpackage=foo.bar",
+			"-DclassName=FooBar");
+
+		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
+
+		_testExists(mavenProjectDir, "target/barfoo-1.0.0.jar");
+
+		File mavenBundleFile = new File(
+			mavenProjectDir, "target/barfoo-1.0.0.jar");
+
+		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
 
 	@Test
@@ -651,8 +940,12 @@ public class ProjectTemplatesTest {
 
 		completeArgs.add("archetype:generate");
 		completeArgs.add("-B");
-		completeArgs.add(
-			"-DarchetypeArtifactId=com.liferay.project.templates." + template);
+		
+		if (Validator.isNotNull(template)) {
+			completeArgs.add(
+					"-DarchetypeArtifactId=com.liferay.project.templates." + template);
+		}
+		
 		completeArgs.add("-DarchetypeGroupId=com.liferay");
 		completeArgs.add("-DarchetypeVersion=1.0.0");
 		completeArgs.add("-DgroupId=com.test");
