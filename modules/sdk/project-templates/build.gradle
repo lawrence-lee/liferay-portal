@@ -65,6 +65,10 @@ test {
 
 	dependsOn mavenEmbedderDeps
 
+	jvmArgs '-XX:MaxMetaspaceSize=256m'
+
+	maxHeapSize = "1024m"
+
 	systemProperty 'maven.multiModuleProjectDirectory', "$buildDir"
 
 	systemProperty "repository.url", System.properties["repository.url"]
