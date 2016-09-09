@@ -25,18 +25,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Writer;
-
 import java.lang.reflect.Method;
-
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -48,7 +44,6 @@ import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.BuildTask;
 import org.gradle.testkit.runner.GradleRunner;
 import org.gradle.testkit.runner.TaskOutcome;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -95,13 +90,13 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/hello.world.portlet-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/hello.world.portlet-1.0.0.jar");
 
 		File mavenProjectDir = _buildTemplateWithMaven(
-			null, "hello-world-portlet", "-Dpackage=hello.world.portlet",
-			"-DclassName=HelloWorldPortlet");
+			"mvcportlet", "hello-world-portlet",
+			"-Dpackage=hello.world.portlet", "-DclassName=HelloWorldPortlet");
 
 		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
 
@@ -162,7 +157,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/foo-1.0.0.jar");
 
@@ -195,7 +190,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/foo.bar-1.0.0.jar");
 
@@ -228,7 +223,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/foo.bar-1.0.0.jar");
 
@@ -264,7 +259,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/foo.bar-1.0.0.jar");
 
@@ -299,7 +294,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/foo.bar-1.0.0.jar");
 
@@ -332,13 +327,13 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/loginhook-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/loginhook-1.0.0.jar");
 
 		File mavenProjectDir = _buildTemplateWithMaven(
 			"fragment", "loginHook", "-Dpackage=loginhook",
-			"-DhostBundleSymbolicName=com.liferay.login.web", 
+			"-DhostBundleSymbolicName=com.liferay.login.web",
 			"-DhostBundleVersion=1.0.0");
 
 		_executeMaven(mavenProjectDir, new String[] {_TASK_PATH_PACKAGE});
@@ -370,7 +365,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/foo-1.0.0.jar");
 
@@ -409,7 +404,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/com.liferay.test-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/com.liferay.test-1.0.0.jar");
 
@@ -450,7 +445,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/portlet.portlet-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/portlet.portlet-1.0.0.jar");
 
@@ -490,7 +485,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/gradle.test-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/gradle.test-1.0.0.jar");
 
@@ -527,7 +522,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/gradle.test-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/gradle.test-1.0.0.jar");
 
@@ -565,7 +560,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/blade.test-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/blade.test-1.0.0.jar");
 
@@ -602,7 +597,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/provider.test-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/provider.test-1.0.0.jar");
 
@@ -641,7 +636,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/blade.test-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/blade.test-1.0.0.jar");
 
@@ -770,7 +765,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/test.simulator-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/test.simulator-1.0.0.jar");
 
@@ -787,7 +782,7 @@ public class ProjectTemplatesTest {
 
 		_executeBndDiff(gradleBundleFile, mavenBundleFile);
 	}
-	
+
 	@Test
 	public void testBuildTemplateTemplateContextContributor() throws Exception {
 		File projectDir = _buildTemplateWithGradle(
@@ -807,7 +802,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/blade.test-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/blade.test-1.0.0.jar");
 
@@ -842,7 +837,7 @@ public class ProjectTemplatesTest {
 		_executeGradle(projectDir, _TASK_PATH_BUILD);
 
 		_testExists(projectDir, "build/libs/foo.bar-1.0.0.jar");
-		
+
 		File gradleBundleFile = new File(
 				projectDir, "build/libs/foo.bar-1.0.0.jar");
 
@@ -936,12 +931,12 @@ public class ProjectTemplatesTest {
 
 		completeArgs.add("archetype:generate");
 		completeArgs.add("-B");
-		
+
 		if (Validator.isNotNull(template)) {
 			completeArgs.add(
 					"-DarchetypeArtifactId=com.liferay.project.templates." + template);
 		}
-		
+
 		completeArgs.add("-DarchetypeGroupId=com.liferay");
 		completeArgs.add("-DarchetypeVersion=1.0.0");
 		completeArgs.add("-DgroupId=com.test");
