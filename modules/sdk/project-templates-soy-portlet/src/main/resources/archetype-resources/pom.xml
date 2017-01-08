@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+	<packaging>jar</packaging>
+	<properties>
+		<node.executable>${project.build.directory}/node/node</node.executable>
+		<node.modules>${project.basedir}/node_modules</node.modules>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.portal.portlet.bridge.soy</artifactId>
+			<version>3.0.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
+			<version>2.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.component.annotations</artifactId>
+			<version>1.3.0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+							<installDirectory>${project.build.directory}</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v5.0.0</nodeVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>transpile-js</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<exec executable="${node.executable}" dir="${project.build.outputDirectory}/META-INF/resources">
+									<arg value="${node.modules}/metal-cli/index.js"/>
+									<arg value="build"/>
+									<arg value="--bundleFileName"/>
+									<arg value=""/>
+									<arg value="--dest"/>
+									<arg value="${project.build.outputDirectory}/META-INF/resources"/>
+									<arg value="--format"/>
+									<arg value="amd"/>
+									<arg value="--globalName"/>
+									<arg value=""/>
+									<arg value="--moduleName"/>
+									<arg value=""/>
+									<arg value="--soyDeps"/>
+									<arg value="${node.modules}/lexicon*/src/**/*.soy"/>
+									<arg value="${node.modules}/metal*/src/**/*.soy"/>
+									<arg value="--soyDest"/>
+									<arg value="${project.build.outputDirectory}/META-INF/resources"/>
+									<arg value="--soySrc"/>
+									<arg value="**/*.soy"/>
+									<arg value="--src"/>
+									<arg value="**/*.es.js"/>
+									<arg value="**/*.soy.js"/>
+								</exec>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>config-js-modules</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<exec executable="${node.executable}" dir="${project.basedir}">
+									<arg value="${node.modules}/liferay-module-config-generator/bin/index.js" />
+									<arg value="--config" />
+									<arg value="" />
+									<arg value="--extension" />
+									<arg value="" />
+									<arg value="--filePattern" />
+									<arg value="**/resources/*.js" />
+									<arg value="--format" />
+									<arg value="/_/g,-" />
+									<arg value="--ignorePath" />
+									<arg value="true" />
+									<arg value="--moduleConfig" />
+									<arg value="${project.basedir}/package.json" />
+									<arg value="--output" />
+									<arg value="${project.build.outputDirectory}/META-INF/config.json" />
+									<arg value="--moduleRoot" />
+									<arg value="${project.build.outputDirectory}/META-INF/resources" />
+									<arg value="${project.build.outputDirectory}/META-INF" />
+								</exec>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+					<excludes>
+						<exclude>**/META-INF/resources/**/.sass-cache/</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>default-bnd-process</id>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>biz.aQute.bnd</groupId>
+						<artifactId>biz.aQute.bndlib</artifactId>
+						<version>3.2.0</version>
+					</dependency>
+					<dependency>
+						<groupId>com.liferay</groupId>
+						<artifactId>com.liferay.ant.bnd</artifactId>
+						<version>2.0.28</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>com.liferay</groupId>
+				<artifactId>com.liferay.css.builder</artifactId>
+				<version>1.0.20</version>
+				<executions>
+					<execution>
+						<id>default-build-css</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>build-css</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<portalCommonPath>/</portalCommonPath>
+					<docrootDirName>src/main/resources</docrootDirName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
