@@ -17,6 +17,7 @@ package com.liferay.project.templates;
 import aQute.bnd.main.bnd;
 
 import com.liferay.maven.executor.MavenExecutor;
+import com.liferay.portal.kernel.test.rule.CodeCoverageAssertor;
 import com.liferay.project.templates.internal.util.FileUtil;
 import com.liferay.project.templates.internal.util.Validator;
 import com.liferay.project.templates.internal.util.WorkspaceUtil;
@@ -74,6 +75,10 @@ import org.junit.rules.TemporaryFolder;
  * @author Andrea Di Giorgi
  */
 public class ProjectTemplatesTest {
+
+	@ClassRule
+	public static final CodeCoverageAssertor codeCoverageAssertor =
+		CodeCoverageAssertor.INSTANCE;
 
 	@ClassRule
 	public static final MavenExecutor mavenExecutor = new MavenExecutor();
