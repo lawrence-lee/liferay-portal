@@ -11,6 +11,18 @@ bundle {
 	includeTransitiveDependencies = true
 }
 
+buildscript {
+	dependencies {
+		classpath "com.liferay:com.liferay.gradle.plugins.whip:latest.release"
+	}
+	repositories {
+		maven {
+			url "https://cdn.lfrs.sl/repository.liferay.com/nexus/content/groups/public"
+		}
+	}
+
+}
+
 configurations {
 	mavenDistribution
 	projectTemplates
@@ -52,10 +64,22 @@ dependencies {
 	testCompile group: "junit", name: "junit", version: "4.12"
 	testCompile group: "net.diibadaaba.zipdiff", name: "zipdiff", version: "1.0"
 	testCompile project(":test:maven-executor")
+	testCompile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "latest.release"
+	testCompile group: "com.liferay.portal", name: "com.liferay.portal.test", version: "latest.release"
+	testCompile group: "junit", name: "junit", version: "4.12"
 }
+
+apply plugin: "com.liferay.whip"
+apply plugin: "java"
 
 processResources {
 	from configurations.projectTemplates
+}
+
+repositories {
+	maven {
+		url "https://cdn.lfrs.sl/repository.liferay.com/nexus/content/groups/public"
+	}
 }
 
 test {
@@ -88,6 +112,15 @@ test {
 	systemProperty "repository.url", System.properties["repository.url"]
 	systemProperty "http.proxyHost", System.properties["http.proxyHost"]
 	systemProperty "http.proxyPort", System.properties["http.proxyPort"]
+
+	testLogging {
+		showStandardStreams = true
+	}
+
+	whip {
+		excludes = ['.*Test', '.*Test\\$.*', '.*\\$Proxy.*', 'com/liferay/whip/.*']
+		includes = ['com/liferay/.*']
+	}
 }
 
 writeProjectTemplateVersions {

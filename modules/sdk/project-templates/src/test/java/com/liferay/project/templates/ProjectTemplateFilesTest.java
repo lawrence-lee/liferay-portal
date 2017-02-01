@@ -14,6 +14,7 @@
 
 package com.liferay.project.templates;
 
+import com.liferay.portal.kernel.test.rule.CodeCoverageAssertor;
 import com.liferay.project.templates.internal.util.FileUtil;
 import com.liferay.project.templates.internal.util.Validator;
 import com.liferay.project.templates.internal.util.WorkspaceUtil;
@@ -39,12 +40,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Assert;
+import org.junit.ClassRule;
 import org.junit.Test;
 
 /**
  * @author Andrea Di Giorgi
  */
 public class ProjectTemplateFilesTest {
+
+	@ClassRule
+	public static final CodeCoverageAssertor codeCoverageAssertor =
+		CodeCoverageAssertor.INSTANCE;
 
 	@Test
 	public void testProjectTemplateFiles() throws IOException {
