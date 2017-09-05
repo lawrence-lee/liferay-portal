@@ -44,19 +44,18 @@ public class BuildCSSMojoTest {
 
 	@BeforeClass
 	public static void setUpClass() throws IOException {
-		_cssBuilderVersion = System.getProperty("cssbuilder.version");
-		_cssBuilderRepoLocation = System.getProperty("cssbuilder.repolocation");
-
 		final String mavenGoalCssBuilder = "css-builder:build";
 		final String mavenRepoArgument = String.format(
-			"-Dmaven.repo.local=%s", _cssBuilderRepoLocation);
+			"-Dmaven.repo.local=%s", _repoPath);
 		final String mavenVersionArgument = String.format(
-			"-Dcssbuilder.version=%s", _cssBuilderVersion);
+			"-Dcssbuilder.version=%s", _version);
+		final String mavenRepoLocationArgument = String.format(
+			"-Dcssbuilder.repolocation=%s", _repoPath);
 
 		_goodMavenCommand = new String[]
 			{
-				mavenRepoArgument, mavenVersionArgument, "-f", _pomGoodName,
-				mavenGoalCssBuilder
+				mavenRepoArgument, mavenRepoLocationArgument,
+				mavenVersionArgument, "-f", _pomGoodName, mavenGoalCssBuilder
 			};
 
 		_badMavenCommand = new String[]
@@ -104,8 +103,9 @@ public class BuildCSSMojoTest {
 
 	@Test
 	public void testGoodPom() throws Exception {
+		System.out.println("Before execute maven");
 		_executeMaven(_tempPomFolder.toPath(), _goodMavenCommand);
-
+		System.out.println("After execute maven");
 		final boolean anyCssFilesInDirectory = _anyCssFilesInDirectory(
 			_tempCss.toPath());
 
@@ -152,12 +152,12 @@ public class BuildCSSMojoTest {
 	}
 
 	private static final boolean _isCSS(final Path path) {
-		return StringUtil.toLowerCase(path.toString()).endsWith(".css");
+		final String lowerCasePath = StringUtil.toLowerCase(path.toString());
+
+		return lowerCasePath.endsWith(".css");
 	}
 
 	private static String[] _badMavenCommand;
-	private static String _cssBuilderRepoLocation;
-	private static String _cssBuilderVersion;
 	private static String[] _goodMavenCommand;
 	private static final String _mainPomFolder =
 		"./src/test/resources/com/liferay/css/builder/maven/dependencies";
@@ -167,6 +167,8 @@ public class BuildCSSMojoTest {
 	private static final String _pomGoodName = "pom-good.xml";
 	private static final File _pomGoodPath = Paths.get(
 		_mainPomFolder, _pomGoodName).toFile();
+	private static final String _repoPath = System.getProperty("repoPath");
+	private static final String _version = System.getProperty("version");
 
 	private File _tempCss;
 	private File _tempPomBad;
