@@ -52,22 +52,18 @@ public class BuildCSSMojoTest {
 		final String mavenRepoLocationArgument = String.format(
 			"-Dcssbuilder.repolocation=%s", _repoPath);
 
-		_goodMavenCommand = new String[]
-			{
-				mavenRepoArgument, mavenRepoLocationArgument,
-				mavenVersionArgument, "-f", _pomGoodName, mavenGoalCssBuilder
-			};
+		_goodMavenCommand = new String[] {
+			mavenRepoArgument, mavenRepoLocationArgument,
+			mavenVersionArgument, "-f", _pomGoodName, mavenGoalCssBuilder
+		};
 
-		_badMavenCommand = new String[]
-			{
-				"-f", _pomBadName, mavenGoalCssBuilder
-			};
+		_badMavenCommand = new String[] {
+			"-f", _pomBadName, mavenGoalCssBuilder
+		};
 	}
 
 	@Before
-	public void setUp() throws Exception
-	{
-
+	public void setUp() throws Exception {
 		_tempPomFolder = testCaseTemporaryFolder.getRoot();
 		_tempCss = testCaseTemporaryFolder.newFolder("css");
 		_tempPomGood = testCaseTemporaryFolder.newFile("pom-good.xml");
