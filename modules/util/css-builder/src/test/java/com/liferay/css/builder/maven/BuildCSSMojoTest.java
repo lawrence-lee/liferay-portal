@@ -44,7 +44,6 @@ public class BuildCSSMojoTest {
 
 	@BeforeClass
 	public static void setUpClass() throws IOException {
-		final String mavenGoalCssBuilder = "css-builder:build";
 		final String mavenRepoArgument = String.format(
 			"-Dmaven.repo.local=%s", _repoPath);
 		final String mavenVersionArgument = String.format(
@@ -53,21 +52,20 @@ public class BuildCSSMojoTest {
 			"-Dcssbuilder.repolocation=%s", _repoPath);
 
 		_goodMavenCommand = new String[] {
-			mavenRepoArgument, mavenRepoLocationArgument,
-			mavenVersionArgument, "-f", _pomGoodName, mavenGoalCssBuilder
+			mavenRepoArgument, mavenRepoLocationArgument, mavenVersionArgument,
+			"-f", _pomFixedName, _mavenGoalCssBuilder
 		};
 
-		_badMavenCommand = new String[] {
-			"-f", _pomBadName, mavenGoalCssBuilder
-		};
+		_badMavenCommand =
+			new String[] {"-f", _pomBrokenName, _mavenGoalCssBuilder};
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		_tempPomFolder = testCaseTemporaryFolder.getRoot();
 		_tempCss = testCaseTemporaryFolder.newFolder("css");
-		_tempPomGood = testCaseTemporaryFolder.newFile("pom-good.xml");
-		_tempPomBad = testCaseTemporaryFolder.newFile("pom-bad.xml");
+		_tempPomFixed = testCaseTemporaryFolder.newFile(_pomFixedName);
+		_tempPomBroken = testCaseTemporaryFolder.newFile(_pomBrokenName);
 
 		_tempScssFile = new File(_tempCss, "test.scss");
 
@@ -77,12 +75,12 @@ public class BuildCSSMojoTest {
 			StandardCopyOption.REPLACE_EXISTING);
 
 		Files.copy(
-			_pomGoodPath.toPath(), _tempPomGood.toPath(),
+			_pomFixedPath.toPath(), _tempPomFixed.toPath(),
 			StandardCopyOption.COPY_ATTRIBUTES,
 			StandardCopyOption.REPLACE_EXISTING);
 
 		Files.copy(
-			_pomBadPath.toPath(), _tempPomBad.toPath(),
+			_pomBrokenPath.toPath(), _tempPomBroken.toPath(),
 			StandardCopyOption.COPY_ATTRIBUTES,
 			StandardCopyOption.REPLACE_EXISTING);
 	}
@@ -99,9 +97,7 @@ public class BuildCSSMojoTest {
 
 	@Test
 	public void testGoodPom() throws Exception {
-		System.out.println("Before execute maven");
 		_executeMaven(_tempPomFolder.toPath(), _goodMavenCommand);
-		System.out.println("After execute maven");
 		final boolean anyCssFilesInDirectory = _anyCssFilesInDirectory(
 			_tempCss.toPath());
 
@@ -157,19 +153,20 @@ public class BuildCSSMojoTest {
 	private static String[] _goodMavenCommand;
 	private static final String _mainPomFolder =
 		"./src/test/resources/com/liferay/css/builder/maven/dependencies";
-	private static final String _pomBadName = "pom-bad.xml";
-	private static final File _pomBadPath = Paths.get(
-		_mainPomFolder, _pomBadName).toFile();
-	private static final String _pomGoodName = "pom-good.xml";
-	private static final File _pomGoodPath = Paths.get(
-		_mainPomFolder, _pomGoodName).toFile();
+	private static final String _mavenGoalCssBuilder = "css-builder:build";
+	private static final String _pomBrokenName = "pom-broken.xml";
+	private static final File _pomBrokenPath = Paths.get(
+		_mainPomFolder, _pomBrokenName).toFile();
+	private static final String _pomFixedName = "pom-fixed.xml";
+	private static final File _pomFixedPath = Paths.get(
+		_mainPomFolder, _pomFixedName).toFile();
 	private static final String _repoPath = System.getProperty("repoPath");
 	private static final String _version = System.getProperty("version");
 
 	private File _tempCss;
-	private File _tempPomBad;
+	private File _tempPomBroken;
+	private File _tempPomFixed;
 	private File _tempPomFolder;
-	private File _tempPomGood;
 	private File _tempScssFile;
 
 }
