@@ -78,8 +78,13 @@ public class BuildCSSMojoTest {
 	private static final void _executeMaven(final Path projectDir)
 		throws Exception {
 
+Path path = Paths.get(".").toAbsolutePath().resolve("../../../.m2").normalize();
+System.out.println("Path is: " + path);
+		final String mavenRepoPath = path.toString();
+		final String mavenRepoArgument = String.format(
+			"-Dmaven.repo.local=%s", mavenRepoPath);
 		MavenExecutor.Result result = mavenExecutor.execute(
-			projectDir.toFile(), "css-builder:build");
+			projectDir.toFile(), mavenRepoArgument, "css-builder:build");
 
 		Assert.assertEquals(result.output, 0, result.exitCode);
 	}
@@ -118,6 +123,9 @@ public class BuildCSSMojoTest {
 
 				if (fileName.endsWith(".css")) {
 					foundCssFile[0] = true;
+					System.out.println("file is: " + file.getName());
+					System.out.println(
+						"Path is: " + path.toAbsolutePath().toString());
 
 					return FileVisitResult.TERMINATE;
 				}
