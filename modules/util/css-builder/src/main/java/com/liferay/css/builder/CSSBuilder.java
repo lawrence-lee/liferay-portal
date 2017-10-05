@@ -94,7 +94,6 @@ public class CSSBuilder implements AutoCloseable {
 		String outputDirName = GetterUtil.getString(
 			arguments.get("sass.output.dir"), CSSBuilderArgs.OUTPUT_DIR_NAME);
 
-		System.out.println("Output dir is: " + outputDirName);
 		String portalCommonPath = arguments.get("sass.portal.common.path");
 
 		if (Validator.isNull(portalCommonPath)) {

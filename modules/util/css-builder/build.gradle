@@ -8,15 +8,13 @@ task unzipPortalCommonCSS(type: Copy)
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-
-File mavenWrapperPropertiesFile = file("src/main/resources/maven-wrapper/.mvn/wrapper/maven-wrapper.properties")
+File mavenWrapperPropertiesFile = file("src/test/resources/maven-wrapper/.mvn/wrapper/maven-wrapper.properties")
 
 Properties mavenWrapperProperties = GUtil.loadProperties(mavenWrapperPropertiesFile)
 
 String mavenDistributionVersion = mavenWrapperProperties["distributionUrl"]
 
 mavenDistributionVersion = mavenDistributionVersion.find(/\d+\.\d+\.\d+/)
-
 
 buildPluginDescriptor {
 	configurationScopeMapping "mavenCompile", Conf2ScopeMappingContainer.COMPILE
@@ -88,7 +86,6 @@ test {
 
 	systemProperty "css.builder.version", jar.version
 }
-
 
 unzipPortalCommonCSS {
 	eachFile new StripPathSegmentsAction(2)
