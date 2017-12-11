@@ -1884,6 +1884,8 @@ public class ProjectTemplatesTest {
 			else if (gradleBundleFileName.endsWith(".war")) {
 				_testWarsDiff(gradleBundleFile, mavenBundleFile);
 			}
+
+			_storeProjectOutputFile(gradleBundleFile);
 		}
 		catch (Throwable t) {
 			if (_TEST_DEBUG_BUNDLE_DIFFS) {
@@ -2149,6 +2151,20 @@ public class ProjectTemplatesTest {
 		MavenExecutor.Result result = mavenExecutor.execute(projectDir, args);
 
 		Assert.assertEquals(result.output, 0, result.exitCode);
+	}
+
+	private static void _storeProjectOutputFile(File outputFile)
+		throws IOException {
+
+		Path outputPath = Paths.get(
+			System.getProperty("projectBuildOutputDir"),
+			outputFile.getAbsolutePath());
+
+		Path sourcePath = outputFile.toPath();
+
+		Files.createDirectories(outputFile.getParentFile().toPath());
+
+		Files.copy(sourcePath, outputPath, StandardCopyOption.REPLACE_EXISTING);
 	}
 
 	private static void _testBundlesDiff(File bundleFile1, File bundleFile2)
