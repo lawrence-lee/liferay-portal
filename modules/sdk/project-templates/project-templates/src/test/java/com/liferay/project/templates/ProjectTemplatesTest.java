@@ -22,6 +22,7 @@ import com.liferay.project.templates.internal.util.FileUtil;
 import com.liferay.project.templates.internal.util.Validator;
 import com.liferay.project.templates.util.DirectoryComparator;
 import com.liferay.project.templates.util.FileTestUtil;
+import com.liferay.project.templates.util.StringCaptureWriter;
 import com.liferay.project.templates.util.StringTestUtil;
 import com.liferay.project.templates.util.XMLTestUtil;
 
@@ -36,7 +37,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-
+import java.io.Writer;
 import java.net.URI;
 
 import java.nio.charset.StandardCharsets;
@@ -54,7 +55,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.jar.JarFile;
@@ -79,7 +82,6 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -951,7 +953,6 @@ public class ProjectTemplatesTest {
 		_buildProjects(gradleProjectDir, mavenProjectDir);
 	}
 
-	@Ignore
 	@Test
 	public void testBuildTemplateServiceBuilder() throws Exception {
 		String name = "guestbook";
@@ -964,7 +965,6 @@ public class ProjectTemplatesTest {
 			gradleProjectDir, gradleProjectDir, name, packageName, "");
 	}
 
-	@Ignore
 	@Test
 	public void testBuildTemplateServiceBuilderNestedPath() throws Exception {
 		File workspaceProjectDir = _buildTemplateWithGradle(
@@ -988,7 +988,6 @@ public class ProjectTemplatesTest {
 			":modules:nested:path:sample");
 	}
 
-	@Ignore
 	@Test
 	public void testBuildTemplateServiceBuilderWithDashes() throws Exception {
 		String name = "backend-integration";
@@ -2257,6 +2256,24 @@ public class ProjectTemplatesTest {
 			Assert.assertTrue(file.createNewFile());
 		}
 	}
+	
+
+	private static void _executeGradle(File projectDir, Writer stdOut, String... taskPaths)
+		throws IOException {
+
+		final String repositoryUrl = mavenExecutor.getRepositoryUrl();
+
+		if (Validator.isNotNull(repositoryUrl)) {
+			_setGradleRepo(projectDir, repositoryUrl);
+		}
+
+		GradleRunner gradleRunner = _buildGradleRunner(projectDir, taskPaths);
+		gradleRunner.forwardStdOutput(stdOut);
+		
+		BuildResult buildResult = gradleRunner.build();
+
+		_verifyGradleTasks(buildResult, taskPaths);
+	}
 
 	private static void _executeGradle(File projectDir, String... taskPaths)
 		throws IOException {
@@ -2264,36 +2281,61 @@ public class ProjectTemplatesTest {
 		final String repositoryUrl = mavenExecutor.getRepositoryUrl();
 
 		if (Validator.isNotNull(repositoryUrl)) {
-			Files.walkFileTree(
-				projectDir.toPath(),
-				new SimpleFileVisitor<Path>() {
-
-					@Override
-					public FileVisitResult visitFile(
-							Path path, BasicFileAttributes basicFileAttributes)
-						throws IOException {
-
-						String fileName = String.valueOf(path.getFileName());
-
-						if (fileName.equals("build.gradle") ||
-							fileName.equals("settings.gradle")) {
-
-							String content = FileUtil.read(path);
-
-							content = content.replace(
-								"\"" + _REPOSITORY_CDN_URL + "\"",
-								"\"" + repositoryUrl + "\"");
-
-							Files.write(
-								path, content.getBytes(StandardCharsets.UTF_8));
-						}
-
-						return FileVisitResult.CONTINUE;
-					}
-
-				});
+			_setGradleRepo(projectDir, repositoryUrl);
 		}
 
+		GradleRunner gradleRunner = _buildGradleRunner(projectDir, taskPaths);
+
+		BuildResult buildResult = gradleRunner.build();
+
+		_verifyGradleTasks(buildResult, taskPaths);
+	}
+
+	private static void _verifyGradleTasks(BuildResult buildResult, String... taskPaths) {
+		for (String taskPath : taskPaths) {
+			BuildTask buildTask = buildResult.task(taskPath);
+
+			Assert.assertNotNull(
+				"Build task \"" + taskPath + "\" not found", buildTask);
+
+			Assert.assertEquals(
+				"Unexpected outcome for task \"" + buildTask.getPath() + "\"",
+				TaskOutcome.SUCCESS, buildTask.getOutcome());
+		}
+	}
+
+	private static void _setGradleRepo(File projectDir, final String repositoryUrl) throws IOException {
+		Files.walkFileTree(
+			projectDir.toPath(),
+			new SimpleFileVisitor<Path>() {
+
+				@Override
+				public FileVisitResult visitFile(
+						Path path, BasicFileAttributes basicFileAttributes)
+					throws IOException {
+
+					String fileName = String.valueOf(path.getFileName());
+
+					if (fileName.equals("build.gradle") ||
+						fileName.equals("settings.gradle")) {
+
+						String content = FileUtil.read(path);
+
+						content = content.replace(
+							"\"" + _REPOSITORY_CDN_URL + "\"",
+							"\"" + repositoryUrl + "\"");
+
+						Files.write(
+							path, content.getBytes(StandardCharsets.UTF_8));
+					}
+
+					return FileVisitResult.CONTINUE;
+				}
+
+			});
+	}
+
+	private static GradleRunner _buildGradleRunner(File projectDir, String... taskPaths) {
 		GradleRunner gradleRunner = GradleRunner.create();
 
 		List<String> arguments = new ArrayList<>(taskPaths.length + 3);
@@ -2316,22 +2358,10 @@ public class ProjectTemplatesTest {
 
 		gradleRunner.withGradleDistribution(_gradleDistribution);
 		gradleRunner.withProjectDir(projectDir);
-
-		BuildResult buildResult = gradleRunner.build();
-
-		for (String taskPath : taskPaths) {
-			BuildTask buildTask = buildResult.task(taskPath);
-
-			Assert.assertNotNull(
-				"Build task \"" + taskPath + "\" not found", buildTask);
-
-			Assert.assertEquals(
-				"Unexpected outcome for task \"" + buildTask.getPath() + "\"",
-				TaskOutcome.SUCCESS, buildTask.getOutcome());
-		}
+		return gradleRunner;
 	}
-
-	private static void _executeMaven(File projectDir, String... args)
+	
+	private static String _executeMaven(File projectDir, String... args)
 		throws Exception {
 
 		String[] completeArgs = new String[args.length + 1];
@@ -2343,8 +2373,11 @@ public class ProjectTemplatesTest {
 		MavenExecutor.Result result = mavenExecutor.execute(projectDir, args);
 
 		Assert.assertEquals(result.output, 0, result.exitCode);
-	}
+		
+		return result.output;
 
+	}
+	
 	private static void _testArchetyper(
 			File parentDir, File destinationDir, File projectDir, String name,
 			String groupId, String template, List<String> args)
@@ -3117,17 +3150,38 @@ public class ProjectTemplatesTest {
 				"compileOnly project(\":" + apiProjectName + "\")");
 		}
 
+		String[] gradleSericeBuilderVersion = new String[1];
+		
 		_testChangePortletModelHintsXml(
 			gradleProjectDir, serviceProjectName,
 			new Callable<Void>() {
 
 				@Override
 				public Void call() throws Exception {
+					StringCaptureWriter writer = new StringCaptureWriter("service.builder");
+					
 					_executeGradle(
-						rootProject,
+						rootProject, 
 						projectPath + ":" + serviceProjectName +
 							_GRADLE_TASK_PATH_BUILD_SERVICE);
+					
 
+					String serviceBuilderDep = null;
+					
+					_executeGradle(
+						rootProject, writer,
+						projectPath + ":" + serviceProjectName +
+							":dependencies");
+
+					for (String result : writer.getResultsCollection()) {
+						serviceBuilderDep = result;
+						break;
+					}
+
+					if (serviceBuilderDep != null) {
+						gradleSericeBuilderVersion[0] = serviceBuilderDep.split(":")[2];
+					}
+					
 					return null;
 				}
 
@@ -3149,20 +3203,42 @@ public class ProjectTemplatesTest {
 		final File mavenProjectDir = _buildTemplateWithMaven(
 			"service-builder", name, "com.test", "-Dpackage=" + packageName);
 
+		String[] mavenSericeBuilderVersion = new String[1];
+		
 		_testChangePortletModelHintsXml(
 			mavenProjectDir, serviceProjectName,
 			new Callable<Void>() {
 
 				@Override
 				public Void call() throws Exception {
-					_executeMaven(
-						new File(mavenProjectDir, serviceProjectName),
-						_MAVEN_GOAL_BUILD_SERVICE);
+					String results = _executeMaven(
+							new File(mavenProjectDir, serviceProjectName),
+							_MAVEN_GOAL_BUILD_SERVICE);
+					
+					String serviceBuilderDep = null;
 
+					Scanner scanner = new Scanner(results);
+					while (scanner.hasNextLine()) {
+						String line = scanner.nextLine();
+					
+						if (line.contains("service.builder")) {
+							serviceBuilderDep = line;
+							break;
+						}
+						
+					}
+					scanner.close();
+					
+					if (serviceBuilderDep != null) {
+						mavenSericeBuilderVersion[0] = serviceBuilderDep.split(":")[1];
+					}
+					
 					return null;
 				}
 
 			});
+		
+		Assert.assertTrue(String.format("service.builder versions must match (maven: %s, gradle: %s)", mavenSericeBuilderVersion[0], gradleSericeBuilderVersion[0]), Objects.equals(mavenSericeBuilderVersion[0], gradleSericeBuilderVersion[0])); 
 
 		File gradleServicePropertiesFile = new File(
 			gradleProjectDir,
