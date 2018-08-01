@@ -1,0 +1,10 @@
+{
+	"site": {
+		"name": "workspace-test-site",
+		"pages": [
+			{ "name": "sample.mvc.portlet", "portlets": [ "SampleMvc" ] },
+			{ "name": "sample-war-mvc-portlet", "portlets": [ "sample-war-mvc-portlet" ] },
+			{ "name": "context3", "portlets": [ "SampleMvc", "sample-war-mvc-portlet" ] }
+		]
+	}
+}
