@@ -1,0 +1,3 @@
+allprojects {
+	// dependsOn :modules:test:workspace-test-site:deploy
+}

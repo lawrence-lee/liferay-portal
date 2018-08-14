@@ -1,0 +1,60 @@
+import com.liferay.project.templates.ProjectTemplates
+
+buildscript {
+	dependencies{
+		classpath group: "com.liferay", name: "com.liferay.project.templates", version: "latest.release"
+	}
+	repositories {
+		maven {
+			url "https://repository.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+configurations {
+	projectTemplates
+}
+
+dependencies {
+	projectTemplates group: "com.liferay", name: "com.liferay.project.templates", version: "latest.release"
+}
+
+repositories {
+	maven {
+		url "https://repository.liferay.com/nexus/content/groups/public"
+	}
+}
+
+task createWorkspace {
+	File workspaceDir = new File("test")
+
+	if (!workspaceDir.exists()) {
+		workspaceDir.mkdirs()
+	}
+
+	def workspaceArgs = ["--template", "workspace", "--name", "sampleWorkspace"]
+
+	javaexec {
+		args workspaceArgs
+		classpath = configurations.projectTemplates
+		main = "com.liferay.project.templates.ProjectTemplates"
+		workingDir = workspaceDir
+	}
+
+	File modulesDir = new File("test/sampleWorkspace/modules")
+
+	def modulesArgs = ["--template", "mvc-portlet", "--name", "sample-mvc-portlet"]
+
+	javaexec {
+		args modulesArgs
+		classpath = configurations.projectTemplates
+		main = "com.liferay.project.templates.ProjectTemplates"
+		workingDir = modulesDir
+	}
+
+	File workspaceBuildFile = new File(workspaceDir, "sampleWorkspace/build.gradle")
+
+	workspaceBuildFile.write "allprojects {\n"
+	workspaceBuildFile << "dependsOn :modules:test:workspace-test-site:deploy\n"
+	workspaceBuildFile << "}"
+}
