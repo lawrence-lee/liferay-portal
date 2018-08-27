@@ -3436,53 +3436,57 @@ public class ProjectTemplatesTest {
 			File mavenOutputDir, String... gradleTaskPath)
 		throws Exception {
 
-		_executeGradle(gradleProjectDir, gradleTaskPath);
+		if (Validator.isNotNull(_BUILD_PROJECTS) &&
+			_BUILD_PROJECTS.equals("true")) {
 
-		Path gradleOutputPath = FileTestUtil.getFile(
-			gradleOutputDir.toPath(), _OUTPUT_FILENAME_GLOB_REGEX, 1);
+			_executeGradle(gradleProjectDir, gradleTaskPath);
 
-		Assert.assertNotNull(gradleOutputPath);
+			Path gradleOutputPath = FileTestUtil.getFile(
+				gradleOutputDir.toPath(), _OUTPUT_FILENAME_GLOB_REGEX, 1);
 
-		Assert.assertTrue(Files.exists(gradleOutputPath));
+			Assert.assertNotNull(gradleOutputPath);
 
-		File gradleOutputFile = gradleOutputPath.toFile();
+			Assert.assertTrue(Files.exists(gradleOutputPath));
 
-		String gradleOutputFileName = gradleOutputFile.getName();
+			File gradleOutputFile = gradleOutputPath.toFile();
 
-		_executeMaven(mavenProjectDir, _MAVEN_GOAL_PACKAGE);
+			String gradleOutputFileName = gradleOutputFile.getName();
 
-		Path mavenOutputPath = FileTestUtil.getFile(
-			mavenOutputDir.toPath(), _OUTPUT_FILENAME_GLOB_REGEX, 1);
+			_executeMaven(mavenProjectDir, _MAVEN_GOAL_PACKAGE);
 
-		Assert.assertNotNull(mavenOutputPath);
+			Path mavenOutputPath = FileTestUtil.getFile(
+				mavenOutputDir.toPath(), _OUTPUT_FILENAME_GLOB_REGEX, 1);
 
-		Assert.assertTrue(Files.exists(mavenOutputPath));
+			Assert.assertNotNull(mavenOutputPath);
 
-		File mavenOutputFile = mavenOutputPath.toFile();
+			Assert.assertTrue(Files.exists(mavenOutputPath));
 
-		String mavenOutputFileName = mavenOutputFile.getName();
+			File mavenOutputFile = mavenOutputPath.toFile();
 
-		try {
-			if (gradleOutputFileName.endsWith(".jar")) {
-				_testBundlesDiff(gradleOutputFile, mavenOutputFile);
+			String mavenOutputFileName = mavenOutputFile.getName();
+
+			try {
+				if (gradleOutputFileName.endsWith(".jar")) {
+					_testBundlesDiff(gradleOutputFile, mavenOutputFile);
+				}
+				else if (gradleOutputFileName.endsWith(".war")) {
+					_testWarsDiff(gradleOutputFile, mavenOutputFile);
+				}
 			}
-			else if (gradleOutputFileName.endsWith(".war")) {
-				_testWarsDiff(gradleOutputFile, mavenOutputFile);
-			}
-		}
-		catch (Throwable t) {
-			if (_TEST_DEBUG_BUNDLE_DIFFS) {
-				Path dirPath = Paths.get("build");
+			catch (Throwable t) {
+				if (_TEST_DEBUG_BUNDLE_DIFFS) {
+					Path dirPath = Paths.get("build");
 
-				Files.copy(
-					gradleOutputFile.toPath(),
-					dirPath.resolve(gradleOutputFileName));
-				Files.copy(
-					mavenOutputFile.toPath(),
-					dirPath.resolve(mavenOutputFileName));
-			}
+					Files.copy(
+						gradleOutputFile.toPath(),
+						dirPath.resolve(gradleOutputFileName));
+					Files.copy(
+						mavenOutputFile.toPath(),
+						dirPath.resolve(mavenOutputFileName));
+				}
 
-			throw t;
+				throw t;
+			}
 		}
 	}
 
@@ -5016,13 +5020,17 @@ public class ProjectTemplatesTest {
 		_testNotContains(
 			workspaceProjectDir, "build.gradle", true, "^repositories \\{.*");
 
-		_executeGradle(gradleProjectDir, _GRADLE_TASK_PATH_BUILD);
+		if (Validator.isNotNull(_BUILD_PROJECTS) &&
+			_BUILD_PROJECTS.equals("true")) {
 
-		_testExists(gradleProjectDir, jarFilePath);
+			_executeGradle(gradleProjectDir, _GRADLE_TASK_PATH_BUILD);
 
-		_executeGradle(workspaceDir, ":modules:" + name + ":build");
+			_testExists(gradleProjectDir, jarFilePath);
 
-		_testExists(workspaceProjectDir, jarFilePath);
+			_executeGradle(workspaceDir, ":modules:" + name + ":build");
+
+			_testExists(workspaceProjectDir, jarFilePath);
+		}
 	}
 
 	private void _testPomXmlContainsDependency(
@@ -5083,6 +5091,9 @@ public class ProjectTemplatesTest {
 
 		Assert.assertTrue(missingDependencyString, foundDependency);
 	}
+
+	private static final String _BUILD_PROJECTS = System.getProperty(
+		"project.templates.test.builds");
 
 	private static final String _BUNDLES_DIFF_IGNORES = StringTestUtil.merge(
 		Arrays.asList(
