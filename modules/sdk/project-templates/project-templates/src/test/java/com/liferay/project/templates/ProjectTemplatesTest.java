@@ -2466,6 +2466,7 @@ public class ProjectTemplatesTest {
 			packageName, "");
 	}
 
+	@Ignore
 	@Test
 	public void testBuildTemplateServiceBuilderCheckExports() throws Exception {
 		String name = "guestbook";
