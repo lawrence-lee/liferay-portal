@@ -6400,14 +6400,34 @@ go</echo>
 				/>
 			</then>
 			<elseif>
-				<equals arg1="${project.templates}" arg2="simple" />
+				<equals arg1="${project.templates}" arg2="rest" />
 				<then>
-					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-npm-portlet" task="generateSampleProject" />
+					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}" task="generateSampleProject" />
 
-					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-npm-portlet/build/npm-simple-portlet" task="assemble" />
+					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/samplerest" task="assemble" />
 
 					<copy
-						file="${project.dir}/modules/sdk/project-templates/project-templates-npm-portlet/build/npm-simple-portlet/build/libs/npm.simple.portlet-1.0.0.jar"
+						file="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/samplerest/build/libs/samplerest-1.0.0.jar"
+						todir="${liferay.home}/deploy"
+					/>
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${project.templates}" arg2="service-builder" />
+				<then>
+					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}" task="generateSampleProject" />
+
+					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/foo" task="buildService" />
+
+					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/foo" task="assemble" />
+
+					<copy
+						file="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/foo/foo-api/build/libs/foo.api-1.0.0.jar"
+						todir="${liferay.home}/deploy"
+					/>
+
+					<copy
+						file="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/foo/foo-service/build/libs/foo.service-1.0.0.jar"
 						todir="${liferay.home}/deploy"
 					/>
 				</then>
@@ -6425,16 +6445,19 @@ go</echo>
 					/>
 				</then>
 			</elseif>
-			<else>
-				<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-npm-${project.templates}-portlet" task="generateSampleProject" />
+			<elseif>
+				<equals arg1="${project.templates}" arg2="war-hook" />
+				<then>
+					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}" task="generateSampleProject" />
 
-				<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-npm-${project.templates}-portlet/build/npm-${project.templates}-portlet" task="assemble" />
+					<gradle-execute dir="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/samplewarhook" task="assemble" />
 
-				<copy
-					file="${project.dir}/modules/sdk/project-templates/project-templates-npm-${project.templates}-portlet/build/npm-${project.templates}-portlet/build/libs/npm.${project.templates}.portlet-1.0.0.jar"
-					todir="${liferay.home}/deploy"
-				/>
-			</else>
+					<copy
+						file="${project.dir}/modules/sdk/project-templates/project-templates-${project.templates}/build/samplewarhook/build/libs/samplewarhook.war"
+						todir="${liferay.home}/deploy"
+					/>
+				</then>
+			</elseif>
 		</if>
 	</target>
 

@@ -41,8 +41,38 @@ definition {
 	}
 
 	@priority = "5"
+	test ServiceBuilderTemplateSmoke {
+		property portal.acceptance = "true";
+		property project.templates = "service-builder";
+		property test.name.skip.portal.instance = "SampleProjectTemplates#ServiceBuilderTemplateSmoke";
+
+		GogoShell.openGogoShellAdmin();
+
+		GogoShell.viewModuleStatus(
+			moduleName = "foo-api",
+			moduleStatus = "Active");
+
+		GogoShell.viewModuleStatus(
+			moduleName = "foo-service",
+			moduleStatus = "Active");
+	}
+
+	@priority = "5"
+	test RestTemplateSmoke {
+		property portal.acceptance = "true";
+		property project.templates = "rest";
+		property test.name.skip.portal.instance = "SampleProjectTemplates#RestTemplateSmoke";
+
+		GogoShell.openGogoShellAdmin();
+
+		GogoShell.viewModuleStatus(
+			moduleName = "samplerest",
+			moduleStatus = "Active");
+	}
+
+	@priority = "5"
 	test ThemeTemplateSmoke {
-		property portal.acceptance = "false";
+		property portal.acceptance = "true";
 		property project.templates = "theme";
 		property test.name.skip.portal.instance = "SampleProjectTemplates#ThemeTemplateSmoke";
 		var themeName = "sampletheme";
@@ -54,5 +84,19 @@ definition {
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/guest/templates-page");
 
 		AssertHTMLSourceTextPresent(value1 = "themeId=${themeName}");
+	}
+
+	@priority = "5"
+	test WarHookTemplateSmoke {
+		property portal.acceptance = "true";
+		property project.templates = "war-hook";
+		property test.name.skip.portal.instance = "SampleProjectTemplates#WarHookTemplateSmoke";
+		var userFirstName = "Test";
+
+		SignOut.signOut();
+
+		SignIn.signIn();
+
+		AssertConsoleTextPresent(value1 = "${userFirstName} has logged in.");
 	}
 }
