@@ -5977,18 +5977,22 @@ public class ProjectTemplatesTest {
 			workspaceProjectDir, "build.gradle", "apply plugin: \"war\"");
 		_testNotContains(
 			workspaceProjectDir, "build.gradle", true, "^repositories \\{.*");
+		
 
-		_executeGradle(gradleProjectDir, _GRADLE_TASK_PATH_BUILD);
+	
+		if (_isBuildProjects()) {
+			_executeGradle(gradleProjectDir, _GRADLE_TASK_PATH_BUILD);
 
-		File gradleWarFile = _testExists(
-			gradleProjectDir, "build/libs/" + warFileName + ".war");
+			File gradleWarFile = _testExists(
+				gradleProjectDir, "build/libs/" + warFileName + ".war");
 
-		_executeGradle(workspaceDir, ":wars:" + name + ":build");
+			_executeGradle(workspaceDir, ":wars:" + name + ":build");
 
-		File workspaceWarFile = _testExists(
-			workspaceProjectDir, "build/libs/" + warFileName + ".war");
+			File workspaceWarFile = _testExists(
+				workspaceProjectDir, "build/libs/" + warFileName + ".war");
 
-		_testWarsDiff(gradleWarFile, workspaceWarFile);
+			_testWarsDiff(gradleWarFile, workspaceWarFile);
+		}
 	}
 
 	private void _testBuildTemplateServiceBuilder(
