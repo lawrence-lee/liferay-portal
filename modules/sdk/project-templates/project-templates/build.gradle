@@ -66,7 +66,7 @@ dependencies {
 
 	mavenDistribution classifier: "bin", ext: "zip", group: "org.apache.maven", name: "apache-maven", version: mavenDistributionVersion
 
-	projectTemplates group: "com.liferay", name: "com.liferay.project.templates.activator", version: "1.0.54"
+	projectTemplates group: "com.liferay", name: "com.liferay.project.templates.activator", version: "1.0.52"
 	projectTemplates group: "com.liferay", name: "com.liferay.project.templates.api", version: "1.0.55"
 	projectTemplates group: "com.liferay", name: "com.liferay.project.templates.content.targeting.report", version: "1.0.53"
 	projectTemplates group: "com.liferay", name: "com.liferay.project.templates.content.targeting.rule", version: "1.0.53"
