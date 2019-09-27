@@ -142,6 +142,8 @@ public class GradleRunnerTestRule implements TestRule {
 			processBuilder.command(executable, "--stop");
 
 			processBuilder.start();
+
+			System.out.println("*****STOPPING GRADLE DAEMON****");
 		}
 		catch (IOException ioe) {
 			throw new RuntimeException(ioe);
