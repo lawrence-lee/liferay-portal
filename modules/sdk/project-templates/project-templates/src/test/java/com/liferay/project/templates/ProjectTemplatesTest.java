@@ -3128,12 +3128,12 @@ public class ProjectTemplatesTest implements BaseProjectTemplatesTestCase {
 			template, name, "com.test", "-DclassName=" + className,
 			"-Dpackage=" + packageName, "-DliferayVersion=7.0");
 
-		if (Validator.isNotNull(System.getenv("JENKINS_HOME"))) {
+		/*if (Validator.isNotNull(System.getenv("JENKINS_HOME"))) {
 			_addNpmrc(gradleProjectDir);
 			_addNpmrc(mavenProjectDir);
 			_configureExecutePackageManagerTask(gradleProjectDir);
 			_configurePomNpmConfiguration(mavenProjectDir);
-		}
+		}*/
 
 		_buildProjects(gradleProjectDir, mavenProjectDir);
 	}
