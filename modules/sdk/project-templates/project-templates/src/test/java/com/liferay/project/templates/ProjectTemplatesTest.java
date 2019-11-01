@@ -389,6 +389,17 @@ public class ProjectTemplatesTest implements BaseProjectTemplatesTestCase {
 			_configurePomNpmConfiguration(mavenProjectDir);
 		}
 
+		testContains(mavenProjectDir, "pom.xml", "<nodeVersion>v10.15.1</nodeVersion>", "<npmVersion>6.4.1</npmVersion>");
+
+		testContains(mavenProjectDir, "package.json", "\"core-js\": \"^2.5.1\",");
+
+		testContains(mavenProjectDir, "bnd.bnd", "-plugin.npm: com.liferay.ant.bnd.npm.NpmAnalyzerPlugin");
+
+		testContains(mavenProjectDir, "tsconfig.json", "\"target/classes/META-INF/resources/lib\"");
+
+		testContains(mavenProjectDir, ".npmbundlerrc", "\"target/classes/META-INF/resources\"");
+
+
 		_buildProjects(gradleProjectDir, mavenProjectDir);
 	}
 
