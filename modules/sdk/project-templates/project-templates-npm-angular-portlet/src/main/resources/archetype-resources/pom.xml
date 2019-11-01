@@ -105,9 +105,6 @@
 						<goals>
 							<goal>npm</goal>
 						</goals>
-						<configuration>
-							<arguments>install -ddd</arguments>
-						</configuration>
 					</execution>
 					<execution>
 						<id>npm-run-build</id>
