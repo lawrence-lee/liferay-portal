@@ -210,9 +210,9 @@ public interface BaseProjectTemplatesTestCase {
 
 			String gradleOutputFileName = gradleOutputFile.getName();
 
-			String result = executeMaven(mavenProjectDir, mavenExecutor, MAVEN_GOAL_PACKAGE);
+			String result = executeMaven(mavenProjectDir, mavenExecutor, "--debug", MAVEN_GOAL_PACKAGE);
 
-			Assert.assertFalse(result, result.contains("core-js-banners"));
+			Assert.assertFalse(result, result.contains("core-js"));
 
 			Path mavenOutputPath = FileTestUtil.getFile(
 				mavenOutputDir.toPath(), OUTPUT_FILENAME_GLOB_REGEX, 1);
