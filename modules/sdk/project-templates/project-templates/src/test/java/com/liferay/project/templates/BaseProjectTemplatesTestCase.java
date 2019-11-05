@@ -197,7 +197,7 @@ public interface BaseProjectTemplatesTestCase {
 		throws Exception {
 
 		if (isBuildProjects()) {
-			executeGradle(gradleProjectDir, gradleDistribution, gradleTaskPath);
+			Optional<String> gradleResult = executeGradle(gradleProjectDir, true, gradleDistribution, gradleTaskPath);
 
 			Path gradleOutputPath = FileTestUtil.getFile(
 				gradleOutputDir.toPath(), OUTPUT_FILENAME_GLOB_REGEX, 1);
@@ -212,7 +212,7 @@ public interface BaseProjectTemplatesTestCase {
 
 			String result = executeMaven(mavenProjectDir, mavenExecutor, "--debug", MAVEN_GOAL_PACKAGE);
 
-			Assert.assertFalse(result, result.contains("core-js"));
+			Assert.assertFalse("GRADLERESULT=****" + gradleResult + "\n\nMAVENRESULT=****"+ result, result.contains("core-js"));
 
 			Path mavenOutputPath = FileTestUtil.getFile(
 				mavenOutputDir.toPath(), OUTPUT_FILENAME_GLOB_REGEX, 1);
