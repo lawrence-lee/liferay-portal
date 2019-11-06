@@ -260,7 +260,7 @@ public class ProjectTemplatesTest implements BaseProjectTemplatesTestCase {
 					configurationElement.appendChild(argumentsElement);
 
 					Text text = document.createTextNode(
-						"install --registry=" + _NODEJS_NPM_CI_REGISTRY);
+						"install -ddd --registry=" + _NODEJS_NPM_CI_REGISTRY);
 
 					argumentsElement.appendChild(text);
 				}
