@@ -56,6 +56,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -678,6 +679,19 @@ public interface BaseProjectTemplatesTestCase {
 				});
 		}
 
+		Path filePath = pomXmlFile.toPath();
+
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(filePath, StandardCharsets.UTF_8))
+        {
+            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
 		String[] completeArgs = new String[args.length + 1];
 
 		completeArgs[0] = "--update-snapshots";
@@ -692,7 +706,7 @@ public interface BaseProjectTemplatesTestCase {
 				result.exitCode == 0);
 		}
 		else {
-			Assert.assertEquals(result.output, 0, result.exitCode);
+			Assert.assertEquals("POMFILE=" + contentBuilder.toString() +  result.output, 0, result.exitCode);
 		}
 
 		return result.output;
