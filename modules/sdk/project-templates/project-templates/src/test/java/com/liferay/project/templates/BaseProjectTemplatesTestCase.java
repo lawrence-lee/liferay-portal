@@ -668,6 +668,8 @@ public interface BaseProjectTemplatesTestCase {
 
 		File pomXmlFile = new File(projectDir, "pom.xml");
 
+		StringBuilder contentBuilder = new StringBuilder();
+
 		if (pomXmlFile.exists()) {
 			editXml(
 				pomXmlFile,
@@ -677,20 +679,19 @@ public interface BaseProjectTemplatesTestCase {
 					addNexusRepositoriesElement(
 						document, "pluginRepositories", "pluginRepository");
 				});
+
+			Path filePath = pomXmlFile.toPath();
+
+
+	        try (Stream<String> stream = Files.lines(filePath, StandardCharsets.UTF_8))
+	        {
+	            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+	        }
+	        catch (IOException e)
+	        {
+	            e.printStackTrace();
+	        }
 		}
-
-		Path filePath = pomXmlFile.toPath();
-
-        StringBuilder contentBuilder = new StringBuilder();
-
-        try (Stream<String> stream = Files.lines(filePath, StandardCharsets.UTF_8))
-        {
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
 
 		String[] completeArgs = new String[args.length + 1];
 
