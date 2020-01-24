@@ -55,7 +55,7 @@ public class FormFieldProjectTemplateCustomizer
 
 			List<String> fileNames = new ArrayList<>();
 
-			fileNames.add(".babelrc");
+			fileNames.add(".babelrc.js");
 			fileNames.add(".npmbundlerrc");
 			fileNames.add("package.json");
 			fileNames.add(
