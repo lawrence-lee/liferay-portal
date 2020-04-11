@@ -123,7 +123,7 @@ public class ProjectTemplateFilesTest {
 			String configuration = matcher.group(1);
 			String dependencyGroup = matcher.group(2);
 			String dependencyName = matcher.group(3);
-			String dependencyVersion = matcher.group(4);
+			String dependencyVersion = matcher.group(5);
 
 			boolean provided = false;
 
@@ -421,8 +421,7 @@ public class ProjectTemplateFilesTest {
 		return properties;
 	}
 
-	private void _testBuildGradle(
-			String projectTemplateDirName, Path archetypeResourcesDirPath)
+	private void _testBuildGradle(Path archetypeResourcesDirPath)
 		throws IOException {
 
 		Path buildGradlePath = archetypeResourcesDirPath.resolve(
@@ -432,15 +431,6 @@ public class ProjectTemplateFilesTest {
 			"Missing " + buildGradlePath, Files.exists(buildGradlePath));
 
 		String buildGradle = FileUtil.read(buildGradlePath);
-
-		if (!projectTemplateDirName.equals("project-templates-workspace")) {
-			Matcher matcher = _buildGradleWorkspaceVariantPattern.matcher(
-				buildGradle);
-
-			Assert.assertTrue(
-				buildGradlePath + " is missing non-workspace specific variant",
-				matcher.matches());
-		}
 
 		Assert.assertFalse(
 			buildGradlePath + " contains \"latest.release\". Please use a " +
@@ -699,14 +689,23 @@ public class ProjectTemplateFilesTest {
 			XMLTestUtil.testXmlElement(
 				pomXmlPath, dependencyElementString, dependencyChildElements, 1,
 				"artifactId", buildGradleDependency.name);
-			XMLTestUtil.testXmlElement(
-				pomXmlPath, dependencyElementString, dependencyChildElements, 2,
-				"version", buildGradleDependency.version);
 
-			if (buildGradleDependency.provided) {
+			if (buildGradleDependency.version != null) {
 				XMLTestUtil.testXmlElement(
 					pomXmlPath, dependencyElementString,
-					dependencyChildElements, 3, "scope", "provided");
+					dependencyChildElements, 2, "version",
+					buildGradleDependency.version);
+
+				if (buildGradleDependency.provided) {
+					XMLTestUtil.testXmlElement(
+						pomXmlPath, dependencyElementString,
+						dependencyChildElements, 3, "scope", "provided");
+				}
+			}
+			else if (buildGradleDependency.provided) {
+				XMLTestUtil.testXmlElement(
+					pomXmlPath, dependencyElementString,
+					dependencyChildElements, 2, "scope", "provided");
 			}
 		}
 
@@ -819,14 +818,16 @@ public class ProjectTemplateFilesTest {
 
 		Properties bndProperties = _testBndBnd(projectTemplateDirPath);
 
-		_testBuildGradle(projectTemplateDirName, archetypeResourcesDirPath);
+		_testBuildGradle(archetypeResourcesDirPath);
 		_testGitIgnore(projectTemplateDirName, archetypeResourcesDirPath);
 		_testGradleWrapper(archetypeResourcesDirPath);
 		_testMavenWrapper(archetypeResourcesDirPath);
 
 		String pathString = archetypeResourcesDirPath.toString();
 
-		if (!pathString.contains("ext") & !pathString.contains("spring-mvc")) {
+		if (!pathString.contains("ext") && !pathString.contains("spring-mvc") &&
+			!pathString.contains("form-field")) {
+
 			_testPomXml(archetypeResourcesDirPath, documentBuilder);
 		}
 
@@ -906,11 +907,13 @@ public class ProjectTemplateFilesTest {
 		String archetypePostGenerateGroovy = _testArchetypePostGenerateGroovy(
 			projectTemplateDirPath);
 
-		_testArchetypeMetadataXml(
-			projectTemplateDirPath, projectTemplateDirName,
-			archetypeResourcesDirPath, bndProperties,
-			requireAuthorProperty.get(), archetypePostGenerateGroovy,
-			archetypeResourceExpressions, documentBuilder);
+		if (!pathString.contains("form-field")) {
+			_testArchetypeMetadataXml(
+				projectTemplateDirPath, projectTemplateDirName,
+				archetypeResourcesDirPath, bndProperties,
+				requireAuthorProperty.get(), archetypePostGenerateGroovy,
+				archetypeResourceExpressions, documentBuilder);
+		}
 	}
 
 	private void _testPropertyValue(
@@ -1013,12 +1016,9 @@ public class ProjectTemplateFilesTest {
 		Pattern.compile("\\$\\{([^\\}]*)\\}");
 	private static final Pattern _buildGradleDependencyPattern =
 		Pattern.compile(
-			"(compile(?:Only)?) group: \"(.+)\", name: \"(.+)\", " +
-				"(?:transitive: (?:true|false), )?version: \"(.+)\"");
-	private static final Pattern _buildGradleWorkspaceVariantPattern =
-		Pattern.compile(
-			".*^#if \\(\\$\\{projectType\\} != \"workspace\"\\).*",
-			Pattern.DOTALL | Pattern.MULTILINE);
+			"(compile(?:Only)?) \\(?group: \\\"(.+)\\\", name: \\\"([a-zA-Z" +
+				"0-9\\.\\-]+)\\\"((?:, version: )\\\"([0-9\\.]+)\\\")?(, " +
+					"transitive: (?: true|false))?(\\) \\{force = true\\})?");
 	private static final Pattern _bundleDescriptionPattern = Pattern.compile(
 		"Creates a .+\\.");
 	private static final Pattern _bundleNameSeparatorPattern = Pattern.compile(

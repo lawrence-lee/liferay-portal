@@ -14,9 +14,6 @@
 
 package com.liferay.project.templates.modules.ext;
 
-import aQute.bnd.header.Attrs;
-import aQute.bnd.osgi.Domain;
-
 import com.liferay.maven.executor.MavenExecutor;
 import com.liferay.project.templates.BaseProjectTemplatesTestCase;
 import com.liferay.project.templates.extensions.util.ProjectTemplatesUtil;
@@ -32,7 +29,6 @@ import java.nio.file.Path;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.junit.Assert;
@@ -68,41 +64,12 @@ public class ProjectTemplatesModulesExtTest
 	}
 
 	@Test
-	public void testBuildTemplateModuleExt() throws Exception {
-		File gradleProjectDir = _buildTemplateWithGradle(
-			"modules-ext", "loginExt", "--original-module-name",
-			"com.liferay.login.web", "--original-module-version", "1.0.0");
-
-		testContains(
-			gradleProjectDir, "build.gradle", "buildscript {", "repositories {",
-			"originalModule group: \"com.liferay\", name: " +
-				"\"com.liferay.login.web\", version: \"1.0.0\"",
-			"apply plugin: \"com.liferay.osgi.ext.plugin\"");
-
-		if (isBuildProjects()) {
-			executeGradle(
-				gradleProjectDir, _gradleDistribution, GRADLE_TASK_PATH_BUILD);
-
-			File jarFile = testExists(
-				gradleProjectDir,
-				"build/libs/com.liferay.login.web-1.0.0.ext.jar");
-
-			Domain domain = Domain.domain(jarFile);
-
-			Map.Entry<String, Attrs> bundleSymbolicName =
-				domain.getBundleSymbolicName();
-
-			Assert.assertEquals(
-				bundleSymbolicName.toString(), "com.liferay.login.web",
-				bundleSymbolicName.getKey());
-		}
-	}
-
-	@Test
 	public void testBuildTemplateModuleExtInWorkspace() throws Exception {
-		File workspaceDir = buildWorkspace(temporaryFolder, "7.3.0");
+		String liferayVersion = getDefaultLiferayVersion();
 
-		enableTargetPlatformInWorkspace(workspaceDir, "7.3.0");
+		File workspaceDir = buildWorkspace(temporaryFolder, liferayVersion);
+
+		enableTargetPlatformInWorkspace(workspaceDir, liferayVersion);
 
 		File workspaceProjectDir = buildTemplateWithGradle(
 			new File(workspaceDir, "ext"), "modules-ext", "loginExt",
@@ -123,28 +90,7 @@ public class ProjectTemplatesModulesExtTest
 			executeGradle(
 				workspaceDir, _gradleDistribution, ":ext:loginExt:build");
 
-			testExists(
-				workspaceProjectDir,
-				"build/libs/com.liferay.login.web-5.0.4.ext.jar");
-		}
-	}
-
-	@Test
-	public void testBuildTemplateModulesExtGradle() throws Exception {
-		File gradleProjectDir = _buildTemplateWithGradle(
-			"modules-ext", "foo-ext", "--original-module-name",
-			"com.liferay.login.web", "--original-module-version", "2.0.4");
-
-		testContains(
-			gradleProjectDir, "build.gradle",
-			"originalModule group: \"com.liferay\", ",
-			"name: \"com.liferay.login.web\", version: \"2.0.4\"");
-
-		if (isBuildProjects()) {
-			executeGradle(
-				gradleProjectDir, _gradleDistribution, GRADLE_TASK_PATH_BUILD);
-
-			File gradleOutputDir = new File(gradleProjectDir, "build/libs");
+			File gradleOutputDir = new File(workspaceProjectDir, "build/libs");
 
 			Path gradleOutputPath = FileTestUtil.getFile(
 				gradleOutputDir.toPath(), OUTPUT_FILENAME_GLOB_REGEX, 1);
@@ -158,8 +104,12 @@ public class ProjectTemplatesModulesExtTest
 	@Test
 	public void testBuildTemplateModulesExtMaven() throws Exception {
 		String groupId = "com.test";
+		String liferayVersion = getDefaultLiferayVersion();
 		String name = "foo-ext";
 		String template = "modules-ext";
+
+		File mavenWorkspaceDir = buildWorkspaceWithTPEnabled(
+			temporaryFolder, "maven", "mavenWS", liferayVersion, mavenExecutor);
 
 		List<String> completeArgs = new ArrayList<>();
 
@@ -183,35 +133,23 @@ public class ProjectTemplatesModulesExtTest
 		completeArgs.add("-DartifactId=" + name);
 		completeArgs.add("-Dauthor=" + System.getProperty("user.name"));
 		completeArgs.add("-DgroupId=" + groupId);
-		completeArgs.add("-DliferayVersion=7.1.3");
+		completeArgs.add("-DliferayVersion=" + liferayVersion);
 		completeArgs.add("-DoriginalModuleName=com.liferay.login.web");
-		completeArgs.add("-DoriginalModuleVersion=3.0.4");
-		completeArgs.add("-DprojectType=standalone");
+		completeArgs.add("-DoriginalModuleVersion=1.0.0");
 		completeArgs.add("-Dversion=1.0.0");
 
-		File destinationDir = temporaryFolder.newFolder("maven");
+		String mavenOutput = executeMaven(
+			mavenWorkspaceDir, true, mavenExecutor,
+			completeArgs.toArray(new String[0]));
 
-		executeMaven(
-			destinationDir, mavenExecutor, completeArgs.toArray(new String[0]));
-
-		File projectDir = new File(destinationDir, name);
-
-		testContains(
-			projectDir, "build.gradle",
-			"originalModule group: \"com.liferay\", ",
-			"name: \"com.liferay.login.web\", version: \"3.0.4\"");
-		testNotExists(projectDir, "pom.xml");
+		Assert.assertTrue(
+			mavenOutput,
+			mavenOutput.contains(
+				"java.io.EOFException: input contained no data"));
 	}
 
 	@Rule
 	public TemporaryFolder temporaryFolder = new TemporaryFolder();
-
-	private File _buildTemplateWithGradle(
-			String template, String name, String... args)
-		throws Exception {
-
-		return buildTemplateWithGradle(temporaryFolder, template, name, args);
-	}
 
 	private static URI _gradleDistribution;
 
