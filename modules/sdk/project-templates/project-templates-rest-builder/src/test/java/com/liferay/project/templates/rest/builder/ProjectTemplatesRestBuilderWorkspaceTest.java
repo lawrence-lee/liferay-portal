@@ -208,10 +208,6 @@ public class ProjectTemplatesRestBuilderWorkspaceTest
 			gradleProjectDir, apiProjectName + "/bnd.bnd", "Export-Package:\\",
 			packageName + ".dto.v1_0,\\", packageName + ".resource.v1_0");
 
-		if (!isBuildProjects()) {
-			return;
-		}
-
 		String implProjectName = name + "-impl";
 
 		_testChangeOpenAPIYAML(
