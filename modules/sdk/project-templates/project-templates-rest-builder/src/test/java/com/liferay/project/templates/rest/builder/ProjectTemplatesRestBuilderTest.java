@@ -141,10 +141,6 @@ public class ProjectTemplatesRestBuilderTest
 			gradleWorkspaceModulesDir, template, name, "--package-name",
 			packageName, "--liferay-version", liferayVersion);
 
-		if (!isBuildProjects()) {
-			return;
-		}
-
 		Optional<String> gradleResult = executeGradle(
 			gradleWorkspaceDir, true, _gradleDistribution,
 			":modules:" + name + ":" + implProjectName + ":dependencies");
