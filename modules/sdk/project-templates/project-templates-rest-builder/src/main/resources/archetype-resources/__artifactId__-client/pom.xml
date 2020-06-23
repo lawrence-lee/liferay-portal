@@ -13,6 +13,4 @@
 		<artifactId>${artifactId}</artifactId>
 		<version>${version}</version>
 	</parent>
-	<dependencies>
-	</dependencies>
 </project>
