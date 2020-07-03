@@ -115,6 +115,5 @@
 		<module>${artifactId}-api</module>
 		<module>${artifactId}-client</module>
 		<module>${artifactId}-impl</module>
-		<module>${artifactId}-test</module>
 	</modules>
 </project>

@@ -52,19 +52,19 @@ public class ProjectTemplatesRESTBuilderWorkspaceTest
 	@ClassRule
 	public static final MavenExecutor mavenExecutor = new MavenExecutor();
 
-	@Parameterized.Parameters(name = "Testcase-{index}: testing {0}, {1}, {2}")
+	@Parameterized.Parameters(name = "Testcase-{index}: testing {0}, {1}, {2}, {3}")
 	public static Iterable<Object[]> data() {
 		return Arrays.asList(
 			new Object[][] {
-				{"guestbook", "com.liferay.docs.guestbook", "7.1.3"},
-				{"guestbook", "com.liferay.docs.guestbook", "7.2.1"},
-				{"guestbook", "com.liferay.docs.guestbook", "7.3.2"},
-				{"backend-integration", "com.liferay.docs.guestbook", "7.1.3"},
-				{"backend-integration", "com.liferay.docs.guestbook", "7.2.1"},
-				{"backend-integration", "com.liferay.docs.guestbook", "7.3.2"},
-				{"sample", "com.test.sample", "7.1.3"},
-				{"sample", "com.test.sample", "7.2.1"},
-				{"sample", "com.test.sample", "7.3.2"}
+				{"true", "guestbook", "com.liferay.docs.guestbook", "7.1.3"},
+				{"true", "guestbook", "com.liferay.docs.guestbook", "7.2.1"},
+				{"true", "guestbook", "com.liferay.docs.guestbook", "7.3.2"},
+				{"true", "backend-integration", "com.liferay.docs.guestbook", "7.1.3"},
+				{"true", "backend-integration", "com.liferay.docs.guestbook", "7.2.1"},
+				{"true", "backend-integration", "com.liferay.docs.guestbook", "7.3.2"},
+				{"false", "sample", "com.test.sample", "7.1.3"},
+				{"false", "sample", "com.test.sample", "7.2.1"},
+				{"false", "sample", "com.test.sample", "7.3.2"}
 			});
 	}
 
@@ -85,8 +85,10 @@ public class ProjectTemplatesRESTBuilderWorkspaceTest
 	}
 
 	public ProjectTemplatesRESTBuilderWorkspaceTest(
-		String name, String packageName, String liferayVersion) {
+		String extraModules, String name, String packageName,
+		String liferayVersion) {
 
+		_extraModules = extraModules;
 		_name = name;
 		_packageName = packageName;
 		_liferayVersion = liferayVersion;
@@ -112,7 +114,8 @@ public class ProjectTemplatesRESTBuilderWorkspaceTest
 
 		File gradleProjectDir = buildTemplateWithGradle(
 			gradleWorkspaceModulesDir, template, _name, "--package-name",
-			_packageName, "--liferay-version", _liferayVersion);
+			_packageName, "--liferay-version", _liferayVersion,
+			"--extraModules", _extraModules);
 
 		if (_name.contains("sample")) {
 			testContains(
@@ -176,7 +179,8 @@ public class ProjectTemplatesRESTBuilderWorkspaceTest
 		File mavenProjectDir = buildTemplateWithMaven(
 			mavenModulesDir, mavenModulesDir, template, _name, "com.test",
 			mavenExecutor, "-Dpackage=" + _packageName,
-			"-DliferayVersion=" + _liferayVersion);
+			"-DliferayVersion=" + _liferayVersion,
+			"-DextraModules=" + _extraModules);
 
 		if (isBuildProjects()) {
 			String projectPath;
@@ -295,6 +299,7 @@ public class ProjectTemplatesRESTBuilderWorkspaceTest
 
 	private static URI _gradleDistribution;
 
+	private final String _extraModules;
 	private final String _liferayVersion;
 	private final String _name;
 	private final String _packageName;

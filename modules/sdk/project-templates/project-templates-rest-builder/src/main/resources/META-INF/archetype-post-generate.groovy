@@ -29,6 +29,7 @@ Path buildSettingsPath = projectPath.resolve("settings.gradle")
 Path clientBuildGradlePath = clientPath.resolve("build.gradle")
 Path implementationBuildGradlePath = implementationPath.resolve("build.gradle")
 Path testBuildGradlePath = testPath.resolve("build.gradle")
+Path testBndPath = testPath.resolve("bnd.bnd")
 
 Files.deleteIfExists apiBuildGradlePath
 Files.deleteIfExists buildGradlePath
@@ -36,3 +37,14 @@ Files.deleteIfExists buildSettingsPath
 Files.deleteIfExists clientBuildGradlePath
 Files.deleteIfExists implementationBuildGradlePath
 Files.deleteIfExists testBuildGradlePath
+Files.deleteIfExists testBndPath
+Files.deleteIfExists testPath
+
+if (request.properties["extraModules"].equals("false")) {
+	Path clientBndPath = clientPath.resolve("bnd.bnd")
+	Path clientPomPath = clientPath.resolve("pom.xml")
+
+	Files.deleteIfExists(clientBndPath)
+	Files.deleteIfExists(clientPomPath)
+	Files.deleteIfExists(clientPath)
+}

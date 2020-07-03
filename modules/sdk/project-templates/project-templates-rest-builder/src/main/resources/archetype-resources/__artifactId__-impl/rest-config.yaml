@@ -10,5 +10,7 @@ application:
     className: "${applicationName}Application"
     name: "${applicationName}"
 author: "${author}"
+#if (${extraModules})
 clientDir: "../${artifactId}-client/src/main/java"
 testDir: "../${artifactId}-test/src/testIntegration/java"
+#end
