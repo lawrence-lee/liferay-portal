@@ -16,10 +16,12 @@ package com.liferay.project.templates.rest.builder.internal;
 
 import com.liferay.project.templates.extensions.ProjectTemplateCustomizer;
 import com.liferay.project.templates.extensions.ProjectTemplatesArgs;
+import com.liferay.project.templates.extensions.util.FileUtil;
 import com.liferay.project.templates.extensions.util.WorkspaceUtil;
 
 import java.io.File;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 import java.util.Properties;
@@ -41,7 +43,30 @@ public class RESTBuilderProjectTemplateCustomizer
 	@Override
 	public void onAfterGenerateProject(
 		ProjectTemplatesArgs projectTemplatesArgs, File destinationDir,
-		ArchetypeGenerationResult archetypeGenerationResult) {
+		ArchetypeGenerationResult archetypeGenerationResult)
+		throws IOException {
+
+		RESTBuilderProjectTemplatesArgs restBuilderProjectTemplatesArgs =
+			(RESTBuilderProjectTemplatesArgs)
+				projectTemplatesArgs.getProjectTemplatesArgsExt();
+
+		boolean extraModules =
+			"true".equalsIgnoreCase(restBuilderProjectTemplatesArgs.getExtraModules());
+
+		if (!extraModules) {
+			String name = projectTemplatesArgs.getName();
+
+			Path destinationDirPath = destinationDir.toPath();
+
+			Path projectDirPath = destinationDirPath.resolve(name);
+
+			Path clientDirPath = projectDirPath.resolve(name + "-client");
+
+			Path testDirPath = projectDirPath.resolve(name + "-test");
+
+			FileUtil.deleteDir(clientDirPath);
+			FileUtil.deleteDir(testDirPath);
+		}
 	}
 
 	@Override
@@ -80,6 +105,14 @@ public class RESTBuilderProjectTemplateCustomizer
 
 		setProperty(properties, "apiPath", apiPath);
 		setProperty(properties, "clientPath", clientPath);
+
+		RESTBuilderProjectTemplatesArgs restBuilderProjectTemplatesArgs =
+			(RESTBuilderProjectTemplatesArgs)
+				projectTemplatesArgs.getProjectTemplatesArgsExt();
+
+		setProperty(
+			properties, "extraModules",
+			restBuilderProjectTemplatesArgs.getExtraModules());
 	}
 
 }
