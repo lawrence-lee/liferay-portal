@@ -52,16 +52,27 @@ public class ProjectTemplatesRESTBuilderWorkspaceTest
 	@ClassRule
 	public static final MavenExecutor mavenExecutor = new MavenExecutor();
 
-	@Parameterized.Parameters(name = "Testcase-{index}: testing {0}, {1}, {2}, {3}")
+	@Parameterized.Parameters(
+		name = "Testcase-{index}: testing {0}, {1}, {2}, {3}"
+	)
 	public static Iterable<Object[]> data() {
 		return Arrays.asList(
 			new Object[][] {
 				{"true", "guestbook", "com.liferay.docs.guestbook", "7.1.3"},
 				{"true", "guestbook", "com.liferay.docs.guestbook", "7.2.1"},
 				{"true", "guestbook", "com.liferay.docs.guestbook", "7.3.2"},
-				{"true", "backend-integration", "com.liferay.docs.guestbook", "7.1.3"},
-				{"true", "backend-integration", "com.liferay.docs.guestbook", "7.2.1"},
-				{"true", "backend-integration", "com.liferay.docs.guestbook", "7.3.2"},
+				{
+					"true", "backend-integration", "com.liferay.docs.guestbook",
+					"7.1.3"
+				},
+				{
+					"true", "backend-integration", "com.liferay.docs.guestbook",
+					"7.2.1"
+				},
+				{
+					"true", "backend-integration", "com.liferay.docs.guestbook",
+					"7.3.2"
+				},
 				{"false", "sample", "com.test.sample", "7.1.3"},
 				{"false", "sample", "com.test.sample", "7.2.1"},
 				{"false", "sample", "com.test.sample", "7.3.2"}
