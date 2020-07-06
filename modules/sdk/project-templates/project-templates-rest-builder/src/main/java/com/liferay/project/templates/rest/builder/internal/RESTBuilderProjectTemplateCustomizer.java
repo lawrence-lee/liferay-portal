@@ -20,8 +20,8 @@ import com.liferay.project.templates.extensions.util.FileUtil;
 import com.liferay.project.templates.extensions.util.WorkspaceUtil;
 
 import java.io.File;
-
 import java.io.IOException;
+
 import java.nio.file.Path;
 
 import java.util.Properties;
@@ -42,16 +42,16 @@ public class RESTBuilderProjectTemplateCustomizer
 
 	@Override
 	public void onAfterGenerateProject(
-		ProjectTemplatesArgs projectTemplatesArgs, File destinationDir,
-		ArchetypeGenerationResult archetypeGenerationResult)
+			ProjectTemplatesArgs projectTemplatesArgs, File destinationDir,
+			ArchetypeGenerationResult archetypeGenerationResult)
 		throws IOException {
 
 		RESTBuilderProjectTemplatesArgs restBuilderProjectTemplatesArgs =
 			(RESTBuilderProjectTemplatesArgs)
 				projectTemplatesArgs.getProjectTemplatesArgsExt();
 
-		boolean extraModules =
-			"true".equalsIgnoreCase(restBuilderProjectTemplatesArgs.getExtraModules());
+		boolean extraModules = "true".equalsIgnoreCase(
+			restBuilderProjectTemplatesArgs.getExtraModules());
 
 		if (!extraModules) {
 			String name = projectTemplatesArgs.getName();

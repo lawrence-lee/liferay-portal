@@ -15,6 +15,7 @@
 package com.liferay.project.templates.rest.builder.internal;
 
 import com.beust.jcommander.Parameter;
+
 import com.liferay.project.templates.extensions.ProjectTemplatesArgsExt;
 
 /**
