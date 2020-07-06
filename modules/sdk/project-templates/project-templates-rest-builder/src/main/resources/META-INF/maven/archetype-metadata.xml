@@ -43,11 +43,11 @@
 		<requiredProperty key="buildType">
 			<defaultValue>maven</defaultValue>
 		</requiredProperty>
-		<requiredProperty key="extraModules">
-			<defaultValue>false</defaultValue>
-		</requiredProperty>
 		<requiredProperty key="clientPath">
 			<defaultValue>:${artifactId}-client</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="extraModules">
+			<defaultValue>false</defaultValue>
 		</requiredProperty>
 		<requiredProperty key="liferayVersion">
 		</requiredProperty>
