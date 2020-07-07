@@ -33,7 +33,6 @@ import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -345,7 +344,6 @@ public class ProjectTemplatesRESTBuilderTest
 		Assert.assertFalse(mavenTest.exists());
 	}
 
-	@Ignore
 	@Test
 	public void testCompareRESTBuilderPluginVersions() throws Exception {
 		String liferayVersion = getDefaultLiferayVersion();
