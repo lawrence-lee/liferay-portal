@@ -618,7 +618,7 @@ public interface BaseProjectTemplatesTestCase {
 			completeArgs.add("-DprojectType=standalone");
 		}
 
-		executeMaven(
+		String output = executeMaven(
 			destinationDir, mavenExecutor, completeArgs.toArray(new String[0]));
 
 		File projectDir = new File(destinationDir, name);
@@ -628,6 +628,8 @@ public interface BaseProjectTemplatesTestCase {
 		testNotExists(projectDir, "gradlew.bat");
 		testNotExists(projectDir, "gradle/wrapper/gradle-wrapper.jar");
 		testNotExists(projectDir, "gradle/wrapper/gradle-wrapper.properties");
+
+		System.out.println(output);
 
 		return projectDir;
 	}
@@ -1016,7 +1018,7 @@ public interface BaseProjectTemplatesTestCase {
 			File projectDir, MavenExecutor mavenExecutor, String... args)
 		throws Exception {
 
-		return executeMaven(projectDir, false, mavenExecutor, args);
+		return executeMaven(projectDir, true, mavenExecutor, args);
 	}
 
 	public default String getDefaultLiferayVersion() {
