@@ -170,7 +170,7 @@ Set the folder that contains Node.js-style theme projects. The default value is
 Set this to true to build the theme projects using the Liferay Portal Tools 
 Theme Builder. The default value is `false`.
 
-#### microsoft.translator.subscription.key=
+#### microsoft.translator.subscription.key
 Set the subscription key for Microsoft Translation integration. This is service  
 is used to provide automatic translations for `buildLang`. 
 
