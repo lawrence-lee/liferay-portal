@@ -77,6 +77,10 @@ public class ProjectTemplatesWorkspaceTest
 		testExists(workspaceProjectDir, "modules");
 		testExists(workspaceProjectDir, "themes");
 
+		testContains(
+			workspaceProjectDir, "GETTING_STARTED.markdown",
+			"liferay.workspace.product\n");
+
 		testNotExists(workspaceProjectDir, "modules/pom.xml");
 		testNotExists(workspaceProjectDir, "themes/pom.xml");
 
