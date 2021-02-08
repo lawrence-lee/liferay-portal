@@ -14,6 +14,7 @@
 
 package com.liferay.project.templates;
 
+import com.liferay.project.templates.util.FileTestUtil;
 import com.liferay.project.templates.util.ZipUtil;
 
 import java.io.File;
@@ -92,8 +93,11 @@ public class ProjectTemplatesAPIJarTest {
 
 		Assert.assertFalse(javaPaths.isEmpty());
 
+		List<String> ignoredSources = _getIgnoreSources(
+			releaseApiJarFile.getName());
+
 		for (String clazz : classes) {
-			if (!clazz.contains("$") && !_ignoreJavaPaths.contains(clazz)) {
+			if (!clazz.contains("$") && !ignoredSources.contains(clazz)) {
 				Assert.assertTrue(
 					"Missing class " + clazz, javaPaths.contains(clazz));
 			}
@@ -172,6 +176,32 @@ public class ProjectTemplatesAPIJarTest {
 		Assert.assertTrue(
 			"Missing TLD classes:\n" + sb.toString(),
 			Objects.equals("", sb.toString()));
+	}
+
+	private List<String> _getIgnoreSources(String liferayVersion)
+		throws Exception {
+
+		String ignoredSources = FileTestUtil.read(
+			"APIJarExcludedSourceFiles.txt");
+		String newIgnoredSources = null;
+
+		if (liferayVersion.startsWith("7.0")) {
+			newIgnoredSources = ignoredSources.concat(
+				FileTestUtil.read("70APIJarExcludedSourceFiles.txt"));
+		}
+		else if (liferayVersion.startsWith("7.1")) {
+			newIgnoredSources = ignoredSources.concat(
+				FileTestUtil.read("71APIJarExcludedSourceFiles.txt"));
+		}
+		else if (liferayVersion.startsWith("7.2")) {
+			newIgnoredSources = ignoredSources.concat(
+				FileTestUtil.read("72APIJarExcludedSourceFiles.txt"));
+		}
+		else {
+			newIgnoredSources = ignoredSources;
+		}
+
+		return Arrays.asList(newIgnoredSources.split("\n"));
 	}
 
 	private Set<String> _getPaths(Path sourcePath, String extension)
@@ -314,19 +344,5 @@ public class ProjectTemplatesAPIJarTest {
 
 	private static final String _RELEASE_API_JAR_SOURCES_FILE =
 		System.getProperty("releaseApiJarSourcesFile");
-
-	private static final List<String> _ignoreJavaPaths = Arrays.asList(
-		"com/fasterxml/jackson/databind/deser/std/BaseNodeDeserializer",
-		"javax/servlet/http/NoBodyOutputStream",
-		"javax/servlet/http/NoBodyResponse",
-		"org/osgi/framework/AdaptPermissionCollection",
-		"org/osgi/framework/AdminPermissionCollection",
-		"org/osgi/framework/BundlePermissionCollection",
-		"org/osgi/framework/CapabilityPermissionCollection",
-		"org/osgi/framework/PackagePermissionCollection",
-		"org/osgi/framework/ServicePermissionCollection",
-		"org/osgi/service/cm/ConfigurationPermissionCollection",
-		"org/osgi/service/condpermadmin/BooleanCondition",
-		"org/osgi/service/event/TopicPermissionCollection");
 
 }
