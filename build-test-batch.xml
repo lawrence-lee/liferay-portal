@@ -5511,6 +5511,13 @@ log.sanitizer.enabled=false</echo>
 		</antcall>
 	</target>
 
+	<target name="modules-integration-project-templates-jdk11_zulu">
+		<antcall target="modules-unit-jdk8">
+			<param name="project.templates.test" value="true" />
+			<param name="project.templates.test.builds" value="true" />
+		</antcall>
+	</target>
+
 	<target name="modules-integration-sqlserver2017-jdk8">
 		<run-modules-integration-test database.type="sqlserver" database.version="2017" />
 	</target>
