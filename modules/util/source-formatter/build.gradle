@@ -28,6 +28,7 @@ dependencies {
 	compile group: "org.json", name: "json", version: "20180813"
 	compile group: "org.reflections", name: "reflections", "version": "0.10.2"
 	compile group: "xerces", name: "xercesImpl", version: "2.12.1"
+	compile group: "com.liferay.blade", name: "com.liferay.blade.cli", version: "4.0.10"
 
 	compileInclude group: "com.liferay", name: "com.liferay.petra.function", version: "5.0.1"
 	compileInclude group: "com.liferay", name: "com.liferay.petra.lang", version: "1.0.0"
