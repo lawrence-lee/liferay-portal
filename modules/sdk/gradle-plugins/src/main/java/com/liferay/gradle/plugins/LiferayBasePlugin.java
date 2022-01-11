@@ -404,6 +404,15 @@ public class LiferayBasePlugin implements Plugin<Project> {
 
 				@Override
 				public File call() throws Exception {
+					File appServerShieldedContainerLibPortalDir =
+						liferayExtension.
+							getAppServerShieldedContainerLibPortalDir();
+
+					if (appServerShieldedContainerLibPortalDir.exists()) {
+						return liferayExtension.
+							getAppServerShieldedContainerLibPortalDir();
+					}
+
 					return liferayExtension.getAppServerLibGlobalDir();
 				}
 

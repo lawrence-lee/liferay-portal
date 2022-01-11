@@ -57,7 +57,7 @@ public class DirectDeployTask extends BasePortalToolsTask {
 	public List<String> getArgs() {
 		List<String> args = new ArrayList<>(3);
 
-		File appServerLibPortalDir = _getAppServerLibPortalDir();
+		File appServerLibPortalDir = getAppServerLibGlobalDir();
 
 		String path = appServerLibPortalDir.getAbsolutePath();
 
@@ -88,7 +88,7 @@ public class DirectDeployTask extends BasePortalToolsTask {
 				"/portal-tools.properties");
 		jvmArgs.add(
 			"-Dliferay.lib.portal.dir=" +
-				FileUtil.getAbsolutePath(_getAppServerLibPortalDir()));
+				FileUtil.getAbsolutePath(getAppServerLibGlobalDir()));
 
 		String webAppType = getWebAppType();
 
@@ -211,10 +211,6 @@ public class DirectDeployTask extends BasePortalToolsTask {
 	@Override
 	protected String getToolName() {
 		return "Deployer";
-	}
-
-	private File _getAppServerLibPortalDir() {
-		return new File(getAppServerPortalDir(), "WEB-INF/lib");
 	}
 
 	private Object _appServerDeployDir;
