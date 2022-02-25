@@ -16,16 +16,25 @@ package com.liferay.project.templates.form.field.internal;
 
 import com.liferay.project.templates.extensions.ProjectTemplateCustomizer;
 import com.liferay.project.templates.extensions.ProjectTemplatesArgs;
+import com.liferay.project.templates.extensions.util.WorkspaceUtil;
 
 import java.io.File;
+import java.io.InputStream;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.archetype.ArchetypeGenerationRequest;
 import org.apache.maven.archetype.ArchetypeGenerationResult;
+
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @author Renato Rego
@@ -82,6 +91,67 @@ public class FormFieldProjectTemplateCustomizer
 				fileNames.add(
 					"src/main/resources/META-INF/resources/" + name +
 						"Register.soy");
+			}
+
+			Path projectPath = Paths.get(destinationDir.getPath(), name);
+
+			if (Files.notExists(projectPath)) {
+				return;
+			}
+
+			File workspaceDir = WorkspaceUtil.getWorkspaceDir(destinationDir);
+
+			Path workspacPath = workspaceDir.toPath();
+
+			Path gradlePropertiesPath = workspacPath.resolve(
+				"gradle.properties");
+
+			if (Files.notExists(gradlePropertiesPath) ||
+				Files.isDirectory(gradlePropertiesPath)) {
+
+				return;
+			}
+
+			try (InputStream gradlePropertiesInputStream = Files.newInputStream(
+					gradlePropertiesPath, StandardOpenOption.READ)) {
+
+				Properties gradleProperties = new Properties();
+
+				gradleProperties.load(gradlePropertiesInputStream);
+
+				String nodeManager = gradleProperties.getProperty(
+					"liferay.workspace.node.package.manager");
+
+				if (!StringUtils.equals(nodeManager, "npm")) {
+					Path projectRelativizePath = workspacPath.relativize(
+						projectPath);
+
+					StringBuilder nodeModulePath = new StringBuilder("../");
+
+					for (int i = 0;
+						 i < (projectRelativizePath.getNameCount() - 1); i++) {
+
+						nodeModulePath.append("../");
+					}
+
+					Path packageJsonPath = projectPath.resolve("package.json");
+
+					if (Files.exists(packageJsonPath)) {
+						File packageJsonFile = packageJsonPath.toFile();
+
+						String packageJsonContent = FileUtils.readFileToString(
+							packageJsonFile);
+
+						String replaceWithYarnModulesPathContent =
+							packageJsonContent.replaceAll(
+								"./node_modules",
+								nodeModulePath.toString() + "node_modules");
+
+						FileUtils.writeStringToFile(
+							packageJsonFile, replaceWithYarnModulesPathContent,
+							"UTF-8");
+					}
+				}
 			}
 		}
 		else {
