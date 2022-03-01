@@ -122,7 +122,7 @@ public class FormFieldProjectTemplateCustomizer
 				String nodeManager = gradleProperties.getProperty(
 					"liferay.workspace.node.package.manager");
 
-				if (StringUtils.equals(nodeManager, "yarn")) {
+				if (!StringUtils.equals(nodeManager, "npm")) {
 					Path projectRelativizePath = workspacPath.relativize(
 						projectPath);
 
