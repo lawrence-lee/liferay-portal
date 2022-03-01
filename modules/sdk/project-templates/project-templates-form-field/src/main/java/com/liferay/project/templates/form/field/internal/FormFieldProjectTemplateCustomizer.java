@@ -16,6 +16,7 @@ package com.liferay.project.templates.form.field.internal;
 
 import com.liferay.project.templates.extensions.ProjectTemplateCustomizer;
 import com.liferay.project.templates.extensions.ProjectTemplatesArgs;
+import com.liferay.project.templates.extensions.util.Validator;
 import com.liferay.project.templates.extensions.util.WorkspaceUtil;
 
 import java.io.File;
@@ -33,8 +34,6 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.archetype.ArchetypeGenerationRequest;
 import org.apache.maven.archetype.ArchetypeGenerationResult;
-
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @author Renato Rego
@@ -122,7 +121,9 @@ public class FormFieldProjectTemplateCustomizer
 				String nodeManager = gradleProperties.getProperty(
 					"liferay.workspace.node.package.manager");
 
-				if (!StringUtils.equals(nodeManager, "npm")) {
+				if (Validator.isNull(nodeManager) ||
+					nodeManager.equals("yarn")) {
+
 					Path projectRelativizePath = workspacPath.relativize(
 						projectPath);
 
