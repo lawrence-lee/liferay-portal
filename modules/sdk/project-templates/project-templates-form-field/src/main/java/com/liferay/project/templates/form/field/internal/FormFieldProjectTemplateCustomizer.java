@@ -20,6 +20,7 @@ import com.liferay.project.templates.extensions.util.Validator;
 import com.liferay.project.templates.extensions.util.WorkspaceUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 import java.nio.file.Files;
@@ -135,23 +136,11 @@ public class FormFieldProjectTemplateCustomizer
 						nodeModulePath.append("../");
 					}
 
-					Path packageJsonPath = projectPath.resolve("package.json");
-
-					if (Files.exists(packageJsonPath)) {
-						File packageJsonFile = packageJsonPath.toFile();
-
-						String packageJsonContent = FileUtils.readFileToString(
-							packageJsonFile);
-
-						String replaceWithYarnModulesPathContent =
-							packageJsonContent.replaceAll(
-								"./node_modules",
-								nodeModulePath.toString() + "node_modules");
-
-						FileUtils.writeStringToFile(
-							packageJsonFile, replaceWithYarnModulesPathContent,
-							"UTF-8");
-					}
+					_updateNodeModulePath(
+						projectPath, nodeModulePath.toString());
+				}
+				else if (nodeManager.equals("npm")) {
+					_updateNodeModulePath(projectPath, "./");
 				}
 			}
 		}
@@ -195,6 +184,26 @@ public class FormFieldProjectTemplateCustomizer
 		}
 
 		return jsFramework.equals("react");
+	}
+
+	private void _updateNodeModulePath(Path projectPath, String nodeUpdatePath)
+		throws IOException {
+
+		Path packageJsonPath = projectPath.resolve("package.json");
+
+		if (Files.exists(packageJsonPath)) {
+			File packageJsonFile = packageJsonPath.toFile();
+
+			String packageJsonContent = FileUtils.readFileToString(
+				packageJsonFile);
+
+			String replaceWithYarnModulesPathContent =
+				packageJsonContent.replaceAll(
+					"../../node_modules/", nodeUpdatePath + "node_modules/");
+
+			FileUtils.writeStringToFile(
+				packageJsonFile, replaceWithYarnModulesPathContent, "UTF-8");
+		}
 	}
 
 }
