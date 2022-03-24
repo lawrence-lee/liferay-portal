@@ -8,3 +8,6 @@ dependencies {
 	compileOnly group: "org.apache.felix", name: "org.apache.felix.http.servlet-api", version: "1.1.2"
 	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
 }
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

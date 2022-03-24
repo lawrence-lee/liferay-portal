@@ -11,3 +11,6 @@ dependencies {
 
 	runtimeOnly project(":modules:foo-service")
 }
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

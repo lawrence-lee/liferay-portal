@@ -4,3 +4,6 @@ dependencies {
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
 	compileOnly group: "org.osgi", name: "osgi.cmpn"
 }
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
