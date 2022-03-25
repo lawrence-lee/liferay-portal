@@ -59,5 +59,7 @@ gradle.projectsEvaluated {
 				throw new GradleException("The expected line " + expectedLine + " was not found in the log.")
 			}
 		}
+
+		finalizedBy cleanDockerImage
 	}
 }

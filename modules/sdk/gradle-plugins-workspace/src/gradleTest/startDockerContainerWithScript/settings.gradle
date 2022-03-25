@@ -71,5 +71,7 @@ gradle.projectsEvaluated {
 				throw new GradleException("The unexpected line " + unexpectedLine + " was found in the log.")
 			}
 		}
+
+		finalizedBy cleanDockerImage
 	}
 }
