@@ -204,9 +204,9 @@ public class FrontendPlugin implements Plugin<Project> {
 	}
 
 	private static final Version _MINIMUM_NODE_VERSION = Version.parseVersion(
-		"10.15.3");
+		"14.19.0");
 
 	private static final Version _MINIMUM_NPM_VERSION = Version.parseVersion(
-		"6.4.1");
+		"6.14.16");
 
 }
