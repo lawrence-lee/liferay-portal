@@ -22,6 +22,7 @@ import com.liferay.gradle.plugins.extensions.LiferayOSGiExtension;
 import com.liferay.gradle.plugins.js.module.config.generator.JSModuleConfigGeneratorPlugin;
 import com.liferay.gradle.plugins.js.transpiler.JSTranspilerBasePlugin;
 import com.liferay.gradle.plugins.js.transpiler.JSTranspilerPlugin;
+import com.liferay.gradle.plugins.node.NodeExtension;
 import com.liferay.gradle.plugins.node.NodePlugin;
 import com.liferay.gradle.plugins.rest.builder.RESTBuilderPlugin;
 import com.liferay.gradle.plugins.service.builder.ServiceBuilderPlugin;
@@ -60,6 +61,7 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.gradle.api.Action;
+import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.file.ConfigurableFileCollection;
@@ -80,6 +82,7 @@ import org.gradle.jvm.tasks.Jar;
 import org.gradle.language.base.plugins.LifecycleBasePlugin;
 
 import org.osgi.framework.Constants;
+import org.osgi.framework.Version;
 
 /**
  * @author Andrea Di Giorgi
@@ -137,6 +140,12 @@ public class ModulesProjectConfigurator extends BaseProjectConfigurator {
 			GradleUtil.applyPlugin(project, SoyTranslationPlugin.class);
 			GradleUtil.applyPlugin(project, UpgradeTableBuilderPlugin.class);
 			GradleUtil.applyPlugin(project, WSDDBuilderPlugin.class);
+
+			File packageJSONFile = project.file("package.json");
+
+			if (packageJSONFile.exists()) {
+				_configureNodeAndNpmVersion(project);
+			}
 
 			if (GradleUtil.hasTask(
 					project, NodePlugin.PACKAGE_RUN_BUILD_TASK_NAME)) {
@@ -314,6 +323,42 @@ public class ModulesProjectConfigurator extends BaseProjectConfigurator {
 
 		liferayOSGiExtension.bundleDefaultInstructions(
 			bundleDefaultInstructions);
+	}
+
+	private void _configureNodeAndNpmVersion(Project project) {
+		NodeExtension nodeExtension = GradleUtil.getExtension(
+			project, NodeExtension.class);
+
+		String nodeVersion = nodeExtension.getNodeVersion();
+
+		try {
+			Version version = Version.parseVersion(nodeVersion);
+
+			if (version.compareTo(_MAXIMUM_NODE_VERSION) > 0) {
+				nodeVersion = _MAXIMUM_NODE_VERSION.toString();
+
+				nodeExtension.setNodeVersion(nodeVersion);
+			}
+		}
+		catch (Exception exception) {
+			throw new GradleException(
+				"Unable to parse node version", exception);
+		}
+
+		String npmVersion = nodeExtension.getNpmVersion();
+
+		try {
+			Version version = Version.parseVersion(npmVersion);
+
+			if (version.compareTo(_MAXIMUM_NPM_VERSION) > 0) {
+				npmVersion = _MAXIMUM_NPM_VERSION.toString();
+
+				nodeExtension.setNpmVersion(npmVersion);
+			}
+		}
+		catch (Exception exception) {
+			throw new GradleException("Unable to parse npm version", exception);
+		}
 	}
 
 	@SuppressWarnings("serial")
@@ -543,6 +588,12 @@ public class ModulesProjectConfigurator extends BaseProjectConfigurator {
 	private static final boolean _DEFAULT_JSP_PRECOMPILE_ENABLED = false;
 
 	private static final boolean _DEFAULT_REPOSITORY_ENABLED = true;
+
+	private static final Version _MAXIMUM_NODE_VERSION = Version.parseVersion(
+		"14.19.0");
+
+	private static final Version _MAXIMUM_NPM_VERSION = Version.parseVersion(
+		"6.14.16");
 
 	private boolean _defaultRepositoryEnabled;
 	private boolean _jspPrecompileEnabled;
