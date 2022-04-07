@@ -14,8 +14,11 @@
 
 package com.liferay.gradle.plugins.workspace.configurators;
 
+import com.bmuschko.gradle.docker.shaded.com.google.common.base.Objects;
+
 import com.liferay.gradle.plugins.LiferayThemePlugin;
 import com.liferay.gradle.plugins.gulp.ExecuteGulpTask;
+import com.liferay.gradle.plugins.node.NodeExtension;
 import com.liferay.gradle.plugins.theme.builder.BuildThemeTask;
 import com.liferay.gradle.plugins.theme.builder.ThemeBuilderPlugin;
 import com.liferay.gradle.plugins.workspace.ProjectConfigurator;
@@ -43,6 +46,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.file.ConfigurableFileCollection;
@@ -53,6 +57,8 @@ import org.gradle.api.plugins.BasePluginConvention;
 import org.gradle.api.plugins.ExtensionAware;
 import org.gradle.api.plugins.WarPluginConvention;
 import org.gradle.api.tasks.Copy;
+
+import org.osgi.framework.Version;
 
 /**
  * @author Andrea Di Giorgi
@@ -73,6 +79,8 @@ public class ThemesProjectConfigurator extends BaseProjectConfigurator {
 		WorkspaceExtension workspaceExtension = GradleUtil.getExtension(
 			(ExtensionAware)project.getGradle(), WorkspaceExtension.class);
 
+		String nodePackageManager = workspaceExtension.getNodePackageManager();
+
 		if (isJavaBuild()) {
 			ProjectConfigurator projectConfigurator =
 				workspaceExtension.propertyMissing(
@@ -81,6 +89,10 @@ public class ThemesProjectConfigurator extends BaseProjectConfigurator {
 			projectConfigurator.apply(project);
 
 			GradleUtil.applyPlugin(project, ThemeBuilderPlugin.class);
+
+			if (Objects.equal("npm", nodePackageManager)) {
+				_configureNodeAndNpmVersion(project);
+			}
 
 			_configureTaskBuildTheme(project);
 			_configureWar(project);
@@ -94,6 +106,10 @@ public class ThemesProjectConfigurator extends BaseProjectConfigurator {
 
 			final Task assembleTask = GradleUtil.getTask(
 				project, BasePlugin.ASSEMBLE_TASK_NAME);
+
+			if (Objects.equal("npm", nodePackageManager)) {
+				_configureNodeAndNpmVersion(project);
+			}
 
 			_configureRootTaskDistBundle(assembleTask);
 
@@ -171,6 +187,46 @@ public class ThemesProjectConfigurator extends BaseProjectConfigurator {
 	}
 
 	protected static final String NAME = "themes";
+
+	private void _configureNodeAndNpmVersion(Project project) {
+		NodeExtension nodeExtension = GradleUtil.getExtension(
+			project, NodeExtension.class);
+
+		String nodeVersion = nodeExtension.getNodeVersion();
+
+		try {
+			Version version = Version.parseVersion(nodeVersion);
+
+			int compareResult = version.compareTo(_MAXIMUM_NODE_VERSION);
+
+			if (compareResult > 0) {
+				nodeVersion = _MAXIMUM_NODE_VERSION.toString();
+
+				nodeExtension.setNodeVersion(nodeVersion);
+			}
+		}
+		catch (Exception exception) {
+			throw new GradleException(
+				"Unable to parse node version", exception);
+		}
+
+		String npmVersion = nodeExtension.getNpmVersion();
+
+		try {
+			Version version = Version.parseVersion(npmVersion);
+
+			int compareResult = version.compareTo(_MAXIMUM_NPM_VERSION);
+
+			if (compareResult > 0) {
+				npmVersion = _MAXIMUM_NPM_VERSION.toString();
+
+				nodeExtension.setNpmVersion(npmVersion);
+			}
+		}
+		catch (Exception exception) {
+			throw new GradleException("Unable to parse npm version", exception);
+		}
+	}
 
 	@SuppressWarnings({"serial", "unused"})
 	private void _configureRootTaskDistBundle(final Task assembleTask) {
@@ -308,6 +364,12 @@ public class ThemesProjectConfigurator extends BaseProjectConfigurator {
 	}
 
 	private static final boolean _JAVA_BUILD = false;
+
+	private static final Version _MAXIMUM_NODE_VERSION = Version.parseVersion(
+		"14.19.0");
+
+	private static final Version _MAXIMUM_NPM_VERSION = Version.parseVersion(
+		"6.14.16");
 
 	private boolean _javaBuild;
 

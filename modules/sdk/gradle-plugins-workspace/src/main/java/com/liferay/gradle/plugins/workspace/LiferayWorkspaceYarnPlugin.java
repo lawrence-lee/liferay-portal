@@ -28,10 +28,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import org.gradle.api.Action;
+import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.api.tasks.TaskProvider;
+
+import org.osgi.framework.Version;
 
 /**
  * @author David Truong
@@ -47,6 +50,8 @@ public class LiferayWorkspaceYarnPlugin extends YarnPlugin {
 		super.apply(project);
 
 		GradleUtil.applyPlugin(project, NodeDefaultsPlugin.class);
+
+		_configureNodeVersion(project);
 
 		TaskProvider<SetUpYarnTask> setUpYarnTaskProvider =
 			GradleUtil.addTaskProvider(
@@ -104,6 +109,27 @@ public class LiferayWorkspaceYarnPlugin extends YarnPlugin {
 			});
 	}
 
+	private void _configureNodeVersion(Project project) {
+		NodeExtension nodeExtension = GradleUtil.getExtension(
+			project, NodeExtension.class);
+
+		String nodeVersion = nodeExtension.getNodeVersion();
+
+		try {
+			Version version = Version.parseVersion(nodeVersion);
+
+			if (version.compareTo(_MAXIMUM_NODE_VERSION) > 0) {
+				nodeVersion = _MAXIMUM_NODE_VERSION.toString();
+
+				nodeExtension.setNodeVersion(nodeVersion);
+			}
+		}
+		catch (Exception exception) {
+			throw new GradleException(
+				"Unable to parse node version", exception);
+		}
+	}
+
 	private void _configureTaskYarnInstallProvider(
 		final Project project,
 		TaskProvider<YarnInstallTask> yarnInstallTaskProvider,
@@ -146,5 +172,8 @@ public class LiferayWorkspaceYarnPlugin extends YarnPlugin {
 
 			});
 	}
+
+	private static final Version _MAXIMUM_NODE_VERSION = Version.parseVersion(
+		"14.19.0");
 
 }
