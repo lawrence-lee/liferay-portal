@@ -11,6 +11,7 @@ Provide-Capability:\
 #end
 Web-ContextPath: /dynamic-data-${artifactId}-form-field
 #if (${buildType} != "gradle")
+-consumer-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
 #if (${liferayVersion.startsWith("7.1")})-contract: JavaPortlet,JavaServlet
 #end
 -jsp: *.jsp,*.jspf,*.jspx
@@ -22,4 +23,5 @@ Web-ContextPath: /dynamic-data-${artifactId}-form-field
 #end
 -plugin.resourcebundle: com.liferay.ant.bnd.resource.bundle.ResourceBundleLoaderAnalyzerPlugin
 -plugin.sass: com.liferay.ant.bnd.sass.SassAnalyzerPlugin
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
 -sass: *#end

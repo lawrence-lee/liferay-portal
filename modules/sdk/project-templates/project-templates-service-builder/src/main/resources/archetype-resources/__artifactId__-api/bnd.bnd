@@ -8,3 +8,8 @@ Export-Package:\
 	${package}.service.persistence
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../${artifactId}-service/service.xml
+#if (${buildType} != "gradle")
+-consumer-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
+-metatype: *
+-plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}#end

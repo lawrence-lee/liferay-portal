@@ -7,9 +7,11 @@ Liferay-Service: true
 -dsannotations-options: inherit
 #end
 #if (${buildType} != "gradle")
+-consumer-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
 -includeresource: META-INF/service.xml=service.xml
 -liferay-service-xml: META-INF/service.xml
 -plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin
 -plugin.service: com.liferay.ant.bnd.service.ServiceAnalyzerPlugin
 #if (${liferayVersion.startsWith("7.0")} || ${liferayVersion.startsWith("7.1")} || (${dependencyInjector} == "spring"))
--plugin.spring: com.liferay.ant.bnd.spring.SpringDependencyAnalyzerPlugin#end#end
+-plugin.spring: com.liferay.ant.bnd.spring.SpringDependencyAnalyzerPlugin#end
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}#end

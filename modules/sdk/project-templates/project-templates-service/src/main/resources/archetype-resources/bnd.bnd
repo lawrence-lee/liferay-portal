@@ -2,5 +2,7 @@ Bundle-Name: ${artifactId}
 Bundle-SymbolicName: ${package}
 Bundle-Version: ${version}
 #if (${buildType} != "gradle")
+-consumer-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
 -metatype: *
--plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin#end
+-plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}#end

@@ -3,5 +3,7 @@ Bundle-SymbolicName: ${package}
 Bundle-Version: ${version}
 Liferay-Configuration-Path: /configuration
 #if (${buildType} != "gradle")
+-consumer-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}
 -metatype: *
--plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin#end
+-plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin
+-provider-policy: ${replacestring;${range;[==,==]};.*,(.*)];$1}#end
