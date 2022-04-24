@@ -1,4 +1,5 @@
 import com.bmuschko.gradle.docker.tasks.container.DockerLogsContainer
+import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
 
 import java.net.InetAddress
 
@@ -58,6 +59,12 @@ gradle.projectsEvaluated {
 			if (!expectedLineDetected) {
 				throw new GradleException("The expected line " + expectedLine + " was not found in the log.")
 			}
+		}
+	}
+
+	rootProject.tasks.register("stopContainer", DockerStopContainer) {
+		targetContainerId {
+			gradle.liferayWorkspace.dockerContainerId
 		}
 	}
 }
