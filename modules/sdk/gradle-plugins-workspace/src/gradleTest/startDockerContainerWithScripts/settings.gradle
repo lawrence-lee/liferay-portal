@@ -1,4 +1,6 @@
 import com.bmuschko.gradle.docker.tasks.container.DockerLogsContainer
+import com.bmuschko.gradle.docker.tasks.container.DockerRemoveContainer
+import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
 
 import java.net.InetAddress
 
@@ -15,6 +17,7 @@ gradle.liferayWorkspace {
 
 	dockerContainerId = hostName + "startdockercontainerwithscripts"
 	dockerImageId = hostName + "startdockercontainerwithscripts"
+	environment = "other"
 	product = "portal-7.4-ga8"
 }
 
@@ -73,6 +76,20 @@ gradle.projectsEvaluated {
 			if (unexpectedLinesDetected > 0) {
 				throw new GradleException("One of the unexpected lines " + unexpectedLines + " were found in the log.")
 			}
+		}
+	}
+
+	rootProject.tasks.register("removeContainer", DockerRemoveContainer) {
+		targetContainerId {
+			gradle.liferayWorkspace.dockerContainerId
+		}
+	}
+
+	rootProject.tasks.register("stopContainer", DockerStopContainer) {
+		finalizedBy "removeContainer"
+
+		targetContainerId {
+			gradle.liferayWorkspace.dockerContainerId
 		}
 	}
 }
