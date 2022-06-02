@@ -1270,7 +1270,7 @@ public class RootProjectConfigurator implements Plugin<Project> {
 
 		String dockerUserName = workspaceExtension.getDockerUserName();
 
-		if (workspaceExtension.getDockerPullPolicy() &&
+		if (!workspaceExtension.getDockerPullPolicy() &&
 			Objects.nonNull(workspaceExtension.getDockerLocalRegistryUrl())) {
 
 			property.set(
@@ -1321,7 +1321,9 @@ public class RootProjectConfigurator implements Plugin<Project> {
 
 		String dockerUserName = workspaceExtension.getDockerUserName();
 
-		if (Objects.nonNull(dockerLocalRegistryUrl)) {
+		if (!workspaceExtension.getDockerPullPolicy() &&
+			Objects.nonNull(dockerLocalRegistryUrl)) {
+
 			property.add(
 				workspaceExtension.getDockerLocalRegistryUrl() + "/" +
 					workspaceExtension.getDockerImageId());
