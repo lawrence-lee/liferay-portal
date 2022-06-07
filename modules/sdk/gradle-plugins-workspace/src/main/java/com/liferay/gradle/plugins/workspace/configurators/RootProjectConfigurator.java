@@ -389,6 +389,17 @@ public class RootProjectConfigurator implements Plugin<Project> {
 
 		pullProperty.set(true);
 
+		DockerRegistryCredentials credentials =
+			dockerBuildImage.getRegistryCredentials();
+
+		Property<String> userNameProperty = credentials.getUsername();
+
+		userNameProperty.set(workspaceExtension.getDockerUserName());
+
+		Property<String> passwordProperty = credentials.getPassword();
+
+		passwordProperty.set(workspaceExtension.getDockerAccessToken());
+
 		dockerBuildImage.setDescription(
 			"Builds a child docker image from Liferay base image with all " +
 				"configs deployed.");
@@ -727,6 +738,17 @@ public class RootProjectConfigurator implements Plugin<Project> {
 									workspaceExtension.getDockerImageLiferay();
 							}
 
+							String dockerLocalRegistryAddress =
+								workspaceExtension.
+									getDockerLocalRegistryAddress();
+
+							if (!workspaceExtension.getDockerPullPolicy() &&
+								Objects.nonNull(dockerLocalRegistryAddress)) {
+
+								dockerImageLiferay = dockerImageLiferay.replace(
+									"liferay", dockerLocalRegistryAddress);
+							}
+
 							Dockerfile.FromInstruction baseImage =
 								new Dockerfile.FromInstruction(
 									new Dockerfile.From(dockerImageLiferay));
@@ -1024,9 +1046,11 @@ public class RootProjectConfigurator implements Plugin<Project> {
 
 		Property<String> repositoryProperty = dockerTagImage.getRepository();
 
-		if (Objects.nonNull(workspaceExtension.getDockerLocalRegistryUrl())) {
+		if (Objects.nonNull(
+				workspaceExtension.getDockerLocalRegistryAddress())) {
+
 			repositoryProperty.set(
-				workspaceExtension.getDockerLocalRegistryUrl() + "/" +
+				workspaceExtension.getDockerLocalRegistryAddress() + "/" +
 					workspaceExtension.getDockerImageId());
 		}
 		else if (Objects.nonNull(dockerUserName)) {
@@ -1271,10 +1295,11 @@ public class RootProjectConfigurator implements Plugin<Project> {
 		String dockerUserName = workspaceExtension.getDockerUserName();
 
 		if (!workspaceExtension.getDockerPullPolicy() &&
-			Objects.nonNull(workspaceExtension.getDockerLocalRegistryUrl())) {
+			Objects.nonNull(
+				workspaceExtension.getDockerLocalRegistryAddress())) {
 
 			property.set(
-				workspaceExtension.getDockerLocalRegistryUrl() + "/" +
+				workspaceExtension.getDockerLocalRegistryAddress() + "/" +
 					workspaceExtension.getDockerImageId());
 		}
 		else if (Objects.nonNull(dockerUserName)) {
@@ -1317,7 +1342,7 @@ public class RootProjectConfigurator implements Plugin<Project> {
 		SetProperty<String> property = dockerPushImage.getImages();
 
 		String dockerLocalRegistryUrl =
-			workspaceExtension.getDockerLocalRegistryUrl();
+			workspaceExtension.getDockerLocalRegistryAddress();
 
 		String dockerUserName = workspaceExtension.getDockerUserName();
 
@@ -1325,7 +1350,7 @@ public class RootProjectConfigurator implements Plugin<Project> {
 			Objects.nonNull(dockerLocalRegistryUrl)) {
 
 			property.add(
-				workspaceExtension.getDockerLocalRegistryUrl() + "/" +
+				workspaceExtension.getDockerLocalRegistryAddress() + "/" +
 					workspaceExtension.getDockerImageId());
 		}
 		else if (Objects.nonNull(dockerUserName)) {
