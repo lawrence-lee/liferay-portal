@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.util.tasks;
+package com.liferay.gradle.util.task;
 
 import com.liferay.gradle.util.GUtil;
 import com.liferay.gradle.util.GradleUtil;

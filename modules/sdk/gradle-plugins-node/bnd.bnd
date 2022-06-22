@@ -4,4 +4,4 @@ Bundle-SymbolicName: com.liferay.gradle.plugins.node
 Bundle-Version: 7.2.20
 Export-Package:\
 	com.liferay.gradle.plugins.node,\
-	com.liferay.gradle.plugins.node.tasks
+	com.liferay.gradle.plugins.node.task

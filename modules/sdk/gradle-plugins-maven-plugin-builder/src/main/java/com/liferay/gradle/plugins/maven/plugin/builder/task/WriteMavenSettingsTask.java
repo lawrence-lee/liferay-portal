@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.maven.plugin.builder.tasks;
+package com.liferay.gradle.plugins.maven.plugin.builder.task;
 
 import com.liferay.gradle.plugins.maven.plugin.builder.internal.util.GradleUtil;
 import com.liferay.gradle.plugins.maven.plugin.builder.internal.util.XMLUtil;

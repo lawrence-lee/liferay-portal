@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.test.integration.tasks;
+package com.liferay.gradle.plugins.test.integration.task;
 
 /**
  * @author Andrea Di Giorgi

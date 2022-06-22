@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.defaults.tasks;
+package com.liferay.gradle.plugins.defaults.task;
 
 import com.liferay.gradle.plugins.defaults.internal.util.FileUtil;
 import com.liferay.gradle.plugins.defaults.internal.util.GradleUtil;

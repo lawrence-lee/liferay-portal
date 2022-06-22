@@ -27,7 +27,7 @@ import com.bmuschko.gradle.docker.tasks.image.Dockerfile;
 
 import com.liferay.gradle.plugins.LiferayBasePlugin;
 import com.liferay.gradle.plugins.node.NodeExtension;
-import com.liferay.gradle.plugins.node.tasks.NpmInstallTask;
+import com.liferay.gradle.plugins.node.task.NpmInstallTask;
 import com.liferay.gradle.plugins.workspace.LiferayWorkspaceYarnPlugin;
 import com.liferay.gradle.plugins.workspace.WorkspaceExtension;
 import com.liferay.gradle.plugins.workspace.WorkspacePlugin;

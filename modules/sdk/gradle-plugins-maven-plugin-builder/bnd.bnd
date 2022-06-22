@@ -4,4 +4,4 @@ Bundle-SymbolicName: com.liferay.gradle.plugins.maven.plugin.builder
 Bundle-Version: 1.2.9
 Export-Package:\
 	com.liferay.gradle.plugins.maven.plugin.builder,\
-	com.liferay.gradle.plugins.maven.plugin.builder.tasks
+	com.liferay.gradle.plugins.maven.plugin.builder.task

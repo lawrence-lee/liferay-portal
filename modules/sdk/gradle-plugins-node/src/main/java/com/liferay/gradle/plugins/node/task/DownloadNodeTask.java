@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.node.tasks;
+package com.liferay.gradle.plugins.node.task;
 
 import com.liferay.gradle.plugins.node.internal.NodeExecutor;
 import com.liferay.gradle.plugins.node.internal.util.FileUtil;

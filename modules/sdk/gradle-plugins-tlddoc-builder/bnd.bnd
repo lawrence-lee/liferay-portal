@@ -4,4 +4,4 @@ Bundle-SymbolicName: com.liferay.gradle.plugins.tlddoc.builder
 Bundle-Version: 1.3.9
 Export-Package:\
 	com.liferay.gradle.plugins.tlddoc.builder,\
-	com.liferay.gradle.plugins.tlddoc.builder.tasks
+	com.liferay.gradle.plugins.tlddoc.builder.task

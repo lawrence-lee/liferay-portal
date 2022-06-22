@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.node.tasks;
+package com.liferay.gradle.plugins.node.task;
 
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.CacheableTask;

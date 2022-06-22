@@ -4,4 +4,4 @@ Bundle-Version: 2.1.47
 Export-Package:\
 	com.liferay.gradle.plugins.target.platform,\
 	com.liferay.gradle.plugins.target.platform.extensions,\
-	com.liferay.gradle.plugins.target.platform.tasks
+	com.liferay.gradle.plugins.target.platform.task

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.tlddoc.builder.tasks;
+package com.liferay.gradle.plugins.tlddoc.builder.task;
 
 import com.liferay.gradle.util.FileUtil;
 import com.liferay.gradle.util.GradleUtil;

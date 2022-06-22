@@ -18,7 +18,7 @@ import aQute.bnd.osgi.Constants;
 
 import com.liferay.gradle.plugins.cache.WriteDigestTask;
 import com.liferay.gradle.plugins.defaults.LiferayThemeDefaultsPlugin;
-import com.liferay.gradle.plugins.defaults.tasks.WriteArtifactPublishCommandsTask;
+import com.liferay.gradle.plugins.defaults.task.WriteArtifactPublishCommandsTask;
 import com.liferay.gradle.util.Validator;
 
 import java.io.File;

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.target.platform.tasks;
+package com.liferay.gradle.plugins.target.platform.task;
 
 import aQute.bnd.build.Workspace;
 import aQute.bnd.build.model.clauses.HeaderClause;

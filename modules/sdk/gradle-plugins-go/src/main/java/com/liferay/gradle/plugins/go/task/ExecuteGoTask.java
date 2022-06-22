@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins.go.tasks;
+package com.liferay.gradle.plugins.go.task;
 
 import com.liferay.gradle.plugins.go.GoExtension;
 import com.liferay.gradle.plugins.go.GoPlugin;
