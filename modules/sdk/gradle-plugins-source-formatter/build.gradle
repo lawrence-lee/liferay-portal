@@ -1,4 +1,4 @@
-import com.liferay.gradle.plugins.defaults.tasks.ReplaceRegexTask
+import com.liferay.gradle.plugins.defaults.task.ReplaceRegexTask
 
 apply plugin: "com.gradle.plugin-publish"
 apply plugin: "org.ysb33r.gradletest"
