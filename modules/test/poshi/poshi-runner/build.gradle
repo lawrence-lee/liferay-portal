@@ -1,4 +1,4 @@
-import com.liferay.gradle.plugins.defaults.tasks.ReplaceRegexTask
+import com.liferay.gradle.plugins.defaults.task.ReplaceRegexTask
 import com.liferay.gradle.util.copy.RenameDependencyClosure
 
 apply plugin: "com.liferay.poshi.runner"

@@ -1,6 +1,6 @@
 import aQute.bnd.osgi.Domain
 
-import com.liferay.gradle.plugins.tasks.ExecuteBndTask
+import com.liferay.gradle.plugins.task.ExecuteBndTask
 import com.liferay.gradle.util.copy.RenameDependencyClosure
 
 import org.gradle.util.GUtil
