@@ -1,5 +1,290 @@
 # Liferay Gradle Plugins Workspace Change Log
 
+## 7.0.2 - 2023-08-04
+
+### Commits
+- [LPS-181508] fix duplicatesStrategy for initBundle (12ce72508a)
+- [LPS-181508] Remove dependencies (7476be980b)
+- [LPS-181508] Source formatting (8e9df82226)
+- [LPS-181508] updage jackson for macos (91514ffa3e)
+- [LPS-181508] fix jackson error on windows and macos (544f2650f0)
+- [LPS-181508] update gradleTest for windows (d889c373dd)
+- [LPS-181508] remove jdk 8 compatibilty setting for workspace plugin
+(bf61add078)
+- [LPS-181508] fix workspacePlugin targetPlatform gradleTest error (9d1c2ec6a6)
+- [LPS-181508] fix productInfoDefaultValues and productInfoOverrideDefaults
+gradleTest (3d5cb67902)
+- [LPS-181508] fix targetplatform gradleTest (917bc7ff1b)
+- [LPS-181508] fix relativeUrl gradleTest error (60c3347543)
+- [LPS-181508] correctly set relative path bundle file for initBundleTask
+(a8d74fa1f2)
+- [LPS-181508] Sort (04f53a9c4c)
+- [LPS-181508] Order tasks (7c904e6712)
+- [LPS-181508] use internal annotation for imageId of DockerListImageTask
+(2c032a2c6d)
+- [LPS-181508] set include DuplicatesStrategy for dockerDeployTask (701d959f5f)
+- [LPS-181508] buildDockerImage should depnedon dockerDeploy task (df92a00333)
+- [LPS-181508] make sure firstly remove container before image (8b7c36837d)
+- [LPS-181508] revert clientExtension test changes (19fd3dc3a2)
+- [LPS-181508] fix inputFile annotation error for ConfigJSModulesTask
+(1bd04897b3)
+- [LPS-181508] copy depedencies to gradleTest repo (c3b025417b)
+- [LPS-181508] add missed input parameter annotation for ConfigJSModulesTask
+(e69afe2b05)
+- [LPS-181508] inputFile annotation for TranspileJSTask (6769fbafcd)
+- [LPS-181508] input annotation for TranspileJSTask (c83834e27a)
+- [LPS-181508] make copyDistBundleZipPluginsSdk, copyHotFixZip and
+copyGradleTestProjects finalizedBy gradleTestGenerator (b7a851fef5)
+- [LPS-181508] Move to workspace (c295b2db72)
+- [LPS-181508] Fix tests issues (f9501322bf)
+- [LPS-181508] InputFiles anotation and SF (be12c0d698)
+- [LPS-181508] remove PathSensitive for PackageJsonFile (71e7f40aab)
+- [LPS-181508] set duplicatesStrategy for dockerDeploy task (3ed8d7c255)
+- [LPS-181508] Download (05b5afa588)
+- [LPS-181508] Update README.markdown (c9f00ca654)
+- [LPS-181508] Update plugins Gradle version (60571c128e)
+- [LPS-181508] Annotations (beddb5d22a)
+- [LPS-181508] Fix soy (24b9d84d34)
+- [LPS-181508] Versions (0362751ca7)
+- [LPS-181508] Fix tests (05eb9088d3)
+- [LPS-181508] Copy (f6124575e5)
+- [LPS-181508] Runtime (47c8bf722f)
+- [LPS-181508] Manual (c689a849e6)
+- [LPS-181508] Auto SF (runtime) (5e7a1385d1)
+- [LPS-181508] Runtime (203d66906c)
+- [LPS-181508] Runtime (7b88c6ea99)
+- [LPS-181508] Apply java-library (d3c0c00f02)
+
+### Dependencies
+- [LPS-181508] Update the com.liferay.ant.bnd dependency to version 3.2.10.
+- [LPS-181508] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.45.
+- [LPS-181508] Update the com.liferay.gradle.plugins.target.platform dependency
+to version 3.0.13.
+- [LPS-181508] Update the jackson-databind dependency to version 2.12.5.
+- [LPS-181508] Update the jackson-dataformat-yaml dependency to version 2.12.5.
+- [LPS-181508] Update the jackson-dataformat-yaml dependency to version 2.12.5.
+- [LPS-181508] Update the jackson-databind dependency to version 2.12.5.
+- [LPS-181508] Update the jackson-annotations dependency to version 2.12.5.
+- [LPS-181508] Update the jackson-core dependency to version 2.12.5.
+- [LPS-181508] Update the jackson-databind dependency to version 2.10.3.
+- [LPS-181508] Update the jackson-annotations dependency to version 2.10.3.
+- [LPS-181508] Update the jackson-core dependency to version 2.10.3.
+- [LPS-181508] Update the biz.aQute.bnd.gradle dependency to version 5.3.0.
+- [LPS-181508] Update the asm dependency to version 5.1.
+- [LPS-181508] Update the gradle-download-task dependency to version 5.4.0.
+- [LPS-181508] Update the gradle-docker-plugin dependency to version 6.7.0.
+- [LPS-181508] Update the jackson-dataformat-yaml dependency to version 2.10.3.
+- [LPS-181508] Update the docker-java dependency to version 3.2.8.
+- [LPS-181508] Update the com.liferay.ant.bnd dependency to version 3.2.9.
+- [LPS-181508] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.44.
+- [LPS-181508] Update the com.liferay.gradle.plugins.target.platform dependency
+to version 3.0.12.
+- [LPS-181508] Update the com.liferay.petra.lang dependency to version 5.1.2.
+- [LPS-181508] Update the com.liferay.petra.string dependency to version 5.2.0.
+- [LPS-181508] Update the gradle-download-task dependency to version 5.0.0.
+- [LPS-181508] Update the jna dependency to version 5.8.0.
+- [LPS-181508] Update the gradle-properties-plugin dependency to version 1.4.6.
+- [LPS-190915] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.44.
+
+## 7.0.1 - 2023-08-01
+
+### Dependencies
+- [POSHI-604] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.43.
+
+## 6.1.16 - 2023-08-01
+
+### Commits
+- [LPS-192082] Source formatting (932537b9e3)
+- [LPS-192082] Sort (417be00b1d)
+- [LPS-192082] Follow existing pattern (6c3e94c5b8)
+- [LPS-192082] gradle-plugins-workspace: (unrelated) fixes doc link warning
+(6df956082a)
+- [LPS-192082] gradle-plugins-workspace: directly invokes InitBundleCommand
+instead of using a JavaExec (51ea80167a)
+
+### Dependencies
+- [POSHI-599] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.42.
+
+## 6.1.15 - 2023-07-21
+
+### Commits
+- [LPS-188912] gradle plugins workspace (637e5951e4)
+
+### Dependencies
+- [LPS-188912] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.41.
+
+## 6.1.14 - 2023-07-19
+
+### Commits
+- [LPS-190887] gradle-plugins-workspace: updateFileVersions (94692faa80)
+- [LPS-190887] gradle-plugins-workspace: updates file versions match pattern
+(df35af078d)
+- [COMMERCE-11180] add commercePaymentIntegration client extension property
+(8825c7f55b)
+
+### Dependencies
+- [LPS-190887] Update the com.liferay.gradle.plugins.target.platform dependency
+to version 3.0.12.
+- [LPS-187692] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.40.
+- [LPS-189252] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.39.
+
+## 6.1.13 - 2023-07-10
+
+### Commits
+- [LPS-186063] reverted, and republished (b179388108)
+- [LPS-186063] Revert "LPS-186063 Can we do it in this order?" (342a5f017f)
+
+### Dependencies
+- [POSHI-587] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.38.
+
+## 6.1.12 - 2023-07-07
+
+### Commits
+- [LPS-186063] Can we do it in this order? (ebe302087c)
+- [LPS-186063] Wordsmith (775dc64918)
+- [LPS-186063] sort (cc41ecdd4c)
+- [LPS-186063] add plugin "name" and "module-group-id" to honour
+PluginPackageUtil validation (a597b49bf9)
+- [LPS-186063] always process files in case they contain substitutions
+(9cde7ba89a)
+- [LPS-186063] set the bsn of client extension bundles to projectId so that it
+maps to LCP.json dependencies (005832ed35)
+- [LPS-186063] add projectId property (df55b4c84f)
+- [LPS-186063] this should actually be called projectId (1404e004ec)
+- [LPS-186063] convert LCP.json dependencies into required-deployment-contexts
+(a8e610e965)
+- [LPS-186063] add method to convert dependencies from LCP.json to
+required-deployment-contexts pluginPackageProperties (004848361c)
+- [LPS-186063] move store pluginPackageProperties after LCP.json has been
+processed (cd75ec5fe0)
+
+## 6.1.11 - 2023-07-07
+
+### Commits
+- [LPS-188564] gradle-plugins-workspace: if no glob paths are matched, fail the
+build (3a8f091100)
+
+## 6.1.10 - 2023-07-04
+
+### Commits
+- [LPS-188465] gradle-plugins-workspace: adds default livenessProbe and
+readinessProbe to the frontend template (5cf88b44e2)
+
+## 6.1.8 - 2023-06-29
+
+### Dependencies
+- [POSHI-570] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.37.
+- [LPS-170503] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.36.
+- [LPS-186127] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.35.
+- [LPS-186060] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.34.
+
+## 6.1.7 - 2023-06-20
+
+### Commits
+- [LPS-184016] - Rename to FDSFilter (02d840d92f)
+- [LPS-184016] - Create dataSetFilter client extension type (ce35cd22d5)
+
+### Dependencies
+- [LPS-188038] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.33.
+- [LPS-184016] Update the com.liferay.gradle.plugins.target.platform dependency
+to version 3.0.11.
+
+## 6.1.6 - 2023-06-15
+
+### Commits
+- [LPS-161202] Source formatting (b7197509a3)
+- [LPS-161202] fix related docker gradleTest error (f7b089aebf)
+- [LPS-161202] gradle-plugins-workspace: always check the settings for the
+property (5b8fa13fe6)
+- [LPS-161202] gradle-plugins-workspace: apply just to root project (0ac8d8e931)
+- [LPS-161202] update testIntegration gradleTest (9f4ec226f9)
+- [LPS-161202] apply propertiesPlugin for all projects (89579b59e6)
+- [LPS-161202] improve logic (c14337ceeb)
+- [LPS-161202] remove dulplicate codes (bcc986a86e)
+- [LPS-161202] fix initBundle setFile error (19efc46d0b)
+- [LPS-161202] no need to pass default bundle url (b0d310ed9c)
+- [LPS-161202] fix productInfo gradleTest error (c1a65a1d05)
+- [LPS-161202] remove propertiesTask configuration (84857535ae)
+- [LPS-161202] support to correctly get correct productInfo (61849b9c04)
+- [LPS-161202] fix gradleTest error (b797b6b378)
+- [LPS-161202] add gradleTest (8d3ff58562)
+- [LPS-161202] apply gradle properties plugin to rootProjectConfigurator
+(7a2a6a65ed)
+
+### Dependencies
+- [LPS-185695] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.32.
+- [LPS-186327] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.31.
+- [LPS-186211] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.29.
+- [LPS-166111] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.28.
+
+## 6.1.5 - 2023-06-05
+
+### Commits
+- [LPS-182759] Create FunctionObjectEntryManager microservice client extension,
+its configuration and factory (61ead0285a)
+
+## 6.1.4 - 2023-05-31
+
+### Dependencies
+- [POSHI-543] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.27.
+- [LPS-185460] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.26.
+- [LPS-185020] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.25.
+
+## 6.1.3 - 2023-05-19
+
+### Commits
+- [LPS-183262] Regen (53dc3bf35a)
+- [LPS-183262] gradle-plugins-workspace: applies plugin (20484e8691)
+- [LPS-183262] gradle-plugins-workspace: updates build.gradle (6eca7c6457)
+
+### Dependencies
+- [LPS-150272] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.24.
+- [LPS-183262] Update the gradle-properties-plugin dependency to version 1.4.6.
+- [LPS-182369] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.23.
+- [LPS-184465] Update the com.liferay.gradle.plugins.source.formatter dependency
+to version 5.2.22.
+
+## 6.1.2 - 2023-05-16
+
+### Commits
+- [LPS-147105] Inline (7d6fa4575e)
+- [LPS-147105] Inline (f1a73f8d4d)
+- [LPS-147105] Variable name (9046bd25ec)
+- [LPS-147105] gradle-plugins-workspace: updates test cases to assert that the
+unversioned tomcat directory is removed from the destination (37b186c741)
+- [LPS-147105] gradle-plugins-workspace: updates distBundleZip test case
+(79bd56e75b)
+- [LPS-147105] gradle-plugins-workspace: updates initBundle test case
+(8812099c32)
+- [LPS-147105] gradle-plugins-workspace: uses copySpec.forEach on the files to
+rename the paths, then clean up the unversioned tomcat directory (b28bb6052c)
+- [LPS-181002] Type wrong, the original class package is wrong. SF will hint
+"Class/package does not exist". (f552866dda)
+- [LPS-181002] Update log4j xml. (aa553cfec8)
+
 ## 6.1.1 - 2023-05-09
 
 ### Commits
@@ -5495,6 +5780,7 @@ from settings.gradle (b4be4c57fd)
 1.0.73.
 
 [BLADE-255]: https://issues.liferay.com/browse/BLADE-255
+[COMMERCE-11180]: https://issues.liferay.com/browse/COMMERCE-11180
 [IDE-4081]: https://issues.liferay.com/browse/IDE-4081
 [LCD-14295]: https://issues.liferay.com/browse/LCD-14295
 [LCD-14464]: https://issues.liferay.com/browse/LCD-14464
@@ -6356,9 +6642,11 @@ from settings.gradle (b4be4c57fd)
 [LPS-158124]: https://issues.liferay.com/browse/LPS-158124
 [LPS-159495]: https://issues.liferay.com/browse/LPS-159495
 [LPS-160184]: https://issues.liferay.com/browse/LPS-160184
+[LPS-161202]: https://issues.liferay.com/browse/LPS-161202
 [LPS-162929]: https://issues.liferay.com/browse/LPS-162929
 [LPS-163589]: https://issues.liferay.com/browse/LPS-163589
 [LPS-164101]: https://issues.liferay.com/browse/LPS-164101
+[LPS-166111]: https://issues.liferay.com/browse/LPS-166111
 [LPS-166479]: https://issues.liferay.com/browse/LPS-166479
 [LPS-166481]: https://issues.liferay.com/browse/LPS-166481
 [LPS-167024]: https://issues.liferay.com/browse/LPS-167024
@@ -6370,6 +6658,7 @@ from settings.gradle (b4be4c57fd)
 [LPS-169432]: https://issues.liferay.com/browse/LPS-169432
 [LPS-169543]: https://issues.liferay.com/browse/LPS-169543
 [LPS-169846]: https://issues.liferay.com/browse/LPS-169846
+[LPS-170503]: https://issues.liferay.com/browse/LPS-170503
 [LPS-171941]: https://issues.liferay.com/browse/LPS-171941
 [LPS-172305]: https://issues.liferay.com/browse/LPS-172305
 [LPS-172374]: https://issues.liferay.com/browse/LPS-172374
@@ -6415,6 +6704,7 @@ from settings.gradle (b4be4c57fd)
 [LPS-180505]: https://issues.liferay.com/browse/LPS-180505
 [LPS-180622]: https://issues.liferay.com/browse/LPS-180622
 [LPS-180905]: https://issues.liferay.com/browse/LPS-180905
+[LPS-181002]: https://issues.liferay.com/browse/LPS-181002
 [LPS-181118]: https://issues.liferay.com/browse/LPS-181118
 [LPS-181195]: https://issues.liferay.com/browse/LPS-181195
 [LPS-181200]: https://issues.liferay.com/browse/LPS-181200
@@ -6425,18 +6715,41 @@ from settings.gradle (b4be4c57fd)
 [LPS-181331]: https://issues.liferay.com/browse/LPS-181331
 [LPS-181335]: https://issues.liferay.com/browse/LPS-181335
 [LPS-181454]: https://issues.liferay.com/browse/LPS-181454
+[LPS-181508]: https://issues.liferay.com/browse/LPS-181508
 [LPS-181738]: https://issues.liferay.com/browse/LPS-181738
 [LPS-182065]: https://issues.liferay.com/browse/LPS-182065
 [LPS-182153]: https://issues.liferay.com/browse/LPS-182153
 [LPS-182253]: https://issues.liferay.com/browse/LPS-182253
 [LPS-182359]: https://issues.liferay.com/browse/LPS-182359
+[LPS-182369]: https://issues.liferay.com/browse/LPS-182369
 [LPS-182410]: https://issues.liferay.com/browse/LPS-182410
+[LPS-182759]: https://issues.liferay.com/browse/LPS-182759
 [LPS-182799]: https://issues.liferay.com/browse/LPS-182799
 [LPS-183167]: https://issues.liferay.com/browse/LPS-183167
+[LPS-183262]: https://issues.liferay.com/browse/LPS-183262
 [LPS-183286]: https://issues.liferay.com/browse/LPS-183286
 [LPS-183439]: https://issues.liferay.com/browse/LPS-183439
 [LPS-183588]: https://issues.liferay.com/browse/LPS-183588
 [LPS-183973]: https://issues.liferay.com/browse/LPS-183973
+[LPS-184016]: https://issues.liferay.com/browse/LPS-184016
+[LPS-184465]: https://issues.liferay.com/browse/LPS-184465
+[LPS-185020]: https://issues.liferay.com/browse/LPS-185020
+[LPS-185460]: https://issues.liferay.com/browse/LPS-185460
+[LPS-185695]: https://issues.liferay.com/browse/LPS-185695
+[LPS-186060]: https://issues.liferay.com/browse/LPS-186060
+[LPS-186063]: https://issues.liferay.com/browse/LPS-186063
+[LPS-186127]: https://issues.liferay.com/browse/LPS-186127
+[LPS-186211]: https://issues.liferay.com/browse/LPS-186211
+[LPS-186327]: https://issues.liferay.com/browse/LPS-186327
+[LPS-187692]: https://issues.liferay.com/browse/LPS-187692
+[LPS-188038]: https://issues.liferay.com/browse/LPS-188038
+[LPS-188465]: https://issues.liferay.com/browse/LPS-188465
+[LPS-188564]: https://issues.liferay.com/browse/LPS-188564
+[LPS-188912]: https://issues.liferay.com/browse/LPS-188912
+[LPS-189252]: https://issues.liferay.com/browse/LPS-189252
+[LPS-190887]: https://issues.liferay.com/browse/LPS-190887
+[LPS-190915]: https://issues.liferay.com/browse/LPS-190915
+[LPS-192082]: https://issues.liferay.com/browse/LPS-192082
 [LRCI-65]: https://issues.liferay.com/browse/LRCI-65
 [LRCI-264]: https://issues.liferay.com/browse/LRCI-264
 [LRCI-350]: https://issues.liferay.com/browse/LRCI-350
@@ -6475,4 +6788,9 @@ from settings.gradle (b4be4c57fd)
 [POSHI-517]: https://issues.liferay.com/browse/POSHI-517
 [POSHI-522]: https://issues.liferay.com/browse/POSHI-522
 [POSHI-528]: https://issues.liferay.com/browse/POSHI-528
+[POSHI-543]: https://issues.liferay.com/browse/POSHI-543
+[POSHI-570]: https://issues.liferay.com/browse/POSHI-570
+[POSHI-587]: https://issues.liferay.com/browse/POSHI-587
+[POSHI-599]: https://issues.liferay.com/browse/POSHI-599
+[POSHI-604]: https://issues.liferay.com/browse/POSHI-604
 [RELEASE-1607]: https://issues.liferay.com/browse/RELEASE-1607
