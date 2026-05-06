@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Public Friendly URL Mapping Disabling Pre-Check — Gogo Shell (LPD-84598)</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="mock-nav" aria-label="Mockup states">
+	<span class="label">Mockup:</span>
+	<a href="index.html">Server Administration (AC2)</a>
+	<a href="gogo-shell.html" class="current">Gogo Shell (AC1)</a>
+	<span class="ticket"><a href="https://liferay.atlassian.net/browse/LPD-84598" target="_blank" rel="noopener">LPD-84598</a></span>
+</nav>
+
+<div class="shell-page">
+	<h1>Gogo Shell — <code>friendlyurl:precheck</code></h1>
+	<p class="sub">AC1 surface. The shell command is the automation entry point — same engine, same report as the Server Administration page.</p>
+
+	<div class="overview" style="padding:0; max-width:none; margin:0 0 16px;">
+		<div class="card">
+			<h2 style="margin:0 0 6px; font-size:15px;">How to run</h2>
+			<p style="margin:0 0 8px; color:var(--text-muted);">Connect to the Gogo shell on the running portal and execute:</p>
+			<pre class="snippet" style="margin:0;"><span class="lineno">$</span> telnet localhost 11311
+<span class="lineno">g!</span> friendlyurl:precheck
+<span class="lineno">g!</span> friendlyurl:precheck --json   <span style="color:#6E7681;"># machine-readable</span></pre>
+		</div>
+	</div>
+
+	<div class="overview" style="padding:0; max-width:none; margin:0 0 16px;">
+		<div class="card">
+			<div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+				<div>
+					<strong>Scenario:</strong>
+					<span class="scenario-toggle" id="scenario-toggle" style="margin-left:6px;">
+						<button data-scenario="issues" class="on">Issues found</button>
+						<button data-scenario="clean">Clean</button>
+					</span>
+				</div>
+				<div style="margin-left:auto;">
+					<strong>Format:</strong>
+					<span class="scenario-toggle" id="format-toggle" style="margin-left:6px;">
+						<button data-format="human" class="on">Human-readable</button>
+						<button data-format="json">JSON (--json)</button>
+					</span>
+				</div>
+			</div>
+
+			<div class="shell-frame">
+				<div class="shell-titlebar">
+					<span class="shell-dot r"></span>
+					<span class="shell-dot y"></span>
+					<span class="shell-dot g"></span>
+					<span class="shell-title">gogo @ liferay.com — telnet 11311</span>
+				</div>
+
+				<!-- Scenario: issues, human -->
+				<pre class="shell" data-pane="issues-human"><span class="prompt">g!</span> <span class="cmd">friendlyurl:precheck</span>
+<span class="muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="label">Public Friendly URL Mapping Disabling Pre-Check</span>  <span class="muted">2026-05-06 14:22:11</span>
+<span class="muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+[1/2] Scanning page-site ambiguities…  <span class="warn">done (2.1s)</span>
+[2/2] Scanning templates for /web/ references…  <span class="warn">done (5.7s)</span>
+
+<span class="label">Page-Site Ambiguity (AC5)</span>             <span class="warn">1 found</span>
+  <span class="warn">⚠</span>  Site '<span class="label">Marketing EMEA</span>' (friendly URL '/marketing') conflicts
+     with top-level page '<span class="label">Marketing</span>' on default site '<span class="label">Liferay</span>'.
+     After the mapping is disabled: <span class="warn">SITE will resolve at /marketing</span>;
+     page will be shadowed.
+
+<span class="label">Hardcoded /web/ References (AC6)</span>      <span class="warn">2 found</span>
+  <span class="warn">⚠</span>  ADT 'Custom Navigation' (id=40183, db) — line 42:
+     <span class="muted">  &lt;a href="</span><span class="err">/web/</span><span class="muted">${nav_item.getURL()}"&gt;</span>
+  <span class="warn">⚠</span>  Freemarker 'footer.ftl' (classic-theme, filesystem) — line 17:
+     <span class="muted">  &lt;li&gt;&lt;a href="</span><span class="err">/web/</span><span class="muted">guest/legal"&gt;Legal&lt;/a&gt;</span>
+
+<span class="muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+Sites scanned                       1,000
+Templates scanned (Freemarker+ADT)    312
+Total issues                            <span class="warn">3</span>
+
+<span class="warn">⚠ Resolve the issues above before disabling the public friendly URL mapping.</span>
+For machine-readable output, run: <span class="cmd">friendlyurl:precheck --json</span>
+<span class="prompt">g!</span> <span class="shell-cursor"></span></pre>
+
+				<!-- Scenario: issues, json -->
+				<pre class="shell hidden" data-pane="issues-json"><span class="prompt">g!</span> <span class="cmd">friendlyurl:precheck --json</span>
+{
+  <span class="label">"generatedAt"</span>: <span class="ok">"2026-05-06T14:22:11Z"</span>,
+  <span class="label">"instance"</span>: <span class="ok">"liferay.com"</span>,
+  <span class="label">"summary"</span>: {
+    <span class="label">"sitesScanned"</span>: 1000,
+    <span class="label">"defaultSiteTopLevelPages"</span>: 47,
+    <span class="label">"freemarkerTemplatesScanned"</span>: 184,
+    <span class="label">"adtTemplatesScanned"</span>: 128,
+    <span class="label">"pageSiteAmbiguities"</span>: 1,
+    <span class="label">"hardcodedWebReferences"</span>: 2,
+    <span class="label">"totalIssues"</span>: 3,
+    <span class="label">"durationMs"</span>: 7812
+  },
+  <span class="label">"findings"</span>: {
+    <span class="label">"pageSiteAmbiguity"</span>: [
+      {
+        <span class="label">"ac"</span>: <span class="ok">"AC5"</span>,
+        <span class="label">"severity"</span>: <span class="ok">"high"</span>,
+        <span class="label">"site"</span>: { <span class="label">"name"</span>: <span class="ok">"Marketing EMEA"</span>, <span class="label">"friendlyURL"</span>: <span class="ok">"/marketing"</span>, <span class="label">"groupId"</span>: 20142 },
+        <span class="label">"conflictsWith"</span>: { <span class="label">"type"</span>: <span class="ok">"default-site-page"</span>, <span class="label">"name"</span>: <span class="ok">"Marketing"</span>, <span class="label">"layoutId"</span>: 314 },
+        <span class="label">"resolvesTo"</span>: <span class="ok">"site"</span>
+      }
+    ],
+    <span class="label">"hardcodedWebReferences"</span>: [
+      {
+        <span class="label">"ac"</span>: <span class="ok">"AC6"</span>,
+        <span class="label">"severity"</span>: <span class="ok">"medium"</span>,
+        <span class="label">"template"</span>: {
+          <span class="label">"type"</span>: <span class="ok">"ADT"</span>,
+          <span class="label">"name"</span>: <span class="ok">"Custom Navigation"</span>,
+          <span class="label">"templateId"</span>: 40183,
+          <span class="label">"storage"</span>: <span class="ok">"database"</span>,
+          <span class="label">"siteName"</span>: <span class="ok">"Liferay"</span>
+        },
+        <span class="label">"line"</span>: 42,
+        <span class="label">"match"</span>: <span class="ok">"/web/"</span>,
+        <span class="label">"snippet"</span>: <span class="ok">"&lt;a href=\"/web/${nav_item.getURL()}\"&gt;...&lt;/a&gt;"</span>,
+        <span class="label">"suggestion"</span>: <span class="ok">"${themeDisplay.getPathFriendlyURL()}"</span>
+      },
+      {
+        <span class="label">"ac"</span>: <span class="ok">"AC6"</span>,
+        <span class="label">"severity"</span>: <span class="ok">"medium"</span>,
+        <span class="label">"template"</span>: {
+          <span class="label">"type"</span>: <span class="ok">"Freemarker"</span>,
+          <span class="label">"name"</span>: <span class="ok">"footer.ftl"</span>,
+          <span class="label">"theme"</span>: <span class="ok">"classic-theme"</span>,
+          <span class="label">"storage"</span>: <span class="ok">"filesystem"</span>,
+          <span class="label">"path"</span>: <span class="ok">"/themes/classic-theme/templates/footer.ftl"</span>
+        },
+        <span class="label">"line"</span>: 17,
+        <span class="label">"match"</span>: <span class="ok">"/web/"</span>,
+        <span class="label">"snippet"</span>: <span class="ok">"&lt;li&gt;&lt;a href=\"/web/guest/legal\"&gt;Legal&lt;/a&gt;&lt;/li&gt;"</span>,
+        <span class="label">"suggestion"</span>: <span class="ok">"${themeDisplay.getPathFriendlyURL()}/guest/legal"</span>
+      }
+    ]
+  },
+  <span class="label">"safeToDisable"</span>: <span class="warn">false</span>,
+  <span class="label">"message"</span>: <span class="ok">"3 issues found. Resolve them before disabling the public friendly URL mapping."</span>
+}
+<span class="prompt">g!</span> <span class="shell-cursor"></span></pre>
+
+				<!-- Scenario: clean, human -->
+				<pre class="shell hidden" data-pane="clean-human"><span class="prompt">g!</span> <span class="cmd">friendlyurl:precheck</span>
+<span class="muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="label">Public Friendly URL Mapping Disabling Pre-Check</span>  <span class="muted">2026-05-06 14:22:11</span>
+<span class="muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+[1/2] Scanning page-site ambiguities…  <span class="ok">done (1.8s)</span>
+[2/2] Scanning templates for /web/ references…  <span class="ok">done (2.4s)</span>
+
+Sites scanned                       1,000
+Templates scanned (Freemarker+ADT)    312
+Page-site ambiguities                   <span class="ok">0</span>
+Hardcoded /web/ references              <span class="ok">0</span>
+
+<span class="ok">✓ No issues found. Public friendly URL mapping can be safely disabled.</span>
+<span class="prompt">g!</span> <span class="shell-cursor"></span></pre>
+
+				<!-- Scenario: clean, json -->
+				<pre class="shell hidden" data-pane="clean-json"><span class="prompt">g!</span> <span class="cmd">friendlyurl:precheck --json</span>
+{
+  <span class="label">"generatedAt"</span>: <span class="ok">"2026-05-06T14:22:11Z"</span>,
+  <span class="label">"instance"</span>: <span class="ok">"liferay.com"</span>,
+  <span class="label">"summary"</span>: {
+    <span class="label">"sitesScanned"</span>: 1000,
+    <span class="label">"defaultSiteTopLevelPages"</span>: 47,
+    <span class="label">"freemarkerTemplatesScanned"</span>: 184,
+    <span class="label">"adtTemplatesScanned"</span>: 128,
+    <span class="label">"pageSiteAmbiguities"</span>: 0,
+    <span class="label">"hardcodedWebReferences"</span>: 0,
+    <span class="label">"totalIssues"</span>: 0,
+    <span class="label">"durationMs"</span>: 4203
+  },
+  <span class="label">"findings"</span>: {
+    <span class="label">"pageSiteAmbiguity"</span>: [],
+    <span class="label">"hardcodedWebReferences"</span>: []
+  },
+  <span class="label">"safeToDisable"</span>: <span class="ok">true</span>,
+  <span class="label">"message"</span>: <span class="ok">"No issues found. Public friendly URL mapping can be safely disabled."</span>
+}
+<span class="prompt">g!</span> <span class="shell-cursor"></span></pre>
+			</div>
+		</div>
+	</div>
+
+	<div class="overview" style="padding:0; max-width:none; margin:0;">
+		<div class="card">
+			<h2 style="margin:0 0 8px; font-size:15px;">Notes for the dev team</h2>
+			<ul style="margin:0; padding-left:20px; color:var(--text);">
+				<li>Per the story's technical notes, the command lives in a module that can be deployed independently — the Gogo command is the OSGi entry point, and the same engine is invoked from the Server Administration → Resources section.</li>
+				<li>The exact command name (<code>friendlyurl:precheck</code>) is a strawman. The Jira ticket says "e.g." — open question for the dev team.</li>
+				<li><code>--json</code> is shown as the toggle here, but the exact flag name is open. Consider <code>-f json</code> or <code>--format json</code> for symmetry with other shell commands.</li>
+				<li>Exit code: should the command exit non-zero when issues are found, so it can be wired into CI/CD pre-deploy gates? Worth confirming.</li>
+				<li>Template scan should use regex/string matching for <code>/web/</code> with awareness of false positives (e.g., the word "web" in prose). Snippet view above shows ±2 lines of context to make the call easy.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script>
+(function () {
+	var scenario = "issues";
+	var format = "human";
+
+	function show() {
+		document.querySelectorAll("[data-pane]").forEach(function (el) {
+			el.classList.toggle("hidden", el.dataset.pane !== (scenario + "-" + format));
+		});
+		document.querySelectorAll("#scenario-toggle button").forEach(function (b) {
+			b.classList.toggle("on", b.dataset.scenario === scenario);
+		});
+		document.querySelectorAll("#format-toggle button").forEach(function (b) {
+			b.classList.toggle("on", b.dataset.format === format);
+		});
+	}
+
+	document.querySelectorAll("#scenario-toggle button").forEach(function (b) {
+		b.addEventListener("click", function () { scenario = b.dataset.scenario; show(); });
+	});
+	document.querySelectorAll("#format-toggle button").forEach(function (b) {
+		b.addEventListener("click", function () { format = b.dataset.format; show(); });
+	});
+
+	show();
+})();
+</script>
+</body>
+</html>

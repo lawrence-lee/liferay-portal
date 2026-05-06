@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Server Administration — Public Friendly URL Mapping Disabling Pre-Check (LPD-84598)</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Demo state toggle (mockup-only, lets the dev team jump between states without rerunning) -->
+<nav class="mock-nav" aria-label="Mockup state preview">
+	<span class="label">Mockup states:</span>
+	<a href="#" data-state="initial" class="current">Initial</a>
+	<a href="#" data-state="running">Running</a>
+	<a href="#" data-state="clean">Clean (AC7)</a>
+	<a href="#" data-state="issues">Issues (AC5/AC6)</a>
+	<a href="gogo-shell.html">Gogo Shell (AC1)</a>
+	<span class="ticket"><a href="https://liferay.atlassian.net/browse/LPD-84598" target="_blank" rel="noopener">LPD-84598</a></span>
+</nav>
+
+<header class="page-header">
+	<div class="page-header-toggle" title="Toggle product menu" aria-hidden="true">☰</div>
+	<h1>Server Administration</h1>
+	<div class="page-header-actions">
+		<div class="app-grid-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+		<div class="avatar">TA</div>
+	</div>
+</header>
+
+<nav class="tabs" aria-label="Server Administration sections">
+	<a class="tab active">Resources</a>
+	<a class="tab">Log Levels</a>
+	<a class="tab">Properties</a>
+	<a class="tab">Data Migration</a>
+	<a class="tab">External Services</a>
+	<a class="tab">Script</a>
+	<a class="tab">Shutdown</a>
+</nav>
+
+<div class="body">
+	<div class="panel">
+		<div class="info-banner">
+			<strong>Info</strong>: Liferay Digital Experience Platform 7.4.13 Update 148 (April 24, 2026) &nbsp;<strong>Uptime</strong>: 00:30:55
+		</div>
+
+		<div class="panel-body">
+			<!-- New section: Public Friendly URL Mapping Disabling Pre-Check -->
+			<div class="section">
+				<div class="section-header">
+					Public Friendly URL Mapping Disabling Pre-Check
+					<span class="chevron">▾</span>
+				</div>
+				<div class="section-body">
+
+					<!-- Action row: Run -->
+					<div class="action-row">
+						<div class="action-row-text">
+							<span data-show="initial">Run the Public Friendly URL Mapping Disabling Pre-Check.</span>
+							<span data-show="running" class="hidden">Running the Public Friendly URL Mapping Disabling Pre-Check…</span>
+							<span data-show="clean issues">Run the Public Friendly URL Mapping Disabling Pre-Check.</span>
+							<span class="action-row-meta">
+								<span data-show="initial">Scans for page-site ambiguities (AC5) and hardcoded <code>/web/</code> references in Freemarker templates and ADTs (AC6). Read-only, safe to run at any time.</span>
+								<span data-show="running" class="hidden">Instance: <strong>liferay.com</strong> · 1,000 sites · 312 templates</span>
+								<span data-show="clean" class="hidden">Last run: <strong>just now</strong> · 4.2s · 0 issues</span>
+								<span data-show="issues" class="hidden">Last run: <strong>just now</strong> · 7.8s · <span style="color:var(--warning);">3 issues</span></span>
+							</span>
+						</div>
+						<button id="run-btn" class="btn">
+							<span data-show="initial">Execute</span>
+							<span data-show="running" class="hidden"><span class="spinner"></span> Running…</span>
+							<span data-show="clean issues" class="hidden">Re-run</span>
+						</button>
+					</div>
+
+					<!-- Action row: Download -->
+					<div class="action-row">
+						<div class="action-row-text">
+							Download the last report as JSON.
+							<span class="action-row-meta">
+								<span data-show="initial running">Available after the pre-check has been run at least once.</span>
+								<span data-show="clean issues" class="hidden">Useful for CI/CD pre-deploy gates.</span>
+							</span>
+						</div>
+						<button id="download-btn" class="btn" disabled>Download</button>
+					</div>
+
+					<!-- Progress card (running state only) -->
+					<div data-show="running" class="hidden">
+						<div class="progress-card">
+							<div class="progress-label">
+								<span id="step-label">Initializing…</span>
+								<span id="pct-label">0%</span>
+							</div>
+							<div class="progress-bar"><div id="progress-fill" class="progress-fill" style="width:0%;"></div></div>
+							<div class="progress-steps" id="progress-log"></div>
+						</div>
+						<p class="note" style="padding:0 8px;">
+							<strong>Edge case:</strong> the story calls out that very large instances (thousands of sites) must scan efficiently using database queries, and report progress when the run takes more than a few seconds. This is what that looks like inline.
+						</p>
+					</div>
+
+					<!-- Result block: clean -->
+					<div data-show="clean" class="hidden">
+						<div class="result-block">
+							<div class="banner banner-success">
+								<div class="banner-icon">✓</div>
+								<div>
+									<h3>No issues found.</h3>
+									<p>Public friendly URL mapping can be safely disabled. Last scan completed in <strong>4.2s</strong> across 1,000 sites and 312 templates.</p>
+								</div>
+							</div>
+
+							<table class="summary-table">
+								<tbody>
+									<tr><td>Sites scanned</td><td><strong>1,000</strong></td></tr>
+									<tr><td>Top-level pages on default site</td><td><strong>47</strong></td></tr>
+									<tr><td>Freemarker templates scanned</td><td><strong>184</strong></td></tr>
+									<tr><td>Application Display Templates scanned</td><td><strong>128</strong></td></tr>
+									<tr><td>Page-site ambiguities (AC5)</td><td><strong style="color:var(--success);">0</strong></td></tr>
+									<tr><td>Hardcoded <code>/web/</code> references (AC6)</td><td><strong style="color:var(--success);">0</strong></td></tr>
+									<tr><td>Scan duration</td><td><strong>4.2s</strong></td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- Result block: issues -->
+					<div data-show="issues" class="hidden">
+						<div class="result-block">
+							<div class="banner banner-warn">
+								<div class="banner-icon">⚠</div>
+								<div>
+									<h3>3 issues found across 2 categories.</h3>
+									<p>Resolve the items below before disabling the public friendly URL mapping. None of them block the operation, but each will change behavior or render incorrectly once the <code>/web/</code> prefix is dropped.</p>
+								</div>
+							</div>
+
+							<!-- AC5 -->
+							<div class="findings-group-head">
+								<h3>Page-Site Ambiguity</h3>
+								<span class="section-count">1</span>
+								<span class="tag tag-type" style="margin-left:auto;">AC5</span>
+							</div>
+							<p class="findings-group-help">A site's friendly URL matches a top-level page on the default site. After the public friendly URL mapping is disabled, only one of them can be reached at the same path.</p>
+
+							<div class="finding severity-high">
+								<div class="finding-head">
+									<div>
+										<h3 class="finding-title">Site <code>/marketing</code> conflicts with default-site page <code>/marketing</code></h3>
+										<div class="finding-loc">Default site: <strong>Liferay</strong> · Conflicting site: <strong>Marketing EMEA</strong></div>
+									</div>
+									<span class="tag tag-priority">High</span>
+								</div>
+								<div class="finding-body">
+									Once <code>/web/</code> is dropped, requests to <code>example.com/marketing</code> will resolve to the <strong>site</strong> (Marketing EMEA), and the default-site page <strong>Marketing</strong> will become unreachable at that URL. Consider renaming one of them, or use a virtual host on the site to disambiguate.
+								</div>
+								<div class="finding-meta">
+									<span class="tag tag-resolution">Will resolve to: Site</span>
+									<span class="tag tag-type">Default-site page</span>
+									<span>·</span>
+									<span>Group ID: <code>20142</code> · Layout ID: <code>314</code></span>
+									<span>·</span>
+									<a href="#">Open site →</a>
+								</div>
+							</div>
+
+							<div class="banner banner-info" style="margin:14px 0 8px;">
+								<div class="banner-icon">💡</div>
+								<div>
+									<p><strong>Engineering question (per the story):</strong> Sites with virtual host configurations also serve pages at root paths on their hostname and have the same ambiguity. Confirm whether to fold those into AC5 or treat as a follow-up story.</p>
+								</div>
+							</div>
+
+							<!-- AC6 -->
+							<div class="findings-group-head" style="margin-top:24px;">
+								<h3>Hardcoded <code style="background:transparent; font-size:14px;">/web/</code> References</h3>
+								<span class="section-count warn">2</span>
+								<span class="tag tag-type" style="margin-left:auto;">AC6</span>
+							</div>
+							<p class="findings-group-help">Templates that hardcode <code>/web/</code> in URLs will produce broken links after the prefix is removed. Update them to use <code>themeDisplay.getPathFriendlyURL()</code> or the <code>&lt;portal:url /&gt;</code> tag instead.</p>
+
+							<div class="finding">
+								<div class="finding-head">
+									<div>
+										<h3 class="finding-title">ADT: <em>Custom Navigation</em></h3>
+										<div class="finding-loc">Application Display Template · Site: <strong>Liferay</strong> · Stored in DB</div>
+									</div>
+									<span class="tag tag-priority warn">Medium</span>
+								</div>
+								<div class="finding-body">Hardcoded reference at line 42.</div>
+								<div class="snippet"><span class="lineno">40</span> &lt;#list nav_items as nav_item&gt;
+<span class="lineno">41</span>   &lt;li class="nav-item"&gt;
+<span class="lineno">42</span>     &lt;a href="<span class="hl">/web/</span>${nav_item.getURL()}"&gt;${nav_item.getName()}&lt;/a&gt;
+<span class="lineno">43</span>   &lt;/li&gt;
+<span class="lineno">44</span> &lt;/#list&gt;</div>
+								<div class="finding-meta">
+									<span class="tag tag-type">Freemarker / ADT</span>
+									<span class="tag tag-resolution">Suggested: ${themeDisplay.getPathFriendlyURL()}</span>
+									<span>·</span>
+									<span>Template ID: <code>40183</code></span>
+									<span>·</span>
+									<a href="#">Open in template editor →</a>
+								</div>
+							</div>
+
+							<div class="finding">
+								<div class="finding-head">
+									<div>
+										<h3 class="finding-title">Freemarker template: <em>footer.ftl</em></h3>
+										<div class="finding-loc">Theme: <strong>classic-theme</strong> · Stored on filesystem</div>
+									</div>
+									<span class="tag tag-priority warn">Medium</span>
+								</div>
+								<div class="finding-body">Hardcoded reference at line 17.</div>
+								<div class="snippet"><span class="lineno">15</span> &lt;footer&gt;
+<span class="lineno">16</span>   &lt;ul class="footer-links"&gt;
+<span class="lineno">17</span>     &lt;li&gt;&lt;a href="<span class="hl">/web/</span>guest/legal"&gt;Legal&lt;/a&gt;&lt;/li&gt;
+<span class="lineno">18</span>     &lt;li&gt;&lt;a href="${themeDisplay.getPathFriendlyURL()}/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+<span class="lineno">19</span>   &lt;/ul&gt;
+<span class="lineno">20</span> &lt;/footer&gt;</div>
+								<div class="finding-meta">
+									<span class="tag tag-type">Freemarker (filesystem)</span>
+									<span class="tag tag-resolution">Suggested: ${themeDisplay.getPathFriendlyURL()}/guest/legal</span>
+									<span>·</span>
+									<span>Path: <code>/themes/classic-theme/templates/footer.ftl</code></span>
+								</div>
+							</div>
+
+							<div class="banner banner-info" style="margin-top:14px;">
+								<div class="banner-icon">📦</div>
+								<div>
+									<p><strong>Out of scope (per the story):</strong> Web Content article bodies are not scanned. Tracked as a follow-up. Third-party module templates and JSPs are also excluded.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Existing sections, shown collapsed for context -->
+			<div class="section collapsed">
+				<div class="section-header">
+					System Actions
+					<span class="chevron">▾</span>
+				</div>
+				<div class="section-body"></div>
+			</div>
+
+			<div class="section collapsed">
+				<div class="section-header">
+					Cache Actions
+					<span class="chevron">▾</span>
+				</div>
+				<div class="section-body"></div>
+			</div>
+		</div>
+	</div>
+
+	<p class="note" style="margin-top:18px;">Prefer the command line? Run <code>friendlyurl:precheck</code> from the <a href="gogo-shell.html">Gogo shell (AC1)</a> — same engine, same report.</p>
+</div>
+
+<script>
+(function () {
+	var current = "initial"; // initial | running | clean | issues
+	var runBtn = document.getElementById("run-btn");
+	var downloadBtn = document.getElementById("download-btn");
+	var progressFill = document.getElementById("progress-fill");
+	var stepLabel = document.getElementById("step-label");
+	var pctLabel = document.getElementById("pct-label");
+	var progressLog = document.getElementById("progress-log");
+	var runInterval = null;
+
+	function applyState(state) {
+		current = state;
+
+		// Toggle elements based on data-show attribute (space-separated state list)
+		document.querySelectorAll("[data-show]").forEach(function (el) {
+			var states = el.dataset.show.split(/\s+/);
+			el.classList.toggle("hidden", states.indexOf(state) === -1);
+		});
+
+		// Run button enable/disable
+		runBtn.disabled = (state === "running");
+
+		// Download enable/disable
+		downloadBtn.disabled = (state === "initial" || state === "running");
+
+		// Highlight the active demo-state toggle link
+		document.querySelectorAll("[data-state]").forEach(function (a) {
+			a.classList.toggle("current", a.dataset.state === state);
+		});
+
+		// Stop any in-flight progress sim
+		if (state !== "running" && runInterval) {
+			clearInterval(runInterval);
+			runInterval = null;
+		}
+	}
+
+	function startRun(targetState) {
+		applyState("running");
+
+		var steps = [
+			{ at: 8,   label: "Initializing…",                                              log: "[INFO] friendlyurl:precheck started" },
+			{ at: 18,  label: "Loading site catalog (1,000 sites)…",                         log: "[INFO] Loaded 1,000 sites in 240ms" },
+			{ at: 32,  label: "Loading default-site page tree…",                              log: "[INFO] Loaded 47 top-level pages on default site" },
+			{ at: 48,  label: "Checking page-site ambiguities (AC5)…",                        log: "[CHECK] Comparing 1,000 site URLs against 47 default-site pages" },
+			{ at: 58,  label: "Loading templates from DB (DDM)…",                             log: "[INFO] Loaded 128 ADTs + 56 stored Freemarker templates" },
+			{ at: 70,  label: "Loading filesystem templates (themes)…",                       log: "[INFO] Discovered 128 filesystem .ftl templates" },
+			{ at: 86,  label: "Scanning templates for /web/ references (AC6)…",              log: "[CHECK] Scanning 312 templates with regex /\\/web\\//" },
+			{ at: 100, label: "Done.",                                                        log: "[INFO] Scan complete" }
+		];
+
+		var i = 0;
+		progressLog.textContent = "";
+		progressFill.style.width = "0%";
+		pctLabel.textContent = "0%";
+		stepLabel.textContent = steps[0].label;
+
+		runInterval = setInterval(function () {
+			var s = steps[i];
+			progressFill.style.width = s.at + "%";
+			pctLabel.textContent = s.at + "%";
+			stepLabel.textContent = s.label;
+			progressLog.textContent += s.log + "\n";
+			progressLog.scrollTop = progressLog.scrollHeight;
+			i++;
+			if (i >= steps.length) {
+				clearInterval(runInterval);
+				runInterval = null;
+				setTimeout(function () { applyState(targetState || "issues"); }, 600);
+			}
+		}, 480);
+	}
+
+	// Run button: simulate a real run, ending in "issues" by default for the more interesting demo
+	runBtn.addEventListener("click", function () {
+		startRun("issues");
+	});
+
+	// Demo state toggle (top nav)
+	document.querySelectorAll("[data-state]").forEach(function (a) {
+		a.addEventListener("click", function (ev) {
+			ev.preventDefault();
+			var target = a.dataset.state;
+			if (target === "running") {
+				startRun(current === "clean" ? "clean" : "issues");
+			} else {
+				applyState(target);
+			}
+		});
+	});
+
+	applyState("initial");
+})();
+</script>
+</body>
+</html>
